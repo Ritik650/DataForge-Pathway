@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where a fact lives — synaptic memory in Dragon Hatchling</title>
+<meta name="description" content="An interactive explainer: a fact a BDH model just read is held in a small, locatable set of synapses, not in its weights. Ablate them and recall breaks; remove twice as much state from elsewhere and it survives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ── header ─────────────────────────────────────────── -->
+  <header class="masthead">
+    <div class="left">
+      <div class="eyebrow">Synaptic plasticity as short-term memory</div>
+      <h1>Where a fact lives</h1>
+      <div class="sub">Reading and breaking the synaptic state of Dragon&nbsp;Hatchling</div>
+    </div>
+    <div class="badges">
+      <div class="badge pending" id="badge" role="status" aria-live="polite">
+        <span class="num">checking forward pass…</span>
+      </div>
+      <div class="num" style="font-size:11.5px;color:var(--faint)" id="substrate-line"></div>
+    </div>
+  </header>
+
+  <p class="claim">
+    A fact the model just read is held in a <mark>small, locatable set of synapses</mark>
+    — not in its weights. Remove the entries it wrote and recall breaks. Remove
+    <em>twice as much</em> state from anywhere else and it survives.
+  </p>
+
+  <div class="hr"></div>
+
+  <!-- ── act 1 ──────────────────────────────────────────── -->
+  <section class="act" id="act1">
+    <div class="act-head">
+      <span class="act-num">01</span>
+      <h2>The model reads eight bindings, then one query</h2>
+    </div>
+    <p class="lede">
+      Every name–city pairing is drawn fresh for each sequence, so across training
+      each name is paired with each city equally often. The weight-optimal answer
+      to “which city follows this name” is uniform — whatever the model is about
+      to do, it cannot be recalling from its parameters.
+    </p>
+
+    <div class="seq" id="seq" aria-label="input token sequence"></div>
+
+    <div class="legend">
+      <span class="item"><span class="sw" style="background:var(--accent-wash);border:1px solid var(--accent)"></span> the binding under test</span>
+      <span class="item"><span class="sw" style="background:var(--chip);border:1px solid var(--chip-line)"></span> competing bindings</span>
+      <span class="item"><span class="sw" style="background:var(--filler);border:1px dashed var(--filler-line)"></span> filler, binds nothing</span>
+      <span class="item"><span class="sw" style="background:var(--ink)"></span> the query</span>
+      <span class="right" id="seq-caption"></span>
+    </div>
+  </section>
+
+  <!-- ── act 2 ──────────────────────────────────────────── -->
+  <section class="act" id="act2">
+    <div class="act-head">
+      <span class="act-num">02</span>
+      <h2>Every token writes a rank-1 outer product into ρ</h2>
+    </div>
+    <p class="lede">
+      BDH-GPU carries its state as
+      <span class="num">ρ<sub>t</sub> = (ρ<sub>t−1</sub> + LN(E y<sub>t−1</sub>) x<sub>t</sub><sup>T</sup>) U</span>
+      — Eq. (8) of the Dragon Hatchling paper. That outer product is a Hebbian
+      write: reading a token strengthens a specific set of connections. ρ is
+      <span class="num">d × n</span> here, 32 × 256, <em>not</em> neuron × neuron;
+      the conceptual σ of Eq. (6) relates to it by <span class="num">σ ≈ D<sub>y</sub>ρ</span>,
+      rank at most d. What you are looking at is the state the trained model
+      actually carries.
+    </p>
+
+    <div class="state-row">
+      <div class="panel">
+        <div class="state-scroll">
+          <canvas id="state-canvas" width="1024" height="256"
+                  aria-label="Synaptic state heatmap, 32 rows by 256 columns. Cells the queried binding wrote are outlined and, when ablated, knocked out to white."></canvas>
+        </div>
+        <div class="state-foot">
+          <div class="num" style="font-size:11.5px;color:var(--faint)" id="state-caption"></div>
+          <div class="ramp">
+            <span class="num" style="font-size:11px;color:var(--fainter)">|ρ| low</span>
+            <span class="bar"></span>
+            <span class="num" style="font-size:11px;color:var(--fainter)">high</span>
+          </div>
+        </div>
+      </div>
+      <div class="state-side">
+        <div class="callout">
+          <span class="lbl">Outlined</span>
+          <p id="callout-text"></p>
+        </div>
+        <p style="font-size:14.5px;line-height:1.55;color:var(--muted);margin:0">
+          Sparsity is not imposed. The paper reports about 5% of the
+          <span class="num">y</span> vectors active in BDH-GPU’s state-space
+          dynamics — activity varies with predictability rather than following a
+          fixed budget.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── act 3 ──────────────────────────────────────────── -->
+  <section class="act" id="act3">
+    <div class="act-head">
+      <span class="act-num">03</span>
+      <h2>Break it — and check the control</h2>
+    </div>
+    <p class="lede">
+      Removing state degrades any model. The result only means something against
+      a control that removes <em>the same or more</em> state mass from somewhere
+      else. <strong>Top-other</strong> takes the largest-magnitude entries
+      outside this binding’s own write, so it always removes at least as much.
+      If recall survives that while the targeted ablation breaks it, the effect
+      cannot be explained by how much state was removed.
+    </p>
+
+    <div class="controls-row">
+      <div class="panel controls">
+        <span class="lbl">Which entries to remove</span>
+        <div class="seg" id="seg" role="group" aria-label="ablation condition"></div>
+
+        <div class="dose">
+          <div class="dose-head">
+            <span class="lbl">Dose</span>
+            <span class="num" style="font-size:13px" id="dose-label"></span>
+          </div>
+          <input type="range" id="dose" min="0" max="6" step="1" value="2"
+                 aria-label="number of state entries to remove">
+          <div class="dose-ticks" id="dose-ticks"></div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="lbl">State mass removed</span>
+            <div class="big" id="mass-targeted" style="color:var(--accent)">—</div>
+            <div class="cap">by this selection</div>
+          </div>
+          <div class="stat">
+            <span class="lbl">Live forward pass</span>
+            <div class="big" id="latency" style="color:var(--pass)">—</div>
+            <div class="cap">recomputed on every change</div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="new-seq">new sequence</button>
+          <button class="btn" id="run-trials">run 100 trials on this preset</button>
+        </div>
+        <div class="num" id="trials-out" style="font-size:12px;color:var(--faint);margin-top:10px"></div>
+      </div>
+
+      <div class="panel pred">
+        <div class="bars-wrap" style="flex-grow:1">
+          <span class="lbl">Model output · next token</span>
+          <div class="bars" id="bars" style="margin-top:14px"></div>
+          <div class="pbig" id="pbig">
+            <span class="v" id="p-answer">—</span>
+            <span class="cap" id="p-caption"></span>
+          </div>
+        </div>
+        <div class="truth">
+          <span class="lbl">Ground truth</span>
+          <div class="truth-box"><div class="w" id="truth-word">—</div></div>
+          <p>Fixed by the context the model just read. It does not move when you ablate.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="readout" id="readout"></div>
+  </section>
+
+  <!-- ── charts ─────────────────────────────────────────── -->
+  <div class="charts">
+    <div class="panel">
+      <h3>Dose–response</h3>
+      <p class="chart-sub">Removing more state hurts. Removing the <em>right</em> state hurts far more.</p>
+      <div id="chart-dose"></div>
+      <div class="chart-note" id="dose-note"></div>
+    </div>
+    <div class="panel">
+      <h3>Retrieval fails in periodic bands</h3>
+      <p class="chart-sub">A failure mode of this model, by distance from query back to binding.</p>
+      <div id="chart-bands"></div>
+      <div class="chart-note">dashed = 3 cells or fewer · shape beyond 17 unresolved</div>
+    </div>
+  </div>
+
+  <!-- ── act 5: BDH-CQ ──────────────────────────────────── -->
+  <section class="act" id="act5">
+    <div class="act-head">
+      <span class="act-num">05</span>
+      <h2>The same principle, one level up: BDH-CQ</h2>
+    </div>
+    <p class="lede">
+      BDH-CQ carries a contextual memory <span class="num">S<sub>t</sub></span>
+      that demonstrations update at inference, and solves the query by iterating
+      in a latent workspace <span class="num">H<sub>r</sub></span> — no parameters
+      change at inference, and no chain of thought is written out. Its published
+      interventions make the same point this page makes by ablation: with
+      byte-identical held-out inputs, adding one demonstration at the test
+      complexity moves depth-five nesting from <span class="num">19/24</span> to
+      <span class="num">24/24</span>, and recovers <span class="num">13/24</span>
+      from a <span class="num">0/24</span> baseline at ordering length eight.
+      What is in state decides — not what is in the weights.
+    </p>
+    <p class="lede">
+      <strong>Evidence labels, precisely.</strong> The 150M configuration reaches
+      <span class="num">29.5%</span> pass@2 on public ARC-AGI-1 at a computed
+      <span class="num">$0.00070</span> per task. That is a <em>cost-efficiency</em>
+      result, not an accuracy win — GPT-5.6 Luna (Low) scores
+      <span class="num">34.2%</span> on the same set. The audit reproducing 29.5%
+      was conducted by <em>co-authors</em>, so it is not an external reproduction.
+      Capability is structured, not scalar: rotation composes with relocation on
+      <span class="num">72/72</span>, colour swap on <span class="num">0/72</span>.
+      BDH-CQ’s internals are proprietary; nothing here reproduces them.
+    </p>
+  </section>
+
+  <!-- ── act 6: what we did not get ─────────────────────── -->
+  <section class="act" id="act6">
+    <div class="act-head">
+      <span class="act-num">06</span>
+      <h2>What we did not get</h2>
+    </div>
+    <p class="lede">
+      Three results we went looking for and could not stand behind. They are on
+      the page because a submission that lists only its successes cannot be
+      checked.
+    </p>
+    <div class="withdrawn">
+      <div class="wcard">
+        <div class="head"><span class="title">Decay</span><span class="tag">not demonstrated</span></div>
+        <p>Damping is the <span class="num">u&lt;1</span> case of the paper’s own
+        <span class="num">U</span>. Across three regimes the curves never cross:
+        <span class="num">u=1</span> matches or beats every damped model at every
+        binding age, and below 0.95 overall recall collapses from 21.3% to 7.5%.
+        The decay control was cut from this page rather than shipped as a slider
+        whose effect we cannot show.</p>
+      </div>
+      <div class="wcard">
+        <div class="head"><span class="title">Capacity ordering</span><span class="tag">not established</span></div>
+        <p>A wider state should hold more bindings. Two of four widths never
+        learned to hold even <em>one</em> — failing at zero competing bindings —
+        so their curves measure undertraining, not capacity. Tripling their
+        training budget improved both and converged neither.</p>
+      </div>
+      <div class="wcard">
+        <div class="head"><span class="title">Interference</span><span class="tag">withdrawn</span></div>
+        <p>Hold the binding count fixed and vary only neutral filler, and recall
+        still moves <span class="num">50.4% → 100%</span>. The load axis is
+        confounded with sequence geometry, so any interference curve built on it
+        is uninterpretable. This removed half of our original claim.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Our own small training run of the published BDH-GPU architecture. Not an official Pathway model, not a released checkpoint.</div>
+    <div><a href="https://arxiv.org/abs/2509.26507">arXiv:2509.26507</a> · <a href="https://arxiv.org/abs/2608.09888">arXiv:2608.09888</a> · <a href="https://github.com/Ritik650/DataForge-Pathway">source</a></div>
+  </footer>
+
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
