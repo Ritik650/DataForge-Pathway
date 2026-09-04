@@ -92,6 +92,23 @@ moves. At m=64 the two conditions removed 1235.8 vs 1230.6 units of state mass
 **Specificity:** ablating one binding's synapses takes that binding from 100% to
 90.0% while other bindings in the same sequence go 100% → 99.8%.
 
+**It replicates across state widths.** The same experiment on the two narrow
+checkpoints, at a matched dose of 0.391% of state and 3 bindings:
+
+| model | params | state/layer | targeted | magnitude-matched | gap | baseline correct |
+|---|---|---|---|---|---|---|
+| d64m8 | 104,704 | 32,768 | 86.6% | 99.7% | 13.1 pts | 298/300 |
+| d32m2 | 9,344 | 2,048 | 80.7% | 94.8% | 14.1 pts | 135/400 |
+| d32m4 | 15,488 | 4,096 | 75.5% | 96.5% | **21.0 pts** | 143/400 |
+
+Confidence intervals are disjoint in every row, and in every row the matched
+control removes state mass identical to the targeted condition (for d32m4,
+221.043 vs 221.074). The mechanism is not an artifact of one model size.
+
+The last column is the catch, and it drives the substrate choice: the narrow
+models are correct on only ~35% of trials *before* any ablation, because they
+were trained across 2–14 bindings — a range the artifact will never show.
+
 ### Interference: forgetting tracks competing facts, not length
 
 Each filler unit costs exactly the same 2 tokens as a binding but stores no

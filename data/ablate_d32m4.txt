@@ -1,1 +1,14 @@
 checkpoint data/cap_d32m4i8000.pt (iter 3500), layer 1, m=16 of 4096 state entries (0.391%)
+
+trials where baseline was correct: 143 / 400
+condition       recall            95% CI   mean p(answer)   state mass removed
+base            100.0%  [ 97.4, 100.0]           0.196                    -
+targeted         75.5%  [ 67.9,  81.8]           0.170              221.074
+matched          96.5%  [ 92.1,  98.5]           0.196              221.043
+random           97.9%  [ 94.0,  99.3]           0.197               85.671
+
+specificity (ablating the target binding's synapses only):
+  targeted binding   baseline  36.8%  after ablation  28.7%   (n=400)
+  other bindings     baseline  55.9%  after ablation  55.6%   (n=800)
+
+wrote C:\Users\ry981\Downloads\DataForge\artifact\data\ablation_d32m4.json
