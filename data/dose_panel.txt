@@ -3,3 +3,4 @@ dose ladder at preset p8/f2, state 8,192/layer, n=400
     m   %state    targ   top_o   match    rand  p(ans)targ  bys.abl  ratio
     2   0.024%  100.0%  100.0%   99.2%   99.5%       0.799    92.4%   0.0x
     4   0.049%   98.7%  100.0%   97.7%   99.7%       0.782    91.0%   0.5x
+    8   0.098%   77.2%  100.0%   95.7%  100.0%       0.614    88.0%   5.9x
