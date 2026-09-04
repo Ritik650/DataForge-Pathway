@@ -3,12 +3,20 @@
 **DataForge 2026 — Pathway Track ("Explain the Frontier")**
 Topic: *Synaptic Plasticity as Short-Term Memory*
 
-> **Status: in progress.** The substrate, the science, and the source
-> verification are done. The interactive explainer is not built yet. Every
-> number below is measured by the committed scripts; nothing here is
-> illustrative or placeholder. Results that were produced and then invalidated
-> are documented as such in [`docs/DESIGN_NOTES.md`](docs/DESIGN_NOTES.md)
-> rather than deleted.
+### ▶ **[Open the explainer](https://ritik650.github.io/DataForge-Pathway/)** · [one-page summary (PDF)](docs/concept-summary.pdf)
+
+The page runs a 27,776-parameter BDH-GPU **live in your browser**. Click a
+condition, drag the dose, press *new sequence* — every number is recomputed by
+the real forward pass at about 2 ms a run. The badge in the header asserts that
+this browser port still matches `src/bdh.py` to 1e-5 before any panel renders;
+if it ever fails, the page says the figures are not trustworthy.
+
+> **Status.** Substrate, science, source verification, the interactive artifact
+> and the one-page summary are done. Remaining: blog PDF, mobile and
+> accessibility passes, component-level AI disclosure. Every number below is
+> measured by the committed scripts; nothing is illustrative or placeholder.
+> Results that were produced and then invalidated are documented in
+> [`docs/DESIGN_NOTES.md`](docs/DESIGN_NOTES.md) rather than deleted.
 
 ---
 
@@ -291,6 +299,11 @@ backed by results that survived their own falsification tests.
 ```bash
 pip install -r requirements.txt
 
+# correctness gates — run these first
+python tests/test_equivalence.py          # parallel vs recurrent, ~2e-7
+node   tests/test_js_equivalence.mjs      # browser port vs Python, 2.6e-6
+node   tests/test_page_logic.mjs          # the page's computation path
+
 python tests/test_equivalence.py                  # correctness gate, run this first
 python src/mqar.py                                # task generator + invariant checks
 python src/train.py --iters 12000 --n-layer 2 --answer-weight 8 \
@@ -299,6 +312,11 @@ python src/ablate.py --ckpt data/bdh_mqar_final.pt --trials 300 --m 64
 python src/sweeps.py --ckpt data/bdh_mqar_final.pt --trials 150
 python scripts/capacity_experiment.py             # interference, matched coverage
 python scripts/decay_small.py                     # damping case of U
+
+# artifact
+python scripts/export_weights.py --ckpt data/artifact_d32m8.pt
+python scripts/build_summary_pdf.py && python scripts/check_pdf.py
+python -m http.server -d artifact 8000            # then open localhost:8000
 ```
 
 `tests/test_equivalence.py` is not optional. It asserts that the token-parallel
