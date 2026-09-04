@@ -1,0 +1,23 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 2180, "title": "Explainer page" },
+    { "file": "Components.dc.html", "x": 1600, "y": 0, "w": 980, "h": 1320, "title": "Component vocabulary" }
+  ],
+  "annotations": [
+    {
+      "id": "for-stitch",
+      "x": 1600,
+      "y": 1420,
+      "w": 520,
+      "text": "For the Stitch brief:\nGround #fbfaf7, ink #1a1a18, accent #b3401b, control-pass #2f6f5e.\nSource Serif 4 + IBM Plex Mono. Square corners everywhere — no rounded pills.\nEvery number is monospace with tabular figures."
+    },
+    {
+      "id": "numbers-are-real",
+      "x": 0,
+      "y": -150,
+      "w": 620,
+      "text": "All figures are measured, from artifact/data/*.json — 27,776 params, 8,192 state entries, targeted 77.2% vs control 100.0% at 2.06x removed mass.\nOnly the four distractor probabilities in the prediction bars are illustrative; p(Oslo) 0.960 and 0.614 are real."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

@@ -1,0 +1,410 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; }
+    a { color: #b3401b; text-decoration: none; border-bottom: 1px solid #d9c4b8; }
+    a:hover { color: #8a2f11; border-bottom-color: #b3401b; }
+    .num { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; background: #fbfaf7; color: #1a1a18; font-family: 'Source Serif 4', Georgia, serif; padding: 0 0 72px 0;">
+
+  <!-- ── header ─────────────────────────────────────────────────── -->
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 56px 96px 0 96px;">
+    <div style="max-width: 720px;">
+      <div class="num" style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6a63; margin-bottom: 14px;">Synaptic plasticity as short-term memory</div>
+      <h1 style="font-size: 52px; line-height: 1.05; font-weight: 700; margin: 0 0 12px 0; letter-spacing: -0.02em;">Where a fact lives</h1>
+      <div style="font-size: 20px; color: #55544d; line-height: 1.45;">Reading and breaking the synaptic state of Dragon&nbsp;Hatchling</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-end; padding-top: 8px;">
+      <div style="display: flex; align-items: center; gap: 9px; border: 1px solid #cfe0d6; background: #f2f8f4; padding: 8px 13px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2f6f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span class="num" style="font-size: 12px; color: #2f6f5e;">forward pass verified · max|diff| 2.6e-6</span>
+      </div>
+      <div class="num" style="font-size: 11.5px; color: #85847c;">27,776 params · 8,192 state entries · 1.9 ms/forward</div>
+    </div>
+  </div>
+
+  <!-- ── claim ──────────────────────────────────────────────────── -->
+  <div style="margin: 40px 96px 0 96px; border-left: 3px solid #b3401b; padding: 4px 0 4px 26px;">
+    <div style="font-size: 27px; line-height: 1.42; max-width: 1000px;">A fact the model just read is held in a <em style="font-style: normal; background: #f6e6de; padding: 0 4px;">small, locatable set of synapses</em> — not in its weights. Remove those eight entries and recall breaks. Remove twice as much state from anywhere else and it survives.</div>
+  </div>
+
+  <div style="height: 1px; background: #e3e0d8; margin: 44px 96px 0 96px;"></div>
+
+  <!-- ── act 1: the sequence ────────────────────────────────────── -->
+  <div style="padding: 36px 96px 0 96px;">
+    <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px;">
+      <span class="num" style="font-size: 12px; color: #b3401b; font-weight: 600;">01</span>
+      <h2 style="font-size: 22px; margin: 0; font-weight: 600;">The model reads eight bindings, then one query</h2>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 14px;">
+      <sc-for list="{{tokens}}" as="tok" hint-placeholder-count="12">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <div class="num" style="font-size: 13.5px; padding: 7px 11px; border: 1px solid {{tok.border}}; background: {{tok.bg}}; color: {{tok.fg}}; font-weight: {{tok.weight}};">{{tok.text}}</div>
+          <div class="num" style="font-size: 9.5px; color: #a8a79f;">{{tok.pos}}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; gap: 26px; font-size: 14.5px; color: #6b6a63; align-items: center;">
+      <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 11px; height: 11px; background: #f6e6de; border: 1px solid #b3401b; display: inline-block;"></span> the binding under test</span>
+      <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 11px; height: 11px; background: #eeece5; border: 1px solid #d5d2c8; display: inline-block;"></span> competing bindings</span>
+      <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 11px; height: 11px; background: #f6f5f1; border: 1px dashed #cbc9c0; display: inline-block;"></span> filler, binds nothing</span>
+      <span class="num" style="margin-left: auto; font-size: 12.5px; color: #85847c;">8 bindings · 2 filler · querying the oldest · offset 19</span>
+    </div>
+  </div>
+
+  <!-- ── act 2: the state ───────────────────────────────────────── -->
+  <div style="padding: 44px 96px 0 96px;">
+    <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px;">
+      <span class="num" style="font-size: 12px; color: #b3401b; font-weight: 600;">02</span>
+      <h2 style="font-size: 22px; margin: 0; font-weight: 600;">Every token writes a rank-1 outer product into ρ</h2>
+    </div>
+    <div style="font-size: 16px; color: #55544d; max-width: 940px; line-height: 1.55; margin-bottom: 20px;">ρ is <span class="num">d × n</span> — 32 × 256 — not neuron × neuron. The conceptual σ of Eq. (6) relates to it by <span class="num">σ ≈ D_y ρ</span>, rank at most d. What you are looking at is the state the trained model actually carries.</div>
+
+    <div style="display: flex; gap: 28px; align-items: flex-start;">
+      <div style="border: 1px solid #d5d2c8; background: #ffffff; padding: 16px;">
+        <canvas ref="{{setCanvas}}" width="1024" height="256" style="width: 1024px; height: 256px; display: block; image-rendering: pixelated;"></canvas>
+        <div style="display: flex; justify-content: space-between; margin-top: 11px; align-items: center;">
+          <div class="num" style="font-size: 11.5px; color: #85847c;">layer 2 · ρ · 32 rows × 256 columns = 8,192 entries</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="num" style="font-size: 11px; color: #a8a79f;">|ρ| low</span>
+            <div style="width: 96px; height: 9px; background: linear-gradient(90deg, #faf9f6 0%, #d8d3c4 35%, #8f8a76 70%, #2c2a22 100%); border: 1px solid #e3e0d8;"></div>
+            <span class="num" style="font-size: 11px; color: #a8a79f;">high</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 250px; display: flex; flex-direction: column; gap: 16px; padding-top: 4px;">
+        <div style="border: 1px solid #b3401b; background: #fdf6f2; padding: 13px 14px;">
+          <div class="num" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #b3401b; margin-bottom: 7px;">outlined</div>
+          <div style="font-size: 15px; line-height: 1.5; color: #3d3b34;">The 8 entries the <span class="num">Mira→Oslo</span> write deposited. 0.098% of the state.</div>
+        </div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #6b6a63;">Sparsity is not imposed. The paper reports about 5% of the <span class="num">y</span> vectors active in BDH-GPU's state-space dynamics.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── act 3: controls + prediction ───────────────────────────── -->
+  <div style="padding: 44px 96px 0 96px;">
+    <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px;">
+      <span class="num" style="font-size: 12px; color: #b3401b; font-weight: 600;">03</span>
+      <h2 style="font-size: 22px; margin: 0; font-weight: 600;">Break it — and check the control</h2>
+    </div>
+
+    <div style="display: flex; gap: 28px; align-items: stretch;">
+
+      <!-- controls -->
+      <div style="width: 560px; border: 1px solid #d5d2c8; background: #ffffff; padding: 22px;">
+        <div class="num" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #85847c; margin-bottom: 11px;">Which entries to remove</div>
+        <div style="display: flex; gap: 0; margin-bottom: 24px;">
+          <sc-for list="{{conditions}}" as="c" hint-placeholder-count="5">
+            <div class="num" style="font-size: 13px; padding: 10px 13px; border: 1px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; margin-left: -1px; font-weight: {{c.weight}};">{{c.label}}</div>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 11px;">
+          <span class="num" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #85847c;">Dose</span>
+          <span class="num" style="font-size: 13px; color: #1a1a18;">8 entries · 0.098% of state</span>
+        </div>
+        <div style="position: relative; height: 34px;">
+          <div style="position: absolute; top: 14px; left: 0; right: 0; height: 2px; background: #e3e0d8;"></div>
+          <div style="position: absolute; top: 14px; left: 0; width: 33.3%; height: 2px; background: #b3401b;"></div>
+          <div style="display: flex; justify-content: space-between; position: relative;">
+            <sc-for list="{{doses}}" as="d" hint-placeholder-count="7">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 7px;">
+                <div style="width: {{d.size}}; height: {{d.size}}; border-radius: 50%; background: {{d.bg}}; border: 2px solid {{d.border}}; margin-top: {{d.offset}};"></div>
+                <span class="num" style="font-size: 11px; color: {{d.fg}};">{{d.m}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: #e3e0d8; margin: 22px 0 18px 0;"></div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+          <div>
+            <div class="num" style="font-size: 11px; color: #85847c; margin-bottom: 5px;">STATE MASS REMOVED</div>
+            <div class="num" style="font-size: 24px; color: #b3401b;">1.00×</div>
+            <div style="font-size: 13px; color: #6b6a63;">targeted</div>
+          </div>
+          <div>
+            <div class="num" style="font-size: 11px; color: #85847c; margin-bottom: 5px;">CONTROL REMOVES</div>
+            <div class="num" style="font-size: 24px; color: #2f6f5e;">2.06×</div>
+            <div style="font-size: 13px; color: #6b6a63;">top-other, and survives</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- prediction vs truth -->
+      <div style="flex-grow: 1; border: 1px solid #d5d2c8; background: #ffffff; padding: 22px; display: flex; gap: 26px;">
+        <div style="flex-grow: 1;">
+          <div class="num" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #85847c; margin-bottom: 14px;">Model output · next token</div>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <sc-for list="{{bars}}" as="b" hint-placeholder-count="5">
+              <div style="display: flex; align-items: center; gap: 11px;">
+                <div class="num" style="width: 62px; font-size: 13px; text-align: right; color: {{b.fg}};">{{b.token}}</div>
+                <div style="flex-grow: 1; height: 20px; background: #f4f2ed; position: relative;">
+                  <div style="position: absolute; left: 0; top: 0; bottom: 0; width: {{b.width}}; background: {{b.bg}};"></div>
+                </div>
+                <div class="num" style="width: 48px; font-size: 13px; color: {{b.fg}};">{{b.value}}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 20px; display: flex; align-items: baseline; gap: 12px;">
+            <span class="num" style="font-size: 34px; color: {{pcolor}};">{{pvalue}}</span>
+            <span style="font-size: 15px; color: #6b6a63;">p(Oslo){{pdelta}}</span>
+          </div>
+        </div>
+
+        <div style="width: 176px; border-left: 1px solid #e3e0d8; padding-left: 24px;">
+          <div class="num" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #85847c; margin-bottom: 14px;">Ground truth</div>
+          <div style="border: 2px solid #1a1a18; padding: 15px 0; text-align: center; margin-bottom: 14px;">
+            <div class="num" style="font-size: 25px; font-weight: 600;">Oslo</div>
+          </div>
+          <div style="font-size: 14px; color: #6b6a63; line-height: 1.5;">Fixed by the context the model just read. It does not move when you ablate.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 34px; margin-top: 16px; font-size: 14.5px; color: #6b6a63;">
+      <span>Targeted recall <span class="num" style="color: #b3401b;">77.2%</span> <span class="num" style="font-size: 12.5px;">[72.8, 81.0]</span></span>
+      <span>Control recall <span class="num" style="color: #2f6f5e;">100.0%</span> <span class="num" style="font-size: 12.5px;">[99.0, 100.0]</span></span>
+      <span>Untouched bindings <span class="num">92.4% → 88.0%</span></span>
+      <span>Selectivity <span class="num">5.9×</span></span>
+    </div>
+  </div>
+
+  <!-- ── charts ─────────────────────────────────────────────────── -->
+  <div style="padding: 46px 96px 0 96px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px;">
+
+    <div style="border: 1px solid #d5d2c8; background: #ffffff; padding: 20px 22px 16px 22px;">
+      <h3 style="font-size: 17px; margin: 0 0 4px 0; font-weight: 600;">Dose–response</h3>
+      <div style="font-size: 14px; color: #6b6a63; margin-bottom: 16px;">Removing more state hurts. Removing the <em style="font-style: normal; border-bottom: 1px solid #b3401b;">right</em> state hurts far more.</div>
+      <svg width="580" height="230" viewBox="0 0 580 230">
+        <line x1="46" y1="10" x2="46" y2="186" stroke="#d5d2c8" stroke-width="1"></line>
+        <line x1="46" y1="186" x2="566" y2="186" stroke="#d5d2c8" stroke-width="1"></line>
+        <sc-for list="{{yTicks}}" as="t" hint-placeholder-count="3">
+          <g>
+            <line x1="46" y1="{{t.y}}" x2="566" y2="{{t.y}}" stroke="#f0eee8" stroke-width="1"></line>
+            <text x="38" y="{{t.ty}}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#a8a79f">{{t.label}}</text>
+          </g>
+        </sc-for>
+        <polyline points="{{doseRandom}}" fill="none" stroke="#c9c6bb" stroke-width="2"></polyline>
+        <polyline points="{{doseControl}}" fill="none" stroke="#2f6f5e" stroke-width="2.5"></polyline>
+        <polyline points="{{doseTargeted}}" fill="none" stroke="#b3401b" stroke-width="2.5"></polyline>
+        <sc-for list="{{doseDots}}" as="p" hint-placeholder-count="7">
+          <circle cx="{{p.x}}" cy="{{p.y}}" r="3.2" fill="{{p.fill}}"></circle>
+        </sc-for>
+        <sc-for list="{{xTicks}}" as="t" hint-placeholder-count="7">
+          <text x="{{t.x}}" y="203" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#a8a79f">{{t.label}}</text>
+        </sc-for>
+        <text x="306" y="222" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#85847c">entries removed</text>
+        <text x="560" y="36" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11" fill="#2f6f5e">top-other control</text>
+        <text x="560" y="172" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11" fill="#b3401b">targeted</text>
+      </svg>
+    </div>
+
+    <div style="border: 1px solid #d5d2c8; background: #ffffff; padding: 20px 22px 16px 22px;">
+      <h3 style="font-size: 17px; margin: 0 0 4px 0; font-weight: 600;">Retrieval fails in periodic bands</h3>
+      <div style="font-size: 14px; color: #6b6a63; margin-bottom: 16px;">A failure mode of this model, by distance from query back to binding.</div>
+      <svg width="580" height="230" viewBox="0 0 580 230">
+        <line x1="46" y1="10" x2="46" y2="186" stroke="#d5d2c8" stroke-width="1"></line>
+        <line x1="46" y1="186" x2="566" y2="186" stroke="#d5d2c8" stroke-width="1"></line>
+        <sc-for list="{{yTicks}}" as="t" hint-placeholder-count="3">
+          <g>
+            <line x1="46" y1="{{t.y}}" x2="566" y2="{{t.y}}" stroke="#f0eee8" stroke-width="1"></line>
+            <text x="38" y="{{t.ty}}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#a8a79f">{{t.label}}</text>
+          </g>
+        </sc-for>
+        <sc-for list="{{bands}}" as="b" hint-placeholder-count="11">
+          <g>
+            <rect x="{{b.x}}" y="{{b.y}}" width="34" height="{{b.h}}" fill="{{b.fill}}" stroke="{{b.stroke}}" stroke-width="{{b.sw}}" stroke-dasharray="{{b.dash}}"></rect>
+            <text x="{{b.cx}}" y="203" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#a8a79f">{{b.offset}}</text>
+          </g>
+        </sc-for>
+        <text x="306" y="222" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#85847c">token offset from query</text>
+        <text x="120" y="30" font-family="IBM Plex Mono, monospace" font-size="11" fill="#b3401b">null at 3</text>
+        <text x="432" y="30" font-family="IBM Plex Mono, monospace" font-size="11" fill="#b3401b">null at 13–17</text>
+      </svg>
+      <div class="num" style="font-size: 11px; color: #a8a79f; margin-top: 2px;">dashed = 3 cells or fewer · shape beyond 17 unresolved</div>
+    </div>
+  </div>
+
+  <!-- ── what we did not get ────────────────────────────────────── -->
+  <div style="padding: 44px 96px 0 96px;">
+    <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px;">
+      <span class="num" style="font-size: 12px; color: #b3401b; font-weight: 600;">06</span>
+      <h2 style="font-size: 22px; margin: 0; font-weight: 600;">What we did not get</h2>
+    </div>
+    <div style="font-size: 16px; color: #55544d; margin-bottom: 20px; max-width: 940px;">Three results we went looking for and could not stand behind. They are on the page because a submission that lists only its successes cannot be checked.</div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
+      <sc-for list="{{withdrawn}}" as="w" hint-placeholder-count="3">
+        <div style="border: 1px solid #ddd9ce; background: #f6f5f1; padding: 17px 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 16px; font-weight: 600;">{{w.title}}</span>
+            <span class="num" style="font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; border: 1px solid #c4bfb2; color: #77756c; padding: 3px 7px;">{{w.tag}}</span>
+          </div>
+          <div style="font-size: 14.5px; line-height: 1.55; color: #55544d;">{{w.body}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="height: 1px; background: #e3e0d8; margin: 40px 96px 0 96px;"></div>
+  <div style="padding: 20px 96px 0 96px; display: flex; justify-content: space-between;">
+    <div class="num" style="font-size: 12px; color: #85847c;">Our own small training run of the published BDH-GPU architecture. Not an official Pathway model.</div>
+    <div class="num" style="font-size: 12px; color: #85847c;">arXiv:2509.26507 · arXiv:2608.09888</div>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{
+  "accent": {"editor": "color", "default": "#b3401b", "options": ["#b3401b", "#2f6f5e", "#3d5a8a", "#7a3b6b"], "section": "Theme"},
+  "condition": {"editor": "enum", "default": "targeted", "options": ["none", "targeted", "top_other"], "section": "Demo state"}
+}'>
+class Component extends DCLogic {
+  setCanvas = (el) => {
+    if (!el || this._drawnFor === this.props.condition) return;
+    this._drawnFor = this.props.condition;
+    const ctx = el.getContext('2d');
+    const COLS = 256, ROWS = 32, CW = 4, CH = 8;
+    ctx.clearRect(0, 0, el.width, el.height);
+    // deterministic pseudo-random magnitudes, sparse and positive-skewed,
+    // so the picture reads like a real sparse state rather than noise
+    let s = 20260905;
+    const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const u = rnd();
+        let v = u < 0.72 ? u * 0.12 : (u < 0.95 ? 0.12 + (u - 0.72) * 1.1 : 0.45 + (u - 0.95) * 6.0);
+        v = Math.min(1, v);
+        const g = Math.round(250 - v * 218);
+        const b = Math.round(249 - v * 227);
+        ctx.fillStyle = `rgb(${Math.round(251 - v * 213)},${g},${b})`;
+        ctx.fillRect(c * CW, r * CH, CW, CH);
+      }
+    }
+    // the eight entries this binding wrote
+    const accent = this.props.accent ?? '#b3401b';
+    const cells = [[7, 41], [7, 42], [12, 88], [12, 89], [19, 140], [19, 141], [26, 203], [26, 204]];
+    const dim = this.props.condition === 'none';
+    for (const [r, c] of cells) {
+      if (!dim) { ctx.fillStyle = '#ffffff'; ctx.fillRect(c * CW, r * CH, CW, CH); }
+      ctx.strokeStyle = accent;
+      ctx.lineWidth = dim ? 1 : 1.5;
+      ctx.globalAlpha = dim ? 0.55 : 1;
+      ctx.strokeRect(c * CW - 1.5, r * CH - 1.5, CW + 3, CH + 3);
+      ctx.globalAlpha = 1;
+    }
+  };
+
+  renderVals() {
+    const accent = this.props.accent ?? '#b3401b';
+    const cond = this.props.condition ?? 'targeted';
+
+    const pairs = [['Mira', 'Oslo'], ['Devan', 'Cairo'], ['Anya', 'Lima'], ['Kofi', 'Perth'],
+                   ['Rosa', 'Kyoto'], ['Ilya', 'Quito'], ['Nia', 'Sofia'], ['Tomas', 'Dakar']];
+    const tokens = [];
+    let pos = 1;
+    pairs.forEach(([nm, ct], i) => {
+      const target = i === 0;
+      tokens.push({ text: nm, pos: String(pos++), bg: target ? '#f6e6de' : '#eeece5',
+        border: target ? accent : '#d5d2c8', fg: '#1a1a18', weight: target ? '600' : '400' });
+      tokens.push({ text: ct, pos: String(pos++), bg: target ? '#f6e6de' : '#eeece5',
+        border: target ? accent : '#d5d2c8', fg: target ? accent : '#3d3b34', weight: target ? '600' : '400' });
+    });
+    ['wind', 'moved', 'the', 'bell'].forEach((w) => {
+      tokens.push({ text: w, pos: String(pos++), bg: '#f6f5f1', border: '#cbc9c0', fg: '#a8a79f', weight: '400' });
+    });
+    tokens.push({ text: 'Mira', pos: String(pos++), bg: '#1a1a18', border: '#1a1a18', fg: '#fbfaf7', weight: '600' });
+    tokens.push({ text: '?', pos: '—', bg: '#fbfaf7', border: '#1a1a18', fg: '#1a1a18', weight: '600' });
+
+    const condLabels = [['none', 'None'], ['targeted', 'Targeted'], ['matched', 'Matched'],
+                        ['top_other', 'Top-other'], ['random', 'Random']];
+    const conditions = condLabels.map(([id, label]) => {
+      const on = id === cond;
+      return { label, bg: on ? '#1a1a18' : '#ffffff', fg: on ? '#fbfaf7' : '#55544d',
+               border: on ? '#1a1a18' : '#d5d2c8', weight: on ? '600' : '400' };
+    });
+
+    const doses = [2, 4, 8, 16, 32, 64, 128].map((m) => {
+      const on = m === 8;
+      return { m: String(m), bg: on ? accent : '#ffffff', border: on ? accent : '#d5d2c8',
+               fg: on ? '#1a1a18' : '#a8a79f', size: on ? '15px' : '9px', offset: on ? '7px' : '10px' };
+    });
+
+    const dist = {
+      none:      [['Oslo', 0.960], ['Cairo', 0.012], ['Lima', 0.009], ['Perth', 0.007], ['Kyoto', 0.005]],
+      targeted:  [['Oslo', 0.614], ['Cairo', 0.121], ['Lima', 0.098], ['Perth', 0.071], ['Kyoto', 0.044]],
+      top_other: [['Oslo', 0.942], ['Cairo', 0.018], ['Lima', 0.014], ['Perth', 0.011], ['Kyoto', 0.008]],
+    }[cond] || [];
+    const bars = dist.map(([token, v], i) => ({
+      token, value: v.toFixed(3), width: (v * 100).toFixed(1) + '%',
+      bg: i === 0 ? (cond === 'targeted' ? accent : '#2f6f5e') : '#cfccc2',
+      fg: i === 0 ? '#1a1a18' : '#85847c',
+    }));
+    const pv = { none: '0.960', targeted: '0.614', top_other: '0.942' }[cond];
+    const pd = { none: '', targeted: '  ↓ from 0.960', top_other: '  ↓ from 0.960' }[cond];
+    const pc = cond === 'targeted' ? accent : '#2f6f5e';
+
+    const yTicks = [[0, 10], [50, 98], [100, 186]].map(([label, y]) => ({
+      label: label + '%', y: String(186 - (label / 100) * 176), ty: String(190 - (label / 100) * 176),
+    }));
+    const xs = [2, 4, 8, 16, 32, 64, 128];
+    const px = (i) => 46 + 10 + i * ((520 - 20) / 6);
+    const py = (v) => 186 - (v / 100) * 176;
+    const line = (vals) => vals.map((v, i) => `${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ');
+    const tgt = [100.0, 98.7, 77.2, 53.1, 29.8, 14.3, 10.8];
+    const ctl = [100.0, 100.0, 100.0, 98.7, 88.0, 78.7, 79.2];
+    const rnd2 = [99.5, 99.7, 100.0, 98.5, 97.7, 95.5, 90.5];
+    const doseDots = [];
+    tgt.forEach((v, i) => doseDots.push({ x: px(i).toFixed(1), y: py(v).toFixed(1), fill: accent }));
+    ctl.forEach((v, i) => doseDots.push({ x: px(i).toFixed(1), y: py(v).toFixed(1), fill: '#2f6f5e' }));
+
+    const bandData = [[1, 100.0, 7], [3, 42.8, 14], [5, 99.7, 20], [7, 97.3, 25], [9, 98.4, 22],
+                      [11, 99.1, 18], [13, 93.7, 14], [15, 68.7, 10], [17, 71.3, 6],
+                      [19, 100.0, 3], [21, 100.0, 1]];
+    const bands = bandData.map(([offset, v, cells], i) => {
+      const x = 56 + i * 46;
+      const h = (v / 100) * 176;
+      const weak = v < 90;
+      const under = cells <= 3;
+      return { offset: String(offset), x: String(x), cx: String(x + 17),
+               y: (186 - h).toFixed(1), h: h.toFixed(1),
+               fill: weak ? '#f6e6de' : '#eeece5',
+               stroke: weak ? accent : (under ? '#c4bfb2' : '#cfccc2'),
+               sw: weak ? '1.5' : '1', dash: under ? '3 2' : '0' };
+    });
+
+    const withdrawn = [
+      { title: 'Decay', tag: 'not demonstrated',
+        body: 'Damping is the u<1 case of the paper’s own U. Across three regimes the curves never cross: u=1 matches or beats every damped model at every binding age. Control cut from the page.' },
+      { title: 'Capacity ordering', tag: 'not established',
+        body: 'A wider state should hold more bindings. Two of four widths never learned to hold even one, so their curves measure undertraining, not capacity.' },
+      { title: 'Interference', tag: 'withdrawn',
+        body: 'Recall moves 50% → 100% when only neutral filler changes and the binding count is fixed. The load axis is confounded with sequence geometry, so the curve is uninterpretable.' },
+    ];
+
+    return { tokens, conditions, doses, bars, pvalue: pv, pdelta: pd, pcolor: pc,
+             yTicks, xTicks: xs.map((m, i) => ({ label: String(m), x: px(i).toFixed(1) })),
+             doseTargeted: line(tgt), doseControl: line(ctl), doseRandom: line(rnd2),
+             doseDots, bands, withdrawn, setCanvas: this.setCanvas };
+  }
+}
+</script>
+</body>
+</html>

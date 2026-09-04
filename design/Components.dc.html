@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; }
+    a { color: #b3401b; } a:hover { color: #8a2f11; }
+    .num { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+    .lbl { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.11em; text-transform: uppercase; color: #85847c; }
+  </style>
+</helmet>
+
+<div style="width: 980px; background: #fbfaf7; color: #1a1a18; font-family: 'Source Serif 4', Georgia, serif; padding: 44px 48px 56px 48px;">
+
+  <h1 style="font-size: 30px; margin: 0 0 6px 0; font-weight: 700;">Component vocabulary</h1>
+  <div style="font-size: 16px; color: #6b6a63; margin-bottom: 34px;">Every element the explainer needs, at rest and in state.</div>
+
+  <!-- type + colour -->
+  <div class="lbl" style="margin-bottom: 14px;">Type &amp; colour</div>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; margin-bottom: 36px;">
+    <div style="border: 1px solid #d5d2c8; background: #fff; padding: 18px;">
+      <div style="font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">Source Serif 4</div>
+      <div style="font-size: 15px; color: #55544d; line-height: 1.5; margin-bottom: 12px;">Headings and body. 700 for titles, 600 for section heads, 400 for prose at 16&nbsp;px / 1.55.</div>
+      <div class="num" style="font-size: 22px; margin-bottom: 4px;">IBM Plex Mono</div>
+      <div style="font-size: 15px; color: #55544d; line-height: 1.5;">Every number, token, label and axis. Tabular figures so columns align.</div>
+    </div>
+    <div style="border: 1px solid #d5d2c8; background: #fff; padding: 18px;">
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <sc-for list="{{swatches}}" as="s" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 40px; height: 26px; background: {{s.hex}}; border: 1px solid #ddd9ce;"></div>
+            <span class="num" style="font-size: 12px; width: 74px;">{{s.hex}}</span>
+            <span style="font-size: 14px; color: #55544d;">{{s.use}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- badge -->
+  <div class="lbl" style="margin-bottom: 14px;">Verification badge — the page asserts against a committed fixture on load</div>
+  <div style="display: flex; gap: 16px; margin-bottom: 36px;">
+    <div style="display: flex; align-items: center; gap: 9px; border: 1px solid #cfe0d6; background: #f2f8f4; padding: 8px 13px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2f6f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span class="num" style="font-size: 12px; color: #2f6f5e;">forward pass verified · max|diff| 2.6e-6</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 9px; border: 1px solid #e3c9c0; background: #fdf2ee; padding: 8px 13px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b3401b" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      <span class="num" style="font-size: 12px; color: #b3401b;">forward pass MISMATCH — results not trustworthy</span>
+    </div>
+  </div>
+
+  <!-- tokens -->
+  <div class="lbl" style="margin-bottom: 14px;">Token chips — four states</div>
+  <div style="display: flex; gap: 26px; align-items: flex-start; margin-bottom: 36px;">
+    <sc-for list="{{chipSpecs}}" as="c" hint-placeholder-count="4">
+      <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+        <div class="num" style="font-size: 13.5px; padding: 7px 11px; border: 1px {{c.style}} {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font-weight: {{c.weight}};">{{c.text}}</div>
+        <span style="font-size: 13px; color: #85847c;">{{c.caption}}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- segmented -->
+  <div class="lbl" style="margin-bottom: 14px;">Segmented control — square corners, 1&nbsp;px shared border, selected inverts</div>
+  <div style="display: flex; margin-bottom: 36px;">
+    <sc-for list="{{seg}}" as="s" hint-placeholder-count="5">
+      <div class="num" style="font-size: 13px; padding: 10px 14px; border: 1px solid {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; margin-left: -1px; font-weight: {{s.weight}};">{{s.label}}</div>
+    </sc-for>
+  </div>
+
+  <!-- slider -->
+  <div class="lbl" style="margin-bottom: 14px;">Dose slider — discrete stops, filled track to the active stop</div>
+  <div style="width: 480px; margin-bottom: 36px;">
+    <div style="position: relative; height: 34px;">
+      <div style="position: absolute; top: 14px; left: 0; right: 0; height: 2px; background: #e3e0d8;"></div>
+      <div style="position: absolute; top: 14px; left: 0; width: 33.3%; height: 2px; background: #b3401b;"></div>
+      <div style="display: flex; justify-content: space-between; position: relative;">
+        <sc-for list="{{doses}}" as="d" hint-placeholder-count="7">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 7px;">
+            <div style="width: {{d.size}}; height: {{d.size}}; border-radius: 50%; background: {{d.bg}}; border: 2px solid {{d.border}}; margin-top: {{d.offset}};"></div>
+            <span class="num" style="font-size: 11px; color: {{d.fg}};">{{d.m}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- prediction -->
+  <div class="lbl" style="margin-bottom: 14px;">Prediction bars &amp; ground truth — truth sits beside the estimate, never below</div>
+  <div style="display: flex; gap: 26px; border: 1px solid #d5d2c8; background: #fff; padding: 20px; margin-bottom: 36px;">
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 9px;">
+      <sc-for list="{{bars}}" as="b" hint-placeholder-count="3">
+        <div style="display: flex; align-items: center; gap: 11px;">
+          <div class="num" style="width: 58px; font-size: 13px; text-align: right; color: {{b.fg}};">{{b.token}}</div>
+          <div style="flex-grow: 1; height: 20px; background: #f4f2ed; position: relative;">
+            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: {{b.width}}; background: {{b.bg}};"></div>
+          </div>
+          <div class="num" style="width: 46px; font-size: 13px; color: {{b.fg}};">{{b.value}}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="width: 150px; border-left: 1px solid #e3e0d8; padding-left: 22px;">
+      <div class="lbl" style="margin-bottom: 12px;">Ground truth</div>
+      <div style="border: 2px solid #1a1a18; padding: 13px 0; text-align: center;">
+        <div class="num" style="font-size: 23px; font-weight: 600;">Oslo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- state cell -->
+  <div class="lbl" style="margin-bottom: 14px;">State heatmap — cells are 4×8&nbsp;px, ablated entries knock out to white with an accent ring</div>
+  <div style="display: flex; gap: 26px; align-items: center; margin-bottom: 36px;">
+    <div style="border: 1px solid #d5d2c8; background: #fff; padding: 12px;">
+      <canvas ref="{{setCanvas}}" width="360" height="128" style="width: 360px; height: 128px; display: block; image-rendering: pixelated;"></canvas>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 9px;">
+        <span class="num" style="font-size: 11px; color: #a8a79f;">|ρ| low</span>
+        <div style="width: 110px; height: 9px; background: linear-gradient(90deg, #faf9f6 0%, #d8d3c4 35%, #8f8a76 70%, #2c2a22 100%); border: 1px solid #e3e0d8;"></div>
+        <span class="num" style="font-size: 11px; color: #a8a79f;">high</span>
+      </div>
+      <div style="font-size: 14px; color: #6b6a63; max-width: 320px; line-height: 1.5;">Never carry meaning by colour alone — ablated cells also change shape (ring) so the state reads without colour vision.</div>
+    </div>
+  </div>
+
+  <!-- tags -->
+  <div class="lbl" style="margin-bottom: 14px;">Evidence tags — every claim on the page carries its status</div>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <sc-for list="{{tags}}" as="t" hint-placeholder-count="5">
+      <span class="num" style="font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; border: 1px solid {{t.border}}; color: {{t.fg}}; background: {{t.bg}}; padding: 4px 8px;">{{t.label}}</span>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{
+  "accent": {"editor": "color", "default": "#b3401b", "options": ["#b3401b", "#2f6f5e", "#3d5a8a", "#7a3b6b"]}
+}'>
+class Component extends DCLogic {
+  setCanvas = (el) => {
+    if (!el || this._drawn) return;
+    this._drawn = true;
+    const ctx = el.getContext('2d');
+    const COLS = 90, ROWS = 16, CW = 4, CH = 8;
+    let s = 776;
+    const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const u = rnd();
+        let v = u < 0.72 ? u * 0.12 : (u < 0.95 ? 0.12 + (u - 0.72) * 1.1 : 0.45 + (u - 0.95) * 6.0);
+        v = Math.min(1, v);
+        ctx.fillStyle = `rgb(${Math.round(251 - v * 213)},${Math.round(250 - v * 218)},${Math.round(249 - v * 227)})`;
+        ctx.fillRect(c * CW, r * CH, CW, CH);
+      }
+    }
+    const accent = this.props.accent ?? '#b3401b';
+    for (const [r, c] of [[4, 22], [4, 23], [9, 57], [11, 71]]) {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(c * CW, r * CH, CW, CH);
+      ctx.strokeStyle = accent;
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(c * CW - 1.5, r * CH - 1.5, CW + 3, CH + 3);
+    }
+  };
+
+  renderVals() {
+    const accent = this.props.accent ?? '#b3401b';
+    return {
+      setCanvas: this.setCanvas,
+      swatches: [
+        { hex: '#fbfaf7', use: 'page ground — warm, never pure white' },
+        { hex: '#1a1a18', use: 'ink' },
+        { hex: '#6b6a63', use: 'secondary prose' },
+        { hex: '#e3e0d8', use: 'rules and grid lines' },
+        { hex: accent, use: 'targeted / the thing under test' },
+        { hex: '#2f6f5e', use: 'control passed / verified' },
+      ],
+      chipSpecs: [
+        { text: 'Mira', caption: 'binding under test', bg: '#f6e6de', border: accent, fg: '#1a1a18', weight: '600', style: 'solid' },
+        { text: 'Devan', caption: 'competing binding', bg: '#eeece5', border: '#d5d2c8', fg: '#3d3b34', weight: '400', style: 'solid' },
+        { text: 'wind', caption: 'filler, binds nothing', bg: '#f6f5f1', border: '#cbc9c0', fg: '#a8a79f', weight: '400', style: 'dashed' },
+        { text: 'Mira', caption: 'the query', bg: '#1a1a18', border: '#1a1a18', fg: '#fbfaf7', weight: '600', style: 'solid' },
+      ],
+      seg: [['None', false], ['Targeted', true], ['Matched', false], ['Top-other', false], ['Random', false]]
+        .map(([label, on]) => ({ label, bg: on ? '#1a1a18' : '#ffffff', fg: on ? '#fbfaf7' : '#55544d',
+                                 border: on ? '#1a1a18' : '#d5d2c8', weight: on ? '600' : '400' })),
+      doses: [2, 4, 8, 16, 32, 64, 128].map((m) => {
+        const on = m === 8;
+        return { m: String(m), bg: on ? accent : '#ffffff', border: on ? accent : '#d5d2c8',
+                 fg: on ? '#1a1a18' : '#a8a79f', size: on ? '15px' : '9px', offset: on ? '7px' : '10px' };
+      }),
+      bars: [
+        { token: 'Oslo', value: '0.614', width: '61.4%', bg: accent, fg: '#1a1a18' },
+        { token: 'Cairo', value: '0.121', width: '12.1%', bg: '#cfccc2', fg: '#85847c' },
+        { token: 'Lima', value: '0.098', width: '9.8%', bg: '#cfccc2', fg: '#85847c' },
+      ],
+      tags: [
+        { label: 'measured', bg: '#f2f8f4', border: '#cfe0d6', fg: '#2f6f5e' },
+        { label: 'precomputed', bg: '#f6f5f1', border: '#ddd9ce', fg: '#77756c' },
+        { label: 'hypothesis', bg: '#fdf6f2', border: '#e3c9c0', fg: '#b3401b' },
+        { label: 'withdrawn', bg: '#f6f5f1', border: '#c4bfb2', fg: '#77756c' },
+        { label: 'unresolved', bg: '#f6f5f1', border: '#c4bfb2', fg: '#77756c' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
