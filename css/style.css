@@ -267,3 +267,21 @@ footer { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wr
 
 @media (max-width: 1180px) { .forwhom { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 700px)  { .forwhom { grid-template-columns: 1fr; gap: 18px; } }
+
+/* ── the BDH-CQ bridge, and where it stops ──────────────── */
+.bridge {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin: 4px 0 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.bridge > div:nth-child(1) { border-left: 3px solid var(--pass); padding-left: 14px; }
+.bridge > div:nth-child(2) { border-left: 3px solid var(--accent); padding-left: 14px; }
+.bridge > div:nth-child(3) { border-left: 3px solid var(--border); padding-left: 14px; }
+.bridge .lbl { display: block; margin-bottom: 7px; }
+.bridge p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--prose); }
+
+@media (max-width: 1180px) { .bridge { grid-template-columns: 1fr; gap: 16px; } }
