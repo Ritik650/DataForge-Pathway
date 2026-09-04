@@ -1,0 +1,1183 @@
+{
+  "note": "Both conditions are in-distribution at every point: training covered 2-14 bindings and 0-14 filler units. Each filler unit costs the same 2 tokens as one binding but carries no association, so the two curves hold sequence length matched and vary only whether the tokens bind anything.",
+  "iters": 8000,
+  "trials_per_point": 250,
+  "loads": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "results": [
+    {
+      "tag": "d32m2",
+      "n_embd": 32,
+      "n_neurons": 64,
+      "state_entries_per_layer": 2048,
+      "n_params": 9344,
+      "overall_recall": 0.21336206896551724,
+      "curves": [
+        {
+          "load": 0,
+          "bindings": {
+            "recall": 0.996,
+            "ci": [
+              0.977693652885133,
+              0.9992935706432406
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 0.996,
+            "ci": [
+              0.977693652885133,
+              0.9992935706432406
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 1,
+          "bindings": {
+            "recall": 0.628,
+            "ci": [
+              0.5665711761893972,
+              0.6855545589146992
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 2,
+          "bindings": {
+            "recall": 0.492,
+            "ci": [
+              0.4306189740306896,
+              0.5536231675253044
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 3,
+          "bindings": {
+            "recall": 0.352,
+            "ci": [
+              0.29544366352974316,
+              0.41303595525614534
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 4,
+          "bindings": {
+            "recall": 0.336,
+            "ci": [
+              0.2803219824371439,
+              0.3966419194607326
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 5,
+          "bindings": {
+            "recall": 0.296,
+            "ci": [
+              0.24284512248053705,
+              0.3553294871973093
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 6,
+          "bindings": {
+            "recall": 0.228,
+            "ci": [
+              0.1803405041462213,
+              0.2838923087575739
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 7,
+          "bindings": {
+            "recall": 0.164,
+            "ci": [
+              0.12325083757520047,
+              0.21491910777654646
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 8,
+          "bindings": {
+            "recall": 0.172,
+            "ci": [
+              0.13027404955334546,
+              0.22365375424240744
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 9,
+          "bindings": {
+            "recall": 0.132,
+            "ci": [
+              0.09555744444267568,
+              0.17958106713304717
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 10,
+          "bindings": {
+            "recall": 0.14,
+            "ci": [
+              0.10241566325298423,
+              0.1884807067667446
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 11,
+          "bindings": {
+            "recall": 0.12,
+            "ci": [
+              0.08536266215857913,
+              0.16613906175113463
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 12,
+          "bindings": {
+            "recall": 0.1,
+            "ci": [
+              0.06865445354100544,
+              0.1434526242586933
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 13,
+          "bindings": {
+            "recall": 0.072,
+            "ci": [
+              0.046025193010480865,
+              0.11092938023519675
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        }
+      ]
+    },
+    {
+      "tag": "d32m4",
+      "n_embd": 32,
+      "n_neurons": 128,
+      "state_entries_per_layer": 4096,
+      "n_params": 15488,
+      "overall_recall": 0.22629310344827586,
+      "curves": [
+        {
+          "load": 0,
+          "bindings": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 1,
+          "bindings": {
+            "recall": 0.728,
+            "ci": [
+              0.66969832089097,
+              0.7794006447632017
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 0.996,
+            "ci": [
+              0.977693652885133,
+              0.9992935706432406
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 2,
+          "bindings": {
+            "recall": 0.644,
+            "ci": [
+              0.5828767221362727,
+              0.7007647298558357
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 3,
+          "bindings": {
+            "recall": 0.528,
+            "ci": [
+              0.4661614622155369,
+              0.5889910423384842
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 4,
+          "bindings": {
+            "recall": 0.4,
+            "ci": [
+              0.34122728621763343,
+              0.46179948323229125
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 0.996,
+            "ci": [
+              0.977693652885133,
+              0.9992935706432406
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 5,
+          "bindings": {
+            "recall": 0.372,
+            "ci": [
+              0.3144454410853008,
+              0.43342882381060277
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 6,
+          "bindings": {
+            "recall": 0.272,
+            "ci": [
+              0.22059935523679833,
+              0.33030167910902997
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 7,
+          "bindings": {
+            "recall": 0.232,
+            "ci": [
+              0.18396999526506153,
+              0.2881417468607366
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 8,
+          "bindings": {
+            "recall": 0.204,
+            "ci": [
+              0.158704508175768,
+              0.25825472939600896
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 9,
+          "bindings": {
+            "recall": 0.184,
+            "ci": [
+              0.14087481495903226,
+              0.2366897765027297
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 10,
+          "bindings": {
+            "recall": 0.116,
+            "ci": [
+              0.08199108127964577,
+              0.161631713408065
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 11,
+          "bindings": {
+            "recall": 0.08,
+            "ci": [
+              0.052381922070894156,
+              0.1203305096187895
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 12,
+          "bindings": {
+            "recall": 0.104,
+            "ci": [
+              0.07196474410827003,
+              0.14802126291343168
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 13,
+          "bindings": {
+            "recall": 0.076,
+            "ci": [
+              0.0491912491961804,
+              0.11564225327150024
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        }
+      ]
+    },
+    {
+      "tag": "d32m8",
+      "n_embd": 32,
+      "n_neurons": 256,
+      "state_entries_per_layer": 8192,
+      "n_params": 27776,
+      "overall_recall": 0.2122844827586207,
+      "curves": [
+        {
+          "load": 0,
+          "bindings": {
+            "recall": 0.624,
+            "ci": [
+              0.562505575124048,
+              0.6817412307580455
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 0.628,
+            "ci": [
+              0.5665711761893972,
+              0.6855545589146992
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 1,
+          "bindings": {
+            "recall": 0.564,
+            "ci": [
+              0.5020198636060832,
+              0.6240430039459649
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 2,
+          "bindings": {
+            "recall": 0.416,
+            "ci": [
+              0.3566223071073427,
+              0.477920179230594
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 3,
+          "bindings": {
+            "recall": 0.388,
+            "ci": [
+              0.32972419944620157,
+              0.44966578233771404
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 4,
+          "bindings": {
+            "recall": 0.256,
+            "ci": [
+              0.20587733738785832,
+              0.31350798006995795
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 5,
+          "bindings": {
+            "recall": 0.216,
+            "ci": [
+              0.1694915254237288,
+              0.27110449981405726
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 6,
+          "bindings": {
+            "recall": 0.196,
+            "ci": [
+              0.15154950681109253,
+              0.2496518723166785
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 7,
+          "bindings": {
+            "recall": 0.136,
+            "ci": [
+              0.09898068743644395,
+              0.1840367533612819
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 8,
+          "bindings": {
+            "recall": 0.128,
+            "ci": [
+              0.09214637228076344,
+              0.17511321007295638
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 9,
+          "bindings": {
+            "recall": 0.112,
+            "ci": [
+              0.07863379432036412,
+              0.15711007114534364
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 10,
+          "bindings": {
+            "recall": 0.132,
+            "ci": [
+              0.09555744444267568,
+              0.17958106713304717
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 11,
+          "bindings": {
+            "recall": 0.108,
+            "ci": [
+              0.07529144734526685,
+              0.1525734888984379
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 12,
+          "bindings": {
+            "recall": 0.1,
+            "ci": [
+              0.06865445354100544,
+              0.1434526242586933
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 13,
+          "bindings": {
+            "recall": 0.092,
+            "ci": [
+              0.06208656638760557,
+              0.13426265296808712
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        }
+      ]
+    },
+    {
+      "tag": "d64m8",
+      "n_embd": 64,
+      "n_neurons": 512,
+      "state_entries_per_layer": 32768,
+      "n_params": 104704,
+      "overall_recall": 0.22306034482758622,
+      "curves": [
+        {
+          "load": 0,
+          "bindings": {
+            "recall": 0.832,
+            "ci": [
+              0.7807090132068878,
+              0.8732421122193622
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 0.808,
+            "ci": [
+              0.7546609408206536,
+              0.8520166092735785
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 1,
+          "bindings": {
+            "recall": 0.612,
+            "ci": [
+              0.550334217662286,
+              0.6702758005537984
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 2,
+          "bindings": {
+            "recall": 0.544,
+            "ci": [
+              0.48205927010382327,
+              0.6046089513382098
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 3,
+          "bindings": {
+            "recall": 0.612,
+            "ci": [
+              0.550334217662286,
+              0.6702758005537984
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 4,
+          "bindings": {
+            "recall": 0.472,
+            "ci": [
+              0.4110089576615158,
+              0.5338385377844631
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 5,
+          "bindings": {
+            "recall": 0.3,
+            "ci": [
+              0.24657086403938408,
+              0.35948267486046526
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 6,
+          "bindings": {
+            "recall": 0.224,
+            "ci": [
+              0.17671751406074326,
+              0.2796363696210489
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 7,
+          "bindings": {
+            "recall": 0.188,
+            "ci": [
+              0.14442509786439153,
+              0.24101842281937344
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 8,
+          "bindings": {
+            "recall": 0.188,
+            "ci": [
+              0.14442509786439153,
+              0.24101842281937344
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 9,
+          "bindings": {
+            "recall": 0.168,
+            "ci": [
+              0.12675788778063776,
+              0.21929098679311218
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 10,
+          "bindings": {
+            "recall": 0.096,
+            "ci": [
+              0.06536141854642746,
+              0.13886673003126823
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 11,
+          "bindings": {
+            "recall": 0.168,
+            "ci": [
+              0.12675788778063776,
+              0.21929098679311218
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 12,
+          "bindings": {
+            "recall": 0.184,
+            "ci": [
+              0.14087481495903226,
+              0.2366897765027297
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        },
+        {
+          "load": 13,
+          "bindings": {
+            "recall": 0.148,
+            "ci": [
+              0.10931920870538417,
+              0.1973350197583507
+            ],
+            "n": 250
+          },
+          "filler": {
+            "recall": 1.0,
+            "ci": [
+              0.9848661527503766,
+              1.0
+            ],
+            "n": 250
+          },
+          "both_in_training_range": true
+        }
+      ]
+    }
+  ]
+}
