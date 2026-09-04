@@ -1,0 +1,1978 @@
+{
+  "checkpoint": "data/artifact_d32m8.pt",
+  "config": {
+    "n_layer": 2,
+    "n_embd": 32,
+    "dropout": 0.0,
+    "n_head": 1,
+    "mlp_internal_dim_multiplier": 8,
+    "vocab_size": 50,
+    "u_decay": 1.0
+  },
+  "trained_pairs_max": 8,
+  "trained_filler_max": 8,
+  "trials_per_cell": 250,
+  "fail_below": 0.9,
+  "rows": [
+    {
+      "n_pairs": 2,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 2,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 2,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 3,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 2,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 2,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 3,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 4,
+      "token_offset": 9,
+      "recall": 0.94,
+      "ci": [
+        0.9033762972146848,
+        0.9633059172056464
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 3,
+      "token_offset": 7,
+      "recall": 0.924,
+      "ci": [
+        0.8843577467284998,
+        0.9508087508038197
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 2,
+      "n_filler": 0,
+      "from_end": 2,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 3,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 4,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 5,
+      "token_offset": 11,
+      "recall": 0.948,
+      "ci": [
+        0.9130774345624312,
+        0.9693626383019062
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 4,
+      "token_offset": 9,
+      "recall": 0.944,
+      "ci": [
+        0.9082084818368784,
+        0.966352661805456
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 2,
+      "n_filler": 0,
+      "from_end": 3,
+      "token_offset": 7,
+      "recall": 0.916,
+      "ci": [
+        0.875004257077684,
+        0.9444043820106295
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 3,
+      "n_filler": 0,
+      "from_end": 2,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 4,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 5,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 6,
+      "token_offset": 13,
+      "recall": 0.504,
+      "ci": [
+        0.44243155182424554,
+        0.5654473773977574
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 5,
+      "token_offset": 11,
+      "recall": 0.98,
+      "ci": [
+        0.9540437045850131,
+        0.9914278020553485
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 2,
+      "n_filler": 0,
+      "from_end": 4,
+      "token_offset": 9,
+      "recall": 0.932,
+      "ci": [
+        0.8938099139309015,
+        0.9571144420454241
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 3,
+      "n_filler": 0,
+      "from_end": 3,
+      "token_offset": 7,
+      "recall": 0.892,
+      "ci": [
+        0.8474265111015622,
+        0.9247085526547332
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 4,
+      "n_filler": 0,
+      "from_end": 2,
+      "token_offset": 5,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 5,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 6,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 0,
+      "n_filler": 0,
+      "from_end": 7,
+      "token_offset": 15,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 1,
+      "n_filler": 0,
+      "from_end": 6,
+      "token_offset": 13,
+      "recall": 0.62,
+      "ci": [
+        0.5584442321707381,
+        0.6779236444893522
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 2,
+      "n_filler": 0,
+      "from_end": 5,
+      "token_offset": 11,
+      "recall": 0.952,
+      "ci": [
+        0.9179869282923764,
+        0.9723320737939639
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 3,
+      "n_filler": 0,
+      "from_end": 4,
+      "token_offset": 9,
+      "recall": 0.916,
+      "ci": [
+        0.875004257077684,
+        0.9444043820106295
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 4,
+      "n_filler": 0,
+      "from_end": 3,
+      "token_offset": 7,
+      "recall": 0.86,
+      "ci": [
+        0.8115192932332553,
+        0.8975843367470158
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 5,
+      "n_filler": 0,
+      "from_end": 2,
+      "token_offset": 5,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 6,
+      "n_filler": 0,
+      "from_end": 1,
+      "token_offset": 3,
+      "recall": 0.0,
+      "ci": [
+        0.0,
+        0.015133847249623387
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 7,
+      "n_filler": 0,
+      "from_end": 0,
+      "token_offset": 1,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 2,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 2,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 3,
+      "token_offset": 9,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 2,
+      "token_offset": 7,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 2,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 3,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 4,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 3,
+      "token_offset": 9,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 2,
+      "n_filler": 1,
+      "from_end": 2,
+      "token_offset": 7,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 3,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 4,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 5,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 4,
+      "token_offset": 11,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 2,
+      "n_filler": 1,
+      "from_end": 3,
+      "token_offset": 9,
+      "recall": 0.984,
+      "ci": [
+        0.9595895595167768,
+        0.9937608763455877
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 3,
+      "n_filler": 1,
+      "from_end": 2,
+      "token_offset": 7,
+      "recall": 0.98,
+      "ci": [
+        0.9540437045850131,
+        0.9914278020553485
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 4,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 5,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 6,
+      "token_offset": 15,
+      "recall": 0.4,
+      "ci": [
+        0.34122728621763343,
+        0.46179948323229125
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 5,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 2,
+      "n_filler": 1,
+      "from_end": 4,
+      "token_offset": 11,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 3,
+      "n_filler": 1,
+      "from_end": 3,
+      "token_offset": 9,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 4,
+      "n_filler": 1,
+      "from_end": 2,
+      "token_offset": 7,
+      "recall": 0.984,
+      "ci": [
+        0.9595895595167768,
+        0.9937608763455877
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 5,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 6,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 0.576,
+      "ci": [
+        0.5140438113999315,
+        0.6356558438181257
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 0,
+      "n_filler": 1,
+      "from_end": 7,
+      "token_offset": 17,
+      "recall": 0.52,
+      "ci": [
+        0.45823595399411676,
+        0.5811586921158984
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 1,
+      "n_filler": 1,
+      "from_end": 6,
+      "token_offset": 15,
+      "recall": 0.384,
+      "ci": [
+        0.3258981738809542,
+        0.44561287868095845
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 2,
+      "n_filler": 1,
+      "from_end": 5,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 3,
+      "n_filler": 1,
+      "from_end": 4,
+      "token_offset": 11,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 4,
+      "n_filler": 1,
+      "from_end": 3,
+      "token_offset": 9,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 5,
+      "n_filler": 1,
+      "from_end": 2,
+      "token_offset": 7,
+      "recall": 0.944,
+      "ci": [
+        0.9082084818368784,
+        0.966352661805456
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 6,
+      "n_filler": 1,
+      "from_end": 1,
+      "token_offset": 5,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 7,
+      "n_filler": 1,
+      "from_end": 0,
+      "token_offset": 3,
+      "recall": 0.416,
+      "ci": [
+        0.3566223071073427,
+        0.477920179230594
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 2,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 2,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 3,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 2,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 2,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 3,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 4,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 3,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 2,
+      "n_filler": 2,
+      "from_end": 2,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 3,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 4,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 5,
+      "token_offset": 15,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 4,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 2,
+      "n_filler": 2,
+      "from_end": 3,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 3,
+      "n_filler": 2,
+      "from_end": 2,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 4,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 5,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 0.984,
+      "ci": [
+        0.9595895595167768,
+        0.9937608763455877
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 6,
+      "token_offset": 17,
+      "recall": 0.736,
+      "ci": [
+        0.6780839247805358,
+        0.7867728993176418
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 5,
+      "token_offset": 15,
+      "recall": 0.776,
+      "ci": [
+        0.7203636303789512,
+        0.8232824859392568
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 2,
+      "n_filler": 2,
+      "from_end": 4,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 3,
+      "n_filler": 2,
+      "from_end": 3,
+      "token_offset": 11,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 4,
+      "n_filler": 2,
+      "from_end": 2,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 5,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 6,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 0,
+      "n_filler": 2,
+      "from_end": 7,
+      "token_offset": 19,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 1,
+      "n_filler": 2,
+      "from_end": 6,
+      "token_offset": 17,
+      "recall": 0.728,
+      "ci": [
+        0.66969832089097,
+        0.7794006447632017
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 2,
+      "n_filler": 2,
+      "from_end": 5,
+      "token_offset": 15,
+      "recall": 0.744,
+      "ci": [
+        0.686492019930042,
+        0.7941226626121417
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 3,
+      "n_filler": 2,
+      "from_end": 4,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 4,
+      "n_filler": 2,
+      "from_end": 3,
+      "token_offset": 11,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 5,
+      "n_filler": 2,
+      "from_end": 2,
+      "token_offset": 9,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 6,
+      "n_filler": 2,
+      "from_end": 1,
+      "token_offset": 7,
+      "recall": 0.952,
+      "ci": [
+        0.9179869282923764,
+        0.9723320737939639
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 7,
+      "n_filler": 2,
+      "from_end": 0,
+      "token_offset": 5,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 2,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 2,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 3,
+      "query_idx": 2,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 3,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 2,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 2,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 4,
+      "query_idx": 3,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 4,
+      "token_offset": 15,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 3,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 2,
+      "n_filler": 3,
+      "from_end": 2,
+      "token_offset": 11,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 3,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 5,
+      "query_idx": 4,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 5,
+      "token_offset": 17,
+      "recall": 0.756,
+      "ci": [
+        0.699147815859017,
+        0.8051036543491759
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 4,
+      "token_offset": 15,
+      "recall": 0.856,
+      "ci": [
+        0.8070866646773006,
+        0.8941380360809675
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 2,
+      "n_filler": 3,
+      "from_end": 3,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 3,
+      "n_filler": 3,
+      "from_end": 2,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 4,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 6,
+      "query_idx": 5,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 0.988,
+      "ci": [
+        0.9653186109241421,
+        0.9959107541602255
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 6,
+      "token_offset": 19,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 5,
+      "token_offset": 17,
+      "recall": 0.724,
+      "ci": [
+        0.6655137581859878,
+        0.775706278246181
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 2,
+      "n_filler": 3,
+      "from_end": 4,
+      "token_offset": 15,
+      "recall": 0.884,
+      "ci": [
+        0.8383682865919351,
+        0.9180089187203542
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 3,
+      "n_filler": 3,
+      "from_end": 3,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 4,
+      "n_filler": 3,
+      "from_end": 2,
+      "token_offset": 11,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 5,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 7,
+      "query_idx": 6,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 0.98,
+      "ci": [
+        0.9540437045850131,
+        0.9914278020553485
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 0,
+      "n_filler": 3,
+      "from_end": 7,
+      "token_offset": 21,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 1,
+      "n_filler": 3,
+      "from_end": 6,
+      "token_offset": 19,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 2,
+      "n_filler": 3,
+      "from_end": 5,
+      "token_offset": 17,
+      "recall": 0.812,
+      "ci": [
+        0.7589815771806265,
+        0.8555749021356085
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 3,
+      "n_filler": 3,
+      "from_end": 4,
+      "token_offset": 15,
+      "recall": 0.828,
+      "ci": [
+        0.7763462457575925,
+        0.8697259504466546
+      ],
+      "n": 250,
+      "fail": true
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 4,
+      "n_filler": 3,
+      "from_end": 3,
+      "token_offset": 13,
+      "recall": 1.0,
+      "ci": [
+        0.9848661527503766,
+        1.0
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 5,
+      "n_filler": 3,
+      "from_end": 2,
+      "token_offset": 11,
+      "recall": 0.996,
+      "ci": [
+        0.977693652885133,
+        0.9992935706432406
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 6,
+      "n_filler": 3,
+      "from_end": 1,
+      "token_offset": 9,
+      "recall": 0.992,
+      "ci": [
+        0.9713048854232084,
+        0.9978034088831621
+      ],
+      "n": 250,
+      "fail": false
+    },
+    {
+      "n_pairs": 8,
+      "query_idx": 7,
+      "n_filler": 3,
+      "from_end": 0,
+      "token_offset": 7,
+      "recall": 0.936,
+      "ci": [
+        0.8985776859091057,
+        0.9602255992892228
+      ],
+      "n": 250,
+      "fail": false
+    }
+  ]
+}

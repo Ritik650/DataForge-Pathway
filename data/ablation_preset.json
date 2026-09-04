@@ -1,0 +1,75 @@
+{
+  "checkpoint": "data/artifact_d32m8.pt",
+  "iter": 16000,
+  "layer": 1,
+  "m": 32,
+  "n_state_entries": 8192,
+  "trials_requested": 300,
+  "trials_used": 300,
+  "pairs": 7,
+  "filler": 3,
+  "query_idx": 0,
+  "recall": {
+    "base": 1.0,
+    "targeted": 0.29,
+    "matched": 0.85,
+    "top_other": 0.7866666666666666,
+    "random": 0.9566666666666667
+  },
+  "recall_ci": {
+    "base": [
+      0.9873565700022643,
+      0.9999999999999999
+    ],
+    "targeted": [
+      0.2415637129951771,
+      0.3437465276038718
+    ],
+    "matched": [
+      0.8051814866362912,
+      0.8859681123652938
+    ],
+    "top_other": [
+      0.7368363171534565,
+      0.8292481163145083
+    ],
+    "random": [
+      0.927281870871939,
+      0.9745037963967957
+    ]
+  },
+  "mean_answer_prob": {
+    "base": 0.9600417510668436,
+    "targeted": 0.26796540049998535,
+    "matched": 0.8131519364546208,
+    "top_other": 0.7186767490867836,
+    "random": 0.914468500125998
+  },
+  "mean_state_mass_removed": {
+    "targeted": 367.09059916178387,
+    "matched": 304.42827473958334,
+    "top_other": 647.9369040934245,
+    "random": 45.757337226867676
+  },
+  "specificity": {
+    "targeted": {
+      "base": 277,
+      "abl": 41,
+      "n": 300
+    },
+    "others": {
+      "base": 567,
+      "abl": 447,
+      "n": 600
+    }
+  },
+  "config": {
+    "n_layer": 2,
+    "n_embd": 32,
+    "dropout": 0.0,
+    "n_head": 1,
+    "mlp_internal_dim_multiplier": 8,
+    "vocab_size": 50,
+    "u_decay": 1.0
+  }
+}
