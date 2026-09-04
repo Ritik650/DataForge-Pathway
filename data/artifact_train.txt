@@ -1,0 +1,45 @@
+device=cuda  n=128 neurons  d=32  layers=2  u_decay=1.0  params=15,488
+  it   500  loss 20.9952  recall  26.2%  (context-city  96.1%, copy-chance 21.8%)     22s
+  it  1000  loss 16.5112  recall  29.7%  (context-city  99.0%, copy-chance 21.8%)     41s
+  it  1500  loss 14.8438  recall  29.7%  (context-city 100.0%, copy-chance 21.8%)     64s
+  it  2000  loss 13.4898  recall  31.5%  (context-city 100.0%, copy-chance 21.8%)     86s
+  it  2500  loss 13.2120  recall  31.4%  (context-city 100.0%, copy-chance 21.8%)    110s
+  it  3000  loss 14.0203  recall  30.9%  (context-city 100.0%, copy-chance 21.8%)    130s
+  it  3500  loss 12.9715  recall  28.3%  (context-city 100.0%, copy-chance 21.8%)    152s
+  it  4000  loss 13.6878  recall  30.4%  (context-city 100.0%, copy-chance 21.8%)    171s
+  it  4500  loss 12.9268  recall  28.3%  (context-city 100.0%, copy-chance 21.8%)    180s
+  it  5000  loss 13.6246  recall  29.2%  (context-city 100.0%, copy-chance 21.8%)    189s
+  it  5500  loss 13.7469  recall  33.6%  (context-city 100.0%, copy-chance 21.8%)    207s
+  it  6000  loss 11.9970  recall  29.5%  (context-city 100.0%, copy-chance 21.8%)    225s
+  it  6500  loss 12.4137  recall  30.4%  (context-city 100.0%, copy-chance 21.8%)    243s
+  it  7000  loss 12.7605  recall  29.9%  (context-city 100.0%, copy-chance 21.8%)    262s
+  it  7500  loss 12.4222  recall  30.9%  (context-city 100.0%, copy-chance 21.8%)    280s
+  it  8000  loss 12.6075  recall  31.7%  (context-city 100.0%, copy-chance 21.8%)    299s
+  it  8500  loss 12.0427  recall  29.1%  (context-city 100.0%, copy-chance 21.8%)    319s
+  it  9000  loss 13.1243  recall  29.5%  (context-city 100.0%, copy-chance 21.8%)    338s
+  it  9500  loss 13.3489  recall  29.0%  (context-city 100.0%, copy-chance 21.8%)    358s
+  it 10000  loss 12.9751  recall  29.1%  (context-city 100.0%, copy-chance 21.8%)    377s
+  it 10500  loss 12.8731  recall  28.0%  (context-city 100.0%, copy-chance 21.8%)    396s
+  it 11000  loss 12.3423  recall  32.1%  (context-city 100.0%, copy-chance 21.8%)    414s
+  it 11500  loss 13.2681  recall  28.9%  (context-city 100.0%, copy-chance 21.8%)    434s
+  it 12000  loss 12.9874  recall  27.8%  (context-city 100.0%, copy-chance 21.8%)    453s
+
+final (2048 sequences, best-recall checkpoint):
+{
+  "recall_acc": 0.3128586609989373,
+  "picks_a_context_city": 1.0,
+  "chance_if_copying_some_context_city": 0.2264708263751834,
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4705
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.2125,
+  "drop": 0.0,
+  "swap_follows_context": 0.145,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\artifact_d32m4.pt  (recall 33.6%)

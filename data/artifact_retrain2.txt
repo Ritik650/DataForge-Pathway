@@ -1,0 +1,31 @@
+### A: d=32 mult=8 (plan fallback) N=256 state=8192
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4705
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.7975,
+  "drop": 0.0,
+  "swap_follows_context": 0.7725,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\artifact_d32m8.pt  (recall 91.4%)
+
+### B: d=64 mult=2 (widen d instead) N=128 state=8192
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4705
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.16,
+  "drop": 0.0,
+  "swap_follows_context": 0.1625,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\artifact_d64m2.pt  (recall 31.7%)

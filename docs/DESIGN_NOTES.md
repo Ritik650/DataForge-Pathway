@@ -292,6 +292,71 @@ are different claims.
 
 ---
 
+## 3e. The shipped substrate: what it is, and three things Block 0 corrected.
+
+**Disclosure.** The model in the artifact (`data/artifact_d32m8.pt`, d=32,
+N=256, 2 layers, state 8,192/layer, **27,776 params**) is trained on **2–8
+bindings and 0–8 filler units** — the range the artifact actually displays. The
+width-comparison family in §3d was trained on 2–14. **They are different
+models**, and the §3d width table stays in these notes as the not-established
+result it already is, out of the artifact. Choosing training coverage to match
+display coverage is a normal design decision; it is only a problem if it is
+silent, so it is stated here, in the README, and on the page.
+
+The filler range matches the binding range (0–8 against 2–8) on purpose. If
+filler left the training distribution before bindings did, the matched-length
+control would degrade for the wrong reason and §3b would return in mirror image.
+
+### Correction 1: the weak baseline was capacity, not training coverage.
+
+We predicted the ~35% baseline came from training on 2–14 bindings. Retraining
+`d32m4` on 2–8 made it **worse** where it mattered: 21.3% at 6 bindings, with
+`swap_follows_context` at 14.5% — below the 16.7% chance line. That model was
+not doing associative recall at all. The hypothesis was wrong.
+
+### Correction 2: the constraint is neuron count, not embedding width or state size.
+
+Two candidates were trained at an **identical 8,192-entry state**:
+
+| candidate | N | d | state | recall | normal | swap |
+|---|---|---|---|---|---|---|
+| d=32, mult=8 | **256** | 32 | 8,192 | **91.4%** | 79.8% | 77.3% |
+| d=64, mult=2 | 128 | 64 | 8,192 | 31.7% | 16.0% | 16.3% |
+
+Same state size, opposite outcomes. Across every model trained in this project,
+N=128 fails and N≥256 works, at both d=32 and d=64. So the binding constraint is
+the **number of sparse neurons**, not `d` and not the size of the state — which
+is what BDH's own premise of a large sparse neuron space (n >> d) predicts. The
+prediction on record before this run was that `d` was the bottleneck; it was
+wrong, and the plan's `mult=8` fallback was right.
+
+### Correction 3: the interference sweep is NOT immune to the §3c artifact.
+
+§3c closed by asserting the interference sweeps were unaffected "because they
+query index 0, the oldest binding, which is never the failing position." **That
+is false at small loads.** With 2 bindings, index 0 *is* the second-to-last one:
+oldest and second-to-last are the same position until there are at least three
+bindings. It showed up as load 1 reading **0.0%** between load 0 at 100% and
+load 2 at 100% — a hole in the middle of a curve we were about to publish.
+
+Fixed by separating the query from the binding block with one filler unit in
+**both** conditions, which leaves their token counts identical (7 + 2k either
+way) and so leaves the matched-length comparison intact. Load 1 returns to 100%.
+
+## Open questions (recorded, not investigated — science is frozen)
+
+1. **The binding curve is not monotone at the tail.** Recall reads 39.7%
+   [36.5, 42.9] at load 6 and rises to 51.1% [47.8, 54.4] at load 7, n=900,
+   disjoint intervals — real, not sampling noise. Seven competing bindings are
+   harder than eight, reproducibly. No explanation. The dissociation the claim
+   rests on is unaffected: filler is flat at 100.0% [99.6, 100.0] at every load.
+   The artifact shows the measured curve including this wobble, and says it is
+   unexplained.
+2. **Why N≥256 and not N=128?** The threshold is sharp and sits between two
+   powers of two we happened to test. Where it actually lies, and whether it
+   tracks the number of bindings to be stored, is untested.
+3. **§3c remains uncharacterised** — see that section.
+
 ## 4. `u_decay` is grounded in the paper, but the public code does not use it.
 
 Definition 4 of the BDH paper defines the state update with a right-multiplication

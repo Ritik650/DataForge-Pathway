@@ -123,6 +123,26 @@ def select_matched(rho_final, targeted_flat, m, rng):
     return torch.tensor(picked, device=flat.device, dtype=torch.long)
 
 
+def select_top_other(rho_final, targeted_flat, m):
+    """The m largest-magnitude entries that are NOT part of this binding's write.
+
+    This is the strictest control available. Nearest-neighbour matching can only
+    approach the mass of the targeted set from below when the targeted entries
+    sit at the top of the magnitude distribution -- which is exactly what we
+    observe, and is itself informative. Taking the largest remaining entries
+    removes at least as much state mass as any other selection of size m, so if
+    recall survives THIS while the targeted ablation breaks it, the effect
+    cannot be explained by how much state was removed.
+    """
+    flat = rho_final.abs().flatten()
+    mask = torch.ones(flat.numel(), dtype=torch.bool, device=flat.device)
+    mask[targeted_flat] = False
+    cand = torch.nonzero(mask, as_tuple=True)[0]
+    vals = flat[cand]
+    top = torch.topk(vals, min(m, vals.numel())).indices
+    return cand[top]
+
+
 def select_random(rho_final, targeted_flat, m, rng):
     n = rho_final.numel()
     mask = np.ones(n, dtype=bool)
@@ -152,6 +172,7 @@ def run_trial(model, cfg, device, ex, layer, m, rng):
 
     tgt = select_targeted(delta_write, m)
     mat = select_matched(rho_final, tgt, m, rng)
+    top = select_top_other(rho_final, tgt, m)
     rnd = select_random(rho_final, tgt, m, rng)
 
     out = {
@@ -163,7 +184,8 @@ def run_trial(model, cfg, device, ex, layer, m, rng):
     probs_base = torch.softmax(base_logits[0, ans_pos], -1)
     out["answer_prob"]["base"] = float(probs_base[answer])
 
-    for name, sel in (("targeted", tgt), ("matched", mat), ("random", rnd)):
+    for name, sel in (("targeted", tgt), ("matched", mat),
+                      ("top_other", top), ("random", rnd)):
         idx = unflatten(sel, shape)
         out["removed_magnitude"][name] = float(rho_final.abs().flatten()[sel].sum())
         logits, _ = model.forward_recurrent(
@@ -229,9 +251,10 @@ def main():
           f"({100*args.m/(cfg.n_embd*cfg.N*cfg.n_head):.3f}%)")
 
     rng = np.random.default_rng(args.seed)
-    agg = {k: 0 for k in ("base", "targeted", "matched", "random")}
-    mags = {k: [] for k in ("targeted", "matched", "random")}
-    probs = {k: [] for k in ("base", "targeted", "matched", "random")}
+    keys = ("base", "targeted", "matched", "top_other", "random")
+    agg = {k: 0 for k in keys}
+    mags = {k: [] for k in keys if k != "base"}
+    probs = {k: [] for k in keys}
     n_used = 0
 
     for i in range(args.trials):
@@ -242,16 +265,16 @@ def main():
             continue  # only meaningful where the model got it right unablated
         n_used += 1
         agg["base"] += 1
-        for k in ("targeted", "matched", "random"):
+        for k in ("targeted", "matched", "top_other", "random"):
             agg[k] += r["correct"][k]
             mags[k].append(r["removed_magnitude"][k])
-        for k in ("base", "targeted", "matched", "random"):
+        for k in keys:
             probs[k].append(r["answer_prob"][k])
 
     print(f"\ntrials where baseline was correct: {n_used} / {args.trials}")
     print(f"{'condition':<12}{'recall':>10}{'95% CI':>18}{'mean p(answer)':>17}"
           f"{'state mass removed':>21}")
-    for k in ("base", "targeted", "matched", "random"):
+    for k in keys:
         acc = agg[k] / max(1, n_used)
         lo, hi = wilson(agg[k], n_used)
         mag = f"{np.mean(mags[k]):.3f}" if k in mags else "-"

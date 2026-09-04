@@ -12,3 +12,4 @@ refs/
 # The final model is kept because the artifact loads its weights.
 *.pt
 !data/bdh_mqar_final.pt
+!artifact/data/weights.bin
