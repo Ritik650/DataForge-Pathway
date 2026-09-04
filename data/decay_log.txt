@@ -1,0 +1,11 @@
+training 4 models across the damping case of U (6000 iters each)
+  [1.0] best checkpoint: C:\Users\ry981\Downloads\DataForge\data\decay_u10.pt  (recall 98.6%)
+  u=1.0: recall by age (oldest->newest)  98.2  100.0  100.0  100.0  100.0  100.0   58.2  100.0
+  [0.98] best checkpoint: C:\Users\ry981\Downloads\DataForge\data\decay_u098.pt  (recall 99.3%)
+  u=0.98: recall by age (oldest->newest)  99.5  100.0  100.0  100.0  100.0  100.0   99.5  100.0
+  [0.95] best checkpoint: C:\Users\ry981\Downloads\DataForge\data\decay_u095.pt  (recall 98.2%)
+  u=0.95: recall by age (oldest->newest) 100.0  100.0  100.0  100.0  100.0  100.0   39.0   93.8
+  [0.9] best checkpoint: C:\Users\ry981\Downloads\DataForge\data\decay_u09.pt  (recall 94.9%)
+  u=0.9: recall by age (oldest->newest)  92.8   93.2   96.2  100.0   98.5   99.0   54.8  100.0
+
+wrote C:\Users\ry981\Downloads\DataForge\artifact\data\decay.json

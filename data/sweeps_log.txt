@@ -1,0 +1,31 @@
+checkpoint data/bdh_mqar_final.pt (iter 11500)  n=512 neurons, d=64, state = 32,768 entries per layer
+
+dose-response (ablated synapses vs recall):
+  m=   8 ( 0.024% of state)  targeted  97.3%  matched 100.0%  random 100.0%   n=149
+  m=  16 ( 0.049% of state)  targeted  96.6%  matched 100.0%  random 100.0%   n=149
+  m=  32 ( 0.098% of state)  targeted  91.9%  matched 100.0%  random 100.0%   n=149
+  m=  64 ( 0.195% of state)  targeted  85.2%  matched 100.0%  random 100.0%   n=149
+  m= 128 ( 0.391% of state)  targeted  68.5%  matched 100.0%  random 100.0%   n=149
+  m= 256 ( 0.781% of state)  targeted  47.7%  matched  99.3%  random 100.0%   n=149
+  m= 512 ( 1.562% of state)  targeted  36.2%  matched  99.3%  random 100.0%   n=149
+  m=1024 ( 3.125% of state)  targeted  24.2%  matched  98.0%  random  99.3%   n=149
+  m=2048 ( 6.250% of state)  targeted  12.1%  matched  97.3%  random  98.0%   n=149
+
+interference: competing bindings vs equal-length neutral filler
+  load  0  competing bindings 100.0% [97.5,100.0]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  1  competing bindings  99.3% [96.3,99.9]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  2  competing bindings 100.0% [97.5,100.0]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  3  competing bindings 100.0% [97.5,100.0]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  4  competing bindings 100.0% [97.5,100.0]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  5  competing bindings 100.0% [97.5,100.0]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  6  competing bindings 100.0% [97.5,100.0]   equal-length filler 100.0% [97.5,100.0]   n=150
+  load  7  competing bindings 100.0% [97.5,100.0]   equal-length filler  87.3% [81.1,91.7]   n=150
+  load  8  competing bindings 100.0% [97.5,100.0]   equal-length filler  92.0% [86.5,95.4]   n=150
+  load  9  competing bindings  96.7% [92.4,98.6]   equal-length filler  84.7% [78.0,89.6]   n=150
+  load 10  competing bindings  93.3% [88.2,96.3]   equal-length filler  62.7% [54.7,70.0]   n=150
+  load 11  competing bindings  87.3% [81.1,91.7]   equal-length filler  68.0% [60.2,74.9]   n=150
+  load 12  competing bindings  91.3% [85.7,94.9]   equal-length filler  75.3% [67.9,81.5]   n=150
+  load 13  competing bindings  67.3% [59.5,74.3]   equal-length filler  63.3% [55.4,70.6]   n=150
+  load 14  competing bindings  30.0% [23.2,37.8]   equal-length filler  55.3% [47.3,63.1]   n=150
+
+wrote C:\Users\ry981\Downloads\DataForge\artifact\data\sweeps.json

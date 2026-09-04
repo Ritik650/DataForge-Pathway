@@ -1,0 +1,175 @@
+
+======================================================================
+L2_aw8: layers=2 heads=1 mult=8 answer_weight=8.0
+======================================================================
+device=cuda  n=512 neurons  d=64  layers=2  params=104,704
+  it   500  loss 15.8952  recall  29.4%  (context-city 100.0%, copy-chance 22.2%)     16s
+  it  1000  loss 13.4411  recall  31.8%  (context-city 100.0%, copy-chance 22.2%)     31s
+  it  1500  loss 13.5990  recall  34.8%  (context-city 100.0%, copy-chance 22.2%)     46s
+  it  2000  loss 9.8706  recall  50.7%  (context-city 100.0%, copy-chance 22.2%)     60s
+  it  2500  loss 8.1683  recall  66.2%  (context-city 100.0%, copy-chance 22.2%)     74s
+  it  3000  loss 6.3979  recall  81.2%  (context-city 100.0%, copy-chance 22.2%)     90s
+  it  3500  loss 4.8392  recall  86.8%  (context-city 100.0%, copy-chance 22.2%)    105s
+  it  4000  loss 5.3518  recall  87.0%  (context-city 100.0%, copy-chance 22.2%)    121s
+
+final (2048 sequences, best-recall checkpoint):
+{
+  "recall_acc": 0.8744895766172361,
+  "picks_a_context_city": 1.0,
+  "chance_if_copying_some_context_city": 0.22835600176025705,
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4653
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.8275,
+  "drop": 0.0,
+  "swap_follows_context": 0.8225,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\sweep_L2_aw8.pt  (recall 87.0%)
+
+======================================================================
+L3_aw8: layers=3 heads=1 mult=8 answer_weight=8.0
+======================================================================
+device=cuda  n=512 neurons  d=64  layers=3  params=104,704
+  it   500  loss 16.0641  recall  28.9%  (context-city  99.9%, copy-chance 22.2%)     18s
+  it  1000  loss 13.5775  recall  30.2%  (context-city 100.0%, copy-chance 22.2%)     36s
+  it  1500  loss 13.4734  recall  32.4%  (context-city 100.0%, copy-chance 22.2%)     53s
+  it  2000  loss 13.1225  recall  28.7%  (context-city 100.0%, copy-chance 22.2%)     71s
+  it  2500  loss 12.9646  recall  31.4%  (context-city 100.0%, copy-chance 22.2%)     90s
+  it  3000  loss 13.2354  recall  29.9%  (context-city  99.9%, copy-chance 22.2%)    107s
+  it  3500  loss 12.4494  recall  29.5%  (context-city 100.0%, copy-chance 22.2%)    125s
+  it  4000  loss 12.9618  recall  31.2%  (context-city 100.0%, copy-chance 22.2%)    143s
+
+final (2048 sequences, best-recall checkpoint):
+{
+  "recall_acc": 0.31313131313131315,
+  "picks_a_context_city": 1.0,
+  "chance_if_copying_some_context_city": 0.22835600176025705,
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4653
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.1825,
+  "drop": 0.0,
+  "swap_follows_context": 0.125,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\sweep_L3_aw8.pt  (recall 32.4%)
+
+======================================================================
+L4_aw8: layers=4 heads=1 mult=8 answer_weight=8.0
+======================================================================
+device=cuda  n=512 neurons  d=64  layers=4  params=104,704
+  it   500  loss 16.6834  recall  27.8%  (context-city  99.5%, copy-chance 22.2%)     20s
+  it  1000  loss 13.6850  recall  28.8%  (context-city 100.0%, copy-chance 22.2%)     41s
+  it  1500  loss 13.4489  recall  32.0%  (context-city 100.0%, copy-chance 22.2%)     63s
+  it  2000  loss 13.0712  recall  32.3%  (context-city 100.0%, copy-chance 22.2%)     81s
+  it  2500  loss 12.8716  recall  30.8%  (context-city 100.0%, copy-chance 22.2%)    105s
+  it  3000  loss 13.1667  recall  31.4%  (context-city 100.0%, copy-chance 22.2%)    130s
+  it  3500  loss 12.4563  recall  30.8%  (context-city 100.0%, copy-chance 22.2%)    156s
+  it  4000  loss 12.9474  recall  30.4%  (context-city 100.0%, copy-chance 22.2%)    183s
+
+final (2048 sequences, best-recall checkpoint):
+{
+  "recall_acc": 0.31055233182892755,
+  "picks_a_context_city": 1.0,
+  "chance_if_copying_some_context_city": 0.22835600176025705,
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4653
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.1675,
+  "drop": 0.0,
+  "swap_follows_context": 0.1525,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\sweep_L4_aw8.pt  (recall 32.3%)
+
+======================================================================
+L4_H2_aw8: layers=4 heads=2 mult=8 answer_weight=8.0
+======================================================================
+device=cuda  n=512 neurons  d=64  layers=4  params=104,704
+  it   500  loss 16.0343  recall  28.9%  (context-city  99.5%, copy-chance 22.2%)     24s
+  it  1000  loss 13.5338  recall  30.1%  (context-city 100.0%, copy-chance 22.2%)     46s
+  it  1500  loss 13.0039  recall  30.5%  (context-city 100.0%, copy-chance 22.2%)     67s
+  it  2000  loss 12.7295  recall  29.3%  (context-city  99.9%, copy-chance 22.2%)     89s
+  it  2500  loss 12.7271  recall  29.8%  (context-city 100.0%, copy-chance 22.2%)    105s
+  it  3000  loss 12.8924  recall  29.6%  (context-city 100.0%, copy-chance 22.2%)    136s
+  it  3500  loss 12.2473  recall  29.0%  (context-city 100.0%, copy-chance 22.2%)    171s
+  it  4000  loss 12.7555  recall  30.4%  (context-city 100.0%, copy-chance 22.2%)    211s
+
+final (2048 sequences, best-recall checkpoint):
+{
+  "recall_acc": 0.3114119922630561,
+  "picks_a_context_city": 1.0,
+  "chance_if_copying_some_context_city": 0.22835600176025705,
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4653
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.14,
+  "drop": 0.0325,
+  "swap_follows_context": 0.1925,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\sweep_L4_H2_aw8.pt  (recall 30.5%)
+
+======================================================================
+L3_aw1: layers=3 heads=1 mult=8 answer_weight=1.0
+======================================================================
+device=cuda  n=512 neurons  d=64  layers=3  params=104,704
+  it   500  loss 2.9376  recall   6.8%  (context-city  34.1%, copy-chance 22.2%)     30s
+  it  1000  loss 2.9407  recall   5.4%  (context-city  29.7%, copy-chance 22.2%)     60s
+  it  1500  loss 2.8920  recall   6.2%  (context-city  32.7%, copy-chance 22.2%)     90s
+  it  2000  loss 2.8671  recall   8.0%  (context-city  35.0%, copy-chance 22.2%)    119s
+  it  2500  loss 2.8165  recall   7.0%  (context-city  33.7%, copy-chance 22.2%)    148s
+  it  3000  loss 2.8332  recall   7.1%  (context-city  33.4%, copy-chance 22.2%)    177s
+  it  3500  loss 2.8090  recall   6.3%  (context-city  36.8%, copy-chance 22.2%)    206s
+  it  4000  loss 2.8370  recall   5.3%  (context-city  31.1%, copy-chance 22.2%)    235s
+
+final (2048 sequences, best-recall checkpoint):
+{
+  "recall_acc": 0.05566301310982162,
+  "picks_a_context_city": 0.3258113045347088,
+  "chance_if_copying_some_context_city": 0.22835600176025705,
+  "chance_uniform_over_cities": 0.0625,
+  "n": 4653
+}
+
+behavioural controls (6 pairs, 1 query):
+{
+  "normal": 0.07,
+  "drop": 0.0725,
+  "swap_follows_context": 0.075,
+  "chance": 0.16666666666666666,
+  "n": 400
+}
+
+best checkpoint: C:\Users\ry981\Downloads\DataForge\data\sweep_L3_aw1.pt  (recall 8.0%)
+
+
+======================================================================
+SUMMARY
+======================================================================
+  L2_aw8       recall  87.4%  (copy-chance 22.8%)  controls: normal  82.8% / drop   0.0% / swap  82.2% (chance 16.7%)
+  L3_aw8       recall  31.3%  (copy-chance 22.8%)  controls: normal  18.2% / drop   0.0% / swap  12.5% (chance 16.7%)
+  L4_H2_aw8    recall  31.1%  (copy-chance 22.8%)  controls: normal  14.0% / drop   3.2% / swap  19.2% (chance 16.7%)
+  L4_aw8       recall  31.1%  (copy-chance 22.8%)  controls: normal  16.8% / drop   0.0% / swap  15.2% (chance 16.7%)
+  L3_aw1       recall   5.6%  (copy-chance 22.8%)  controls: normal   7.0% / drop   7.2% / swap   7.5% (chance 16.7%)

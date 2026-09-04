@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+.DS_Store
+
+# Downloaded copies of third-party papers, kept locally for exact quoting.
+# Not redistributed here -- see docs/CLAIMS.md for the source URLs.
+refs/
+
+# Model checkpoints are regenerable from the committed scripts and seeds.
+# The final model is kept because the artifact loads its weights.
+*.pt
+!data/bdh_mqar_final.pt

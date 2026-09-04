@@ -1,0 +1,77 @@
+[
+  {
+    "tag": "L2_aw8",
+    "layers": 2,
+    "heads": 1,
+    "aw": 8.0,
+    "recall": 0.8744895766172361,
+    "copy_chance": 0.22835600176025705,
+    "controls": {
+      "normal": 0.8275,
+      "drop": 0.0,
+      "swap_follows_context": 0.8225,
+      "chance": 0.16666666666666666,
+      "n": 400
+    }
+  },
+  {
+    "tag": "L3_aw8",
+    "layers": 3,
+    "heads": 1,
+    "aw": 8.0,
+    "recall": 0.31313131313131315,
+    "copy_chance": 0.22835600176025705,
+    "controls": {
+      "normal": 0.1825,
+      "drop": 0.0,
+      "swap_follows_context": 0.125,
+      "chance": 0.16666666666666666,
+      "n": 400
+    }
+  },
+  {
+    "tag": "L4_aw8",
+    "layers": 4,
+    "heads": 1,
+    "aw": 8.0,
+    "recall": 0.31055233182892755,
+    "copy_chance": 0.22835600176025705,
+    "controls": {
+      "normal": 0.1675,
+      "drop": 0.0,
+      "swap_follows_context": 0.1525,
+      "chance": 0.16666666666666666,
+      "n": 400
+    }
+  },
+  {
+    "tag": "L4_H2_aw8",
+    "layers": 4,
+    "heads": 2,
+    "aw": 8.0,
+    "recall": 0.3114119922630561,
+    "copy_chance": 0.22835600176025705,
+    "controls": {
+      "normal": 0.14,
+      "drop": 0.0325,
+      "swap_follows_context": 0.1925,
+      "chance": 0.16666666666666666,
+      "n": 400
+    }
+  },
+  {
+    "tag": "L3_aw1",
+    "layers": 3,
+    "heads": 1,
+    "aw": 1.0,
+    "recall": 0.05566301310982162,
+    "copy_chance": 0.22835600176025705,
+    "controls": {
+      "normal": 0.07,
+      "drop": 0.0725,
+      "swap_follows_context": 0.075,
+      "chance": 0.16666666666666666,
+      "n": 400
+    }
+  }
+]

@@ -1,0 +1,114 @@
+{
+  "history": [
+    {
+      "iter": 500,
+      "loss": 16.683380126953125,
+      "recall_acc": 0.27796610169491526,
+      "picks_a_context_city": 0.9954802259887006,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 1000,
+      "loss": 13.685019493103027,
+      "recall_acc": 0.288135593220339,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 1500,
+      "loss": 13.4489107131958,
+      "recall_acc": 0.319774011299435,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 2000,
+      "loss": 13.071233749389648,
+      "recall_acc": 0.3231638418079096,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 2500,
+      "loss": 12.871611595153809,
+      "recall_acc": 0.30847457627118646,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 3000,
+      "loss": 13.166671752929688,
+      "recall_acc": 0.31412429378531076,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 3500,
+      "loss": 12.456321716308594,
+      "recall_acc": 0.30847457627118646,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    },
+    {
+      "iter": 4000,
+      "loss": 12.947441101074219,
+      "recall_acc": 0.303954802259887,
+      "picks_a_context_city": 1.0,
+      "chance_if_copying_some_context_city": 0.22210250201775625,
+      "chance_uniform_over_cities": 0.0625,
+      "n": 885
+    }
+  ],
+  "final": {
+    "recall_acc": 0.31055233182892755,
+    "picks_a_context_city": 1.0,
+    "chance_if_copying_some_context_city": 0.22835600176025705,
+    "chance_uniform_over_cities": 0.0625,
+    "n": 4653
+  },
+  "controls": {
+    "normal": 0.1675,
+    "drop": 0.0,
+    "swap_follows_context": 0.1525,
+    "chance": 0.16666666666666666,
+    "n": 400
+  },
+  "config": {
+    "n_layer": 4,
+    "n_embd": 64,
+    "dropout": 0.0,
+    "n_head": 1,
+    "mlp_internal_dim_multiplier": 8,
+    "vocab_size": 50,
+    "u_decay": 1.0
+  },
+  "n_params": 104704,
+  "args": {
+    "iters": 4000,
+    "batch": 64,
+    "block": 64,
+    "lr": 0.002,
+    "n_layer": 4,
+    "n_embd": 64,
+    "mult": 8,
+    "n_head": 1,
+    "dropout": 0.0,
+    "answer_weight": 8.0,
+    "seed": 0,
+    "out": "data/sweep_L4_aw8.pt"
+  }
+}

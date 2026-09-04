@@ -1,0 +1,65 @@
+{
+  "checkpoint": "data/bdh_mqar_final.pt",
+  "iter": 11500,
+  "layer": 1,
+  "m": 64,
+  "n_state_entries": 32768,
+  "trials_requested": 300,
+  "trials_used": 298,
+  "recall": {
+    "base": 1.0,
+    "targeted": 0.8657718120805369,
+    "matched": 0.9966442953020134,
+    "random": 1.0
+  },
+  "recall_ci": {
+    "base": [
+      0.9872727947373723,
+      1.0
+    ],
+    "targeted": [
+      0.8223775297984157,
+      0.8998555884993935
+    ],
+    "matched": [
+      0.981239397663855,
+      0.999407405162528
+    ],
+    "random": [
+      0.9872727947373723,
+      1.0
+    ]
+  },
+  "mean_answer_prob": {
+    "base": 0.9977521304316168,
+    "targeted": 0.8586936169775518,
+    "matched": 0.9946852827932211,
+    "random": 0.9977452506955038
+  },
+  "mean_state_mass_removed": {
+    "targeted": 1235.772720439322,
+    "matched": 1230.5855679095991,
+    "random": 541.716469169463
+  },
+  "specificity": {
+    "targeted": {
+      "base": 300,
+      "abl": 270,
+      "n": 300
+    },
+    "others": {
+      "base": 600,
+      "abl": 599,
+      "n": 600
+    }
+  },
+  "config": {
+    "n_layer": 2,
+    "n_embd": 64,
+    "dropout": 0.0,
+    "n_head": 1,
+    "mlp_internal_dim_multiplier": 8,
+    "vocab_size": 50,
+    "u_decay": 1.0
+  }
+}

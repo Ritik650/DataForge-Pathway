@@ -1,0 +1,11 @@
+training 4 models across the damping case of U (6000 iters each)
+  [1.0] checkpoint exists, skipping training
+  u=1.0: recall by age (oldest->newest)  94.0   98.8   99.8  100.0  100.0  100.0   99.0   54.8
+  [0.98] checkpoint exists, skipping training
+  u=0.98: recall by age (oldest->newest) 100.0  100.0   99.5  100.0  100.0  100.0  100.0  100.0
+  [0.95] checkpoint exists, skipping training
+  u=0.95: recall by age (oldest->newest) 100.0  100.0  100.0  100.0  100.0  100.0  100.0  100.0
+  [0.9] checkpoint exists, skipping training
+  u=0.9: recall by age (oldest->newest)  99.8   96.8   95.5   99.2  100.0   99.8  100.0  100.0
+
+wrote C:\Users\ry981\Downloads\DataForge\artifact\data\decay.json
