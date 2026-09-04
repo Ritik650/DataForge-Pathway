@@ -11,9 +11,20 @@ the real forward pass at about 2 ms a run. The badge in the header asserts that
 this browser port still matches `src/bdh.py` to 1e-5 before any panel renders;
 if it ever fails, the page says the figures are not trustworthy.
 
-> **Status.** Substrate, science, source verification, the interactive artifact
-> and the one-page summary are done. Remaining: blog PDF, mobile and
-> accessibility passes, component-level AI disclosure. Every number below is
+**Everything here is machine-checked.** One command runs every gate — the
+Python forward pass against its recurrent form, the browser port against
+Python, the page's computation path, every figure on the page against the
+claims ledger, both PDFs for page count and word count and figure presence, and
+every link:
+
+```
+python verify.py        # 8 gates, ~11 seconds
+```
+
+> **Status.** Substrate, science, source verification, the interactive artifact,
+> both PDFs and the verification harness are done. Remaining: a naive-reader
+> cold-read of the summary, and a physical device pass — both need a person who
+> is not the author. Every number below is
 > measured by the committed scripts; nothing is illustrative or placeholder.
 > Results that were produced and then invalidated are documented in
 > [`docs/DESIGN_NOTES.md`](docs/DESIGN_NOTES.md) rather than deleted.
@@ -356,7 +367,13 @@ that caveat would be a misstatement.
   [pathwaycom/bdh](https://github.com/pathwaycom/bdh), MIT, © 2025 Pathway
   Technology, Inc. Full provenance in `NOTICE.md`.
 - Primary sources and verification status: `docs/CLAIMS.md`.
-- No third-party fonts, icons, datasets, or model weights are used.
+- **Fonts** — two third-party faces, bundled not linked, both SIL Open Font
+  License 1.1 (licence text travels with them in `artifact/fonts/OFL.txt`):
+  Source Serif 4 (© 2014–2023 Adobe, Reserved Font Name 'Source') and IBM Plex
+  Mono (© 2017 IBM Corp, Reserved Font Name 'Plex'). Regenerate with
+  `python scripts/vendor_fonts.py`.
+- No icon fonts, no third-party datasets, no third-party model weights, and no
+  external requests of any kind: the page loads nothing it does not ship.
 
 **AI assistance, by component.** This project was built with AI assistance
 (Claude, via Claude Code) throughout, under the author's direction and review.

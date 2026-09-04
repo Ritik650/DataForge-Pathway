@@ -59,8 +59,23 @@ Declared in full in the README; summarised here.
 
 ## Third-party assets
 
-None yet. Fonts, icons, and any charting library used by the artifact will be
-recorded here with their licences before submission.
+**Fonts — bundled, not linked.** The artifact ships two faces rather than
+loading them from a CDN, so it has no external dependency and renders
+identically offline, on a restricted network, or if a font host is unreachable.
+
+| Face | Files | Licence | Copyright | Upstream |
+|---|---|---|---|---|
+| Source Serif 4 | `artifact/fonts/SourceSerif4-400.woff2` (variable, serves 400/600/700) | SIL Open Font License 1.1 | 2014–2023 Adobe, Reserved Font Name 'Source' | github.com/adobe-fonts/source-serif |
+| IBM Plex Mono | `artifact/fonts/IBMPlexMono-{400,500,600}.woff2` | SIL Open Font License 1.1 | 2017 IBM Corp, Reserved Font Name 'Plex' | github.com/IBM/plex |
+
+The OFL permits bundling and redistribution provided the licence travels with
+the fonts; both licence texts are reproduced in `artifact/fonts/OFL.txt`.
+Latin subsets only, 164 KB total. Both licences were read from the upstream
+repositories rather than assumed. Regenerate with
+`python scripts/vendor_fonts.py`.
+
+**Everything else: none.** No icon fonts, no charting library, no third-party
+datasets, no third-party model weights.
 
 ## AI assistance
 

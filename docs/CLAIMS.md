@@ -84,11 +84,36 @@ These are results we produce, not sourced claims. They are listed so the two
 categories never get mixed in the write-up. Each must carry `n`, seed, and an
 interval.
 
-| Quantity | Where produced | Status |
-|---|---|---|
-| Parallel/recurrent agreement (~2e-7) | `tests/test_equivalence.py` | measured |
-| Recall accuracy vs copy-chance | `src/train.py::evaluate` | in progress |
-| drop / swap behavioural controls | `src/train.py::eval_controls` | in progress |
-| Targeted vs magnitude-matched random ablation | `src/ablate.py` | not yet run |
-| Interference curve (bindings vs filler) | `src/sweeps.py` | not yet run |
-| Decay trade-off | `src/sweeps.py` | not yet run |
+Values are listed, not just quantities, because `scripts/verify_claims.py`
+asserts that every figure appearing on the artifact is present in this ledger.
+A number on the page that is not here fails the build.
+
+| # | Quantity | Value | Where produced |
+|---|---|---|---|
+| M1 | Parallel vs recurrent agreement | ~2e-7 | `tests/test_equivalence.py` |
+| M2 | Browser port vs Python | 2.6e-6, tol 1e-5 | `tests/test_js_equivalence.mjs` |
+| M3 | Weight export round-trip | 0.000e+00 | `scripts/export_weights.py` |
+| M4 | Recall, gate model | 99.66%, n=4653 | `src/train.py::evaluate` |
+| M5 | Copy-a-context-city chance | 22.8% | same |
+| M6 | Drop the binding from context | **7.5%** (uniform chance 6.25%) | `src/train.py::eval_controls` |
+| M7 | Rebind — answer follows context | 99.75% | same |
+| M8 | Shipped substrate | 27,776 params, 8,192 state entries/layer | `scripts/export_weights.py` |
+| M9 | Preset baseline recall | 99.8%, n=400 | `artifact/data/dose_panel.json` |
+| M10 | Targeted ablation at m=8 | 77.2% [72.8, 81.0] | same |
+| M11 | `top_other` control at m=8 | 100.0% [99.0, 100.0] at 2.06× mass | same |
+| M12 | Bystanders at m=8 | 92.4% → 88.0% | same |
+| M13 | Selectivity ratio at m=8 | 5.9× (n=400); 6.1× in the n=250 search | `dose_panel.json`, `preset_selection.json` |
+| M14 | Targeted at the largest dose | 10.8% at m=128 | `dose_panel.json` |
+| M15 | Offset-3 band mean recall | 42.8% over 14 cells | `artifact/data/positional_map.json` |
+| M16 | Offset-3 at zero filler | 0.0%, all 7 cells, 2–8 bindings | same |
+| M17 | Ablation flips the answer at m=8 | ~23% of sequences | `tests/test_page_logic.mjs` |
+| M18 | **Test C** — binding count fixed, filler 0→3 | **50.4%** → 40.0% → 73.6% → 100.0% | `positional_map.json` |
+| M19 | Interference non-monotonicity | 39.7% [36.5,42.9] at load 6 → 51.1% [47.8,54.4] at load 7, n=900 | `DESIGN_NOTES` §3f |
+| M20 | Decay, undamped overall recall | **21.3%** | `artifact/data/decay_small.json` |
+| M21 | Decay at u<0.95 | **7.5%** overall — collapse | same |
+| M22 | Capacity gate failures | 83.6% and 92.4% load-0 recall at 24k steps | `artifact/data/interference.json` |
+
+**Note on M6 and M21.** Both read 7.5% and they are unrelated: M6 is recall
+after deleting the binding from context on the gate model; M21 is overall recall
+of a heavily damped model. The coincidence is why values live in this table
+rather than being matched by string alone.

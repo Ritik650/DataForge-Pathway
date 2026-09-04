@@ -1,5 +1,38 @@
 # Design notes — decisions, dead ends, and why
 
+## The corrections log
+
+Every instance where a measurement, a test, or a stated rule turned out to be
+wrong. Each row is a prediction we made, what actually happened, and what was
+at fault. In **seven of the twelve, the finding survived and the instrument
+was what broke** — which is the pattern worth knowing about this project.
+
+| # | We predicted | What happened | What was actually wrong | Where |
+|---|---|---|---|---|
+| 1 | Holding out (name, city) pairs proves the answer isn't in the weights | Held-out recall fell to 1.8%, *below* random-copy chance, and got worse with training | **The design.** Withholding a pair set teaches the complement — "Mira is never Oslo" — so we measured learned avoidance, not recall | §1 |
+| 2 | BDH's symmetric attention needs a 3rd layer for induction | 2 layers 87.4%, 3 layers 31.3%, 4 layers 31.1% | **The hypothesis.** The blocker was gradient dilution, not depth; the architectural observation was true but not the cause | §3 |
+| 3 | Filler degrading faster than bindings means length beats interference | Both curves fell just after leaving *their own* training range | **The experiment.** Unmatched training coverage between conditions | §3b |
+| 4 | The dip sits at query-to-binding offset 3 | Adding filler made it vanish — so we retracted the rule | **The retraction.** Filler slid the blind spot off the end of the list; no binding occupied offset 3 any more. The original rule was closer to right than the retraction | §3c |
+| 5 | Offset 3 predicts every failing cell | 18 of 27 failures are elsewhere; 5 of 14 offset-3 cells pass | **The over-correction.** Caught by our own committed data | §3c |
+| 6 | A wider state holds more bindings | 8,192 entries scored *below* 2,048 | **The comparison.** Two widths never learned to hold even one binding; equal step counts are not equal training quality | §3d |
+| 7 | Spearman will detect the interference collapse | Read −0.45 on a curve falling 100 points to zero | **The statistic.** Ceiling ties destroy rank correlation | §3d, gates |
+| 8 | `d` is the bottleneck for capacity | d=32/N=256 → 91.4%; d=64/N=128 → 31.7%, same 8,192 state | **The hypothesis.** Neuron count is the constraint, not embedding width or state size | §3e |
+| 9 | The interference sweep is immune to the positional artifact | Load 1 read 0.0% between two 100% neighbours | **The reasoning.** At 2 bindings, "oldest" *is* "second-to-last" | §3e |
+| 10 | Targeted ablation lowers p(answer) on any given sequence | Failed on seed 12345 — p(answer) rose | **The test.** An aggregate effect does not license a per-case prediction; it flips on ~23% of sequences | page logic |
+| 11 | `passed_all` tracks every gate | Printed "ALL GATES PASS" while G2 monotonicity had failed | **The harness.** A silent pass, in the code whose job is preventing silent passes | gates |
+| 12 | The summary is 888 words | Laid-out PDF was 947, three under the ceiling | **The counter.** Ad-hoc counting stripped table rows and markdown; now script-derived and gated | `check_pdf.py` |
+
+**Rows 1, 3, 6, 7, 10, 11 and 12 are instrument failures** — the science was
+fine and the thing measuring it was not. Rows 2, 5, 8 and 9 are hypotheses the
+data refuted. Row 4 is a retraction that was itself wrong.
+
+The practical lesson, stated once because it recurs: **numbers computed ad hoc
+to answer a question are the ones that go wrong; numbers a committed script
+produces are the ones that hold.** `python verify.py` exists because of this
+table.
+
+---
+
 A running record of choices that are not obvious from the code, kept so every
 team member can defend them. Judges award 15 points for whether the team can
 trace the system and predict the result of changes.
