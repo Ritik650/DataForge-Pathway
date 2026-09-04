@@ -358,9 +358,25 @@ that caveat would be a misstatement.
 - Primary sources and verification status: `docs/CLAIMS.md`.
 - No third-party fonts, icons, datasets, or model weights are used.
 
-**AI assistance.** This project was built with AI assistance (Claude) for code
-authoring, experiment scaffolding, source retrieval and drafting, under the
-author's direction and review. The track requires this disclosure; it will be
-expanded to component-level detail before submission. All experimental design
-decisions, invalidated results, and corrections are recorded in
-`docs/DESIGN_NOTES.md` so that every claim can be traced and defended.
+**AI assistance, by component.** This project was built with AI assistance
+(Claude, via Claude Code) throughout, under the author's direction and review.
+Component-level detail:
+
+| Component | AI involvement |
+|---|---|
+| `src/bdh.py` | Port and adaptation of Pathway's MIT-licensed reference. AI-written; the recurrent formulation, ablation hook and `u_decay` were specified by the author and verified against Python by `tests/test_equivalence.py`. |
+| `src/mqar.py`, `src/train.py` | AI-written to the author's task specification. The held-out-pair design was AI-proposed, **found to be wrong by measurement**, and replaced (`DESIGN_NOTES` §1). |
+| `src/ablate.py`, `src/sweeps.py`, `scripts/*` | AI-written. The `top_other` control was added after the magnitude-matched control was found insufficient. |
+| `artifact/js/*` | AI-written port of the Python forward pass and selectors, gated by `tests/test_js_equivalence.mjs`. |
+| `artifact/index.html`, `css/` | AI-written from the design in `design/` and `docs/UI_SPEC.md`. |
+| Design canvas (`design/`) | AI-generated via the Claude design tooling. Stitch was attempted first per the author's standing preference and produced nothing (two timeouts, no screens); `docs/UI_SPEC.md` exists so the design can be regenerated in Stitch by hand. |
+| `docs/CONCEPT_SUMMARY.md`, README, `DESIGN_NOTES` | AI-drafted, author-reviewed. |
+| Experimental design and interpretation | Iterative between author and AI. Several AI-proposed hypotheses were **refuted by the project's own data** and are recorded as such: the offset-3 rule, the "d is the bottleneck" prediction, and the first interference curve. |
+| Source verification | AI-retrieved from arXiv and the Pathway repository; every figure logged in `docs/CLAIMS.md` with the source's verbatim wording. |
+
+No AI-generated figure appears anywhere without a committed script that
+produces it. All experimental design decisions, invalidated results and
+corrections are recorded in `docs/DESIGN_NOTES.md` so every claim can be traced
+and defended.
+
+**Mentorship.** None. No mentor advised, reviewed or challenged this work.

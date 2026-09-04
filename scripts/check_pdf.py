@@ -15,6 +15,7 @@ import zlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 PDF = ROOT / "docs" / "concept-summary.pdf"
+SRC = ROOT / "docs" / "CONCEPT_SUMMARY.md"
 
 # Figures whose absence would be a correctness or evidence-labelling failure.
 REQUIRED = [
@@ -78,14 +79,22 @@ def main():
     flat = " ".join(pdf_strings(body.decode("latin-1")))
     missing = [p for p in REQUIRED if p not in flat]
 
-    print(f"pages        {pages}  {'ok' if pages == 1 else 'FAIL — must be 1 page'}")
-    print(f"size         {len(raw) / 1024:.0f} KB")
-    print(f"text laid out {len(flat)} chars")
-    print(f"figures      {len(REQUIRED) - len(missing)}/{len(REQUIRED)} present")
+    # Word count is measured on the LAID-OUT text, which is the number the brief
+    # is about -- "approximately 500-950 words" describes the page a judge reads,
+    # not the markdown it was built from. `wc -w` on the source counts markdown
+    # syntax, table pipes and the header line too, and reads higher.
+    words = len([w for w in re.split(r"\s+", flat) if any(c.isalnum() for c in w)])
+    src_words = len(SRC.read_text(encoding="utf-8").split()) if SRC.exists() else 0
+
+    print(f"pages         {pages}  {'ok' if pages == 1 else 'FAIL — must be 1 page'}")
+    print(f"size          {len(raw) / 1024:.0f} KB")
+    print(f"words (PDF)   {words}  {'ok' if 500 <= words <= 950 else 'OUT OF RANGE (brief: 500-950)'}")
+    print(f"words (source){src_words:>5}  — includes markdown syntax and table cells")
+    print(f"figures       {len(REQUIRED) - len(missing)}/{len(REQUIRED)} present")
     for p in missing:
         print(f"  MISSING  {p}")
 
-    bad = pages != 1 or missing
+    bad = pages != 1 or bool(missing) or not (500 <= words <= 950)
     print("\n" + ("PDF CHECK FAILED" if bad else "PDF CHECK PASSED"))
     return 1 if bad else 0
 

@@ -6,11 +6,10 @@
 
 **The design pressure.** A Transformer remembers what it has read by keeping it: the
 KV cache grows linearly with context, so memory cost tracks how much has been
-said rather than how much matters. Eviction, compression, retrieval, linear
-attention and state-space models are all attempts to hold within-session memory
-in something of fixed size. Fixed size buys bounded cost and forces a question
-the Transformer never has to answer: when two facts compete for the same finite
-state, what happens to them?
+said rather than how much matters. Eviction, compression, retrieval, linear attention and state-space
+models all try to hold within-session memory in something of fixed size. That
+buys bounded cost and forces a question the Transformer never has to answer:
+when two facts compete for the same finite state, what happens to them?
 
 **What BDH changes.** Dragon Hatchling (BDH) reformulates attention as a
 *synaptic write*. Its GPU formulation carries a state `ρ` updated by
@@ -18,8 +17,8 @@ state, what happens to them?
 > `ρ_{t,l} := (ρ_{t-1,l} + LN(E y_{t,l-1}) x_{t,l}ᵀ) U`  — Eq. (8), arXiv:2509.26507
 
 Each token deposits a rank-1 outer product: reading strengthens a specific set
-of connections, Hebbian-style, and the model answers by reading that state back.
-Two details matter and are routinely garbled. First, `ρ` is `d × n` — in our
+of connections, and the model answers by reading that state back. Two details
+are routinely garbled. First, `ρ` is `d × n` — in our
 model 32 × 256 — **not** neuron-by-neuron; the conceptual `σ` of Eq. (6) relates
 to it by `σ ≈ D_y ρ`, rank at most `d`. Second, `U` is defined as "local
 rotation *or damping*"; the public reference implements rotation only (RoPE),
@@ -36,10 +35,10 @@ only superposition in one fixed tensor.
 | Interpretability handle | attention maps over tokens | state matrix | individual synapses; reported monosemantic at concept level |
 
 **Our claim, and the control that carries it.** A fact the model just read is
-held in a small, *locatable* set of synapses rather than in its weights. We
-train a 27,776-parameter BDH-GPU on multi-query associative recall (Arora et al.,
-*Zoology*, arXiv:2312.04927), where name–city pairings are resampled uniformly
-per sequence — so the weight-optimal prior is uniform and the answer cannot come
+held in a small, *locatable* set of synapses rather than in its weights. We train
+a 27,776-parameter BDH-GPU on multi-query associative recall (Arora et al.,
+*Zoology*, arXiv:2312.04927), resampling name–city pairings uniformly per
+sequence — so the weight-optimal prior is uniform and the answer cannot come
 from the parameters. Deleting the binding from context drops recall to 7.5%
 against a 6.25% chance line; rebinding it moves the answer 99.75% of the time.
 
@@ -74,12 +73,11 @@ that the binding is localised *and* that competing facts erase it — and only t
 first survived. Our interference curve failed its own control: holding the
 number of competing bindings fixed and varying only neutral filler still moved
 recall from 50.4% to 100%, so the load axis was confounded with sequence
-geometry. It is withdrawn. Two further results did not stand: damping never
-produced the stability–plasticity crossover it predicts, and a capacity ordering
-across state widths was confounded by training quality. Separately, our model
-has an exact failure mode — retrieval fails in periodic bands of query-to-binding
-offset, at 3 and 13–17 — whose mechanism (RoPE phase cancellation) remains a
-hypothesis. Beyond this project, the open problem is consolidation: BDH's fast
+geometry. It is withdrawn. Two further results did not stand: damping never produced the
+stability–plasticity crossover it predicts, and a capacity ordering across state
+widths was confounded by training quality. Our model also has an exact failure
+mode — retrieval fails in periodic bands of query-to-binding offset, at 3 and
+13–17 — whose mechanism (RoPE phase cancellation) remains a hypothesis. Beyond this project, the open problem is consolidation: BDH's fast
 state is erased between sessions, and turning useful fast state into durable
 slow weights is unsolved. Our model is our own small training run of the
 published architecture on a synthetic task — not an official Pathway model, and
@@ -92,4 +90,4 @@ reference implementation at `github.com/pathwaycom/bdh`, and Arora et al.
 
 ---
 
-*Artifact, source and every figure's provenance: `github.com/Ritik650/DataForge-Pathway`. All measured values carry Wilson 95% intervals and an explicit n; results we withdrew are documented rather than deleted.*
+*Artifact and source: `github.com/Ritik650/DataForge-Pathway`. Measured values carry Wilson 95% intervals and an explicit n; withdrawn results are documented, not deleted.*

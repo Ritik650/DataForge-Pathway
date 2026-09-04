@@ -22,8 +22,13 @@ from reportlab.platypus import (BaseDocTemplate, Frame, HRFlowable, PageTemplate
                                 Paragraph, Spacer, Table, TableStyle)
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SRC = ROOT / "docs" / "CONCEPT_SUMMARY.md"
-OUT = ROOT / "docs" / "concept-summary.pdf"
+DOCS = {
+    "summary": (ROOT / "docs" / "CONCEPT_SUMMARY.md",
+                ROOT / "docs" / "concept-summary.pdf", True),
+    "blog": (ROOT / "docs" / "BLOG.md",
+             ROOT / "docs" / "blog.pdf", False),
+}
+SRC, OUT, ONE_PAGE = DOCS["summary"]
 
 INK = colors.HexColor("#1a1a18")
 PROSE = colors.HexColor("#2e2d28")
@@ -50,6 +55,8 @@ styles = {
                            textColor=PROSE),
     "cellh": ParagraphStyle("cellh", fontName=SERIF_B, fontSize=7.1, leading=8.7,
                             textColor=INK),
+    "h2": ParagraphStyle("h2", fontName=SERIF_B, fontSize=10.5, leading=13,
+                         textColor=INK, spaceBefore=8, spaceAfter=3),
     "foot": ParagraphStyle("foot", fontName=SERIF_I, fontSize=7.4, leading=9.6,
                            textColor=MUTED, spaceBefore=4),
 }
@@ -65,7 +72,7 @@ def inline(md: str) -> str:
     return md
 
 
-def build():
+def build(one_page=True):
     if not SRC.exists():
         sys.exit(f"missing {SRC}")
     lines = SRC.read_text(encoding="utf-8").splitlines()
@@ -76,7 +83,9 @@ def build():
     while i < len(lines):
         ln = lines[i].rstrip()
 
-        if ln.startswith("# "):
+        if ln.startswith("## "):
+            flow.append(Paragraph(inline(ln[3:]), styles["h2"]))
+        elif ln.startswith("# "):
             flow.append(Paragraph(inline(ln[2:]), styles["title"]))
         elif ln.startswith("**Concept:**"):
             flow.append(Paragraph(inline(ln), styles["sub"]))
@@ -115,7 +124,7 @@ def build():
 
     pages = count_pages(OUT)
     print(f"wrote {OUT} — {OUT.stat().st_size / 1024:.0f} KB, {pages} page(s)")
-    if pages > 1:
+    if one_page and pages > 1:
         print("  WARNING: the brief asks for a ONE-page summary. Tighten the "
               "source or reduce leading before submitting.")
     return pages
@@ -146,4 +155,8 @@ def count_pages(path):
 
 
 if __name__ == "__main__":
-    build()
+    which = sys.argv[1] if len(sys.argv) > 1 else "summary"
+    if which not in DOCS:
+        sys.exit(f"unknown doc {which!r}; choose from {', '.join(DOCS)}")
+    SRC, OUT, ONE_PAGE = DOCS[which]
+    build(one_page=ONE_PAGE)

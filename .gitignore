@@ -13,3 +13,4 @@ refs/
 *.pt
 !data/bdh_mqar_final.pt
 !artifact/data/weights.bin
+.livecheck/
