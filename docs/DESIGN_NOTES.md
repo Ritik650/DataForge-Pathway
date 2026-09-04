@@ -4,8 +4,10 @@
 
 Every instance where a measurement, a test, or a stated rule turned out to be
 wrong. Each row is a prediction we made, what actually happened, and what was
-at fault. In **seven of the twelve, the finding survived and the instrument
-was what broke** — which is the pattern worth knowing about this project.
+at fault. In **eight of the thirteen, the finding survived and the instrument
+was what broke** — which is the pattern worth knowing about this project. Row
+13 is the sharpest case: the harness built to catch this class of error had the
+same class of error in it.
 
 | # | We predicted | What happened | What was actually wrong | Where |
 |---|---|---|---|---|
@@ -21,10 +23,15 @@ was what broke** — which is the pattern worth knowing about this project.
 | 10 | Targeted ablation lowers p(answer) on any given sequence | Failed on seed 12345 — p(answer) rose | **The test.** An aggregate effect does not license a per-case prediction; it flips on ~23% of sequences | page logic |
 | 11 | `passed_all` tracks every gate | Printed "ALL GATES PASS" while G2 monotonicity had failed | **The harness.** A silent pass, in the code whose job is preventing silent passes | gates |
 | 12 | The summary is 888 words | Laid-out PDF was 947, three under the ceiling | **The counter.** Ad-hoc counting stripped table rows and markdown; now script-derived and gated | `check_pdf.py` |
+| 13 | `verify.py` tells you whether the submission is sound | On a restricted network it printed "do not ship" about a submission that was fine — 403s and DNS failures were counted as broken links, and a missing torch as a failed gate | **The harness.** It failed in the wrong direction: unable-to-check was reported as checked-and-broken. Gates now exit 77 for "this machine cannot run me", verified by simulating no-torch and no-egress together, and by a negative test confirming a real 404 still fails | `verify.py`, `check_links.py` |
 
-**Rows 1, 3, 6, 7, 10, 11 and 12 are instrument failures** — the science was
-fine and the thing measuring it was not. Rows 2, 5, 8 and 9 are hypotheses the
-data refuted. Row 4 is a retraction that was itself wrong.
+**Rows 1, 3, 6, 7, 10, 11, 12 and 13 are instrument failures** — the science
+was fine and the thing measuring it was not. Rows 2, 5, 8 and 9 are hypotheses
+the data refuted. Row 4 is a retraction that was itself wrong.
+
+A corollary we had to learn twice (rows 11 and 13): **a check that cannot run
+is not a check that passed, and it is not a check that failed either.** Both
+mistakes are silent in opposite directions.
 
 The practical lesson, stated once because it recurs: **numbers computed ad hoc
 to answer a question are the ones that go wrong; numbers a committed script
