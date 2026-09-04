@@ -34,6 +34,31 @@
     <em>twice as much</em> state from anywhere else and it survives.
   </p>
 
+  <!-- ── who this is for ────────────────────────────────── -->
+  <section class="forwhom" aria-label="audience, prerequisites and learning objectives">
+    <div>
+      <span class="lbl">Who this is for</span>
+      <p>An ML practitioner or final-year student who understands a Transformer
+      forward pass and softmax attention, and has never read the BDH paper.
+      About ten minutes.</p>
+    </div>
+    <div>
+      <span class="lbl">You need</span>
+      <p>Matrix multiplication. What a KV cache is. What “in-context learning”
+      means. No neuroscience.</p>
+    </div>
+    <div>
+      <span class="lbl">By the end you can</span>
+      <ol>
+        <li>Say where within-session memory physically lives in BDH, versus in a Transformer.</li>
+        <li>Predict what a specific ablation does before you run it — and be right.</li>
+        <li>State the rule for which binding this model cannot retrieve, and check it.</li>
+        <li>Say what BDH’s published evidence does and does not establish.</li>
+        <li>Name a limitation of this page.</li>
+      </ol>
+    </div>
+  </section>
+
   <div class="hr"></div>
 
   <!-- ── act 1 ──────────────────────────────────────────── -->
@@ -177,7 +202,20 @@
     <div class="readout" id="readout"></div>
   </section>
 
-  <!-- ── charts ─────────────────────────────────────────── -->
+  <!-- ── act 4 ──────────────────────────────────────────── -->
+  <section class="act" id="act4">
+    <div class="act-head">
+      <span class="act-num">04</span>
+      <h2>Two measurements you can check against your own run</h2>
+    </div>
+    <p class="lede">
+      Both charts are precomputed over hundreds of sequences, because a reliable
+      proportion needs more trials than a page can run while you wait. The
+      button above runs a hundred live — your number should land near ours, and
+      if it does not, that is worth knowing.
+    </p>
+  </section>
+
   <div class="charts">
     <div class="panel">
       <h3>Dose–response</h3>
