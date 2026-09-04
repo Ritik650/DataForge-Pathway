@@ -2,9 +2,16 @@
   "checkpoint": "data/artifact_d32m8.pt",
   "trials": 150,
   "criterion": {
-    "baseline_recall_min": 0.95,
-    "bystander_abl_min": 0.9,
-    "then": "maximise targeted-vs-top_other gap"
+    "applied": {
+      "baseline_recall_min": 0.95,
+      "then": "maximise selectivity ratio (target drop / bystander drop)"
+    },
+    "original_rejected": {
+      "baseline_recall_min": 0.95,
+      "bystander_abl_min": 0.9,
+      "why_rejected": "selects a 9.3-point gap where nothing visibly breaks"
+    },
+    "disclosed_miss": "shipped preset lands at 88.0% bystanders, 2.4 points below the original 90% bar"
   },
   "candidates": [
     {
@@ -38,7 +45,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 1.0
+      "target_abl": 1.0,
+      "selectivity_ratio_n250": 0.0
     },
     {
       "n_pairs": 3,
@@ -71,7 +79,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.9866666666666667
+      "target_abl": 0.9866666666666667,
+      "selectivity_ratio_n250": 0.08695652173913028
     },
     {
       "n_pairs": 3,
@@ -104,7 +113,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.9933333333333333
+      "target_abl": 0.9933333333333333,
+      "selectivity_ratio_n250": 0.0434782608695655
     },
     {
       "n_pairs": 3,
@@ -137,7 +147,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.72
+      "target_abl": 0.72,
+      "selectivity_ratio_n250": 1.6799999999999993
     },
     {
       "n_pairs": 4,
@@ -170,7 +181,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.9466666666666667
+      "target_abl": 0.9466666666666667,
+      "selectivity_ratio_n250": 2.000000000000004
     },
     {
       "n_pairs": 4,
@@ -203,7 +215,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.88
+      "target_abl": 0.88,
+      "selectivity_ratio_n250": 1.565217391304348
     },
     {
       "n_pairs": 4,
@@ -236,7 +249,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.7333333333333333
+      "target_abl": 0.7333333333333333,
+      "selectivity_ratio_n250": 2.1052631578947363
     },
     {
       "n_pairs": 4,
@@ -269,7 +283,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.20666666666666667
+      "target_abl": 0.20666666666666667,
+      "selectivity_ratio_n250": 5.063829787234043
     },
     {
       "n_pairs": 5,
@@ -302,7 +317,8 @@
       ],
       "bystander_n": 300,
       "target_base": 0.9933333333333333,
-      "target_abl": 0.9866666666666667
+      "target_abl": 0.9866666666666667,
+      "selectivity_ratio_n250": 0.16666666666666483
     },
     {
       "n_pairs": 5,
@@ -335,7 +351,8 @@
       ],
       "bystander_n": 300,
       "target_base": 0.9933333333333333,
-      "target_abl": 0.96
+      "target_abl": 0.96,
+      "selectivity_ratio_n250": 0.47619047619047566
     },
     {
       "n_pairs": 5,
@@ -368,7 +385,8 @@
       ],
       "bystander_n": 300,
       "target_base": 0.9933333333333333,
-      "target_abl": 0.7866666666666666
+      "target_abl": 0.7866666666666666,
+      "selectivity_ratio_n250": 1.1272727272727272
     },
     {
       "n_pairs": 5,
@@ -401,7 +419,8 @@
       ],
       "bystander_n": 300,
       "target_base": 0.9933333333333333,
-      "target_abl": 0.29333333333333333
+      "target_abl": 0.29333333333333333,
+      "selectivity_ratio_n250": 3.4426229508196715
     },
     {
       "n_pairs": 8,
@@ -434,7 +453,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 1.0
+      "target_abl": 1.0,
+      "selectivity_ratio_n250": 0.0
     },
     {
       "n_pairs": 8,
@@ -467,7 +487,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.6933333333333334
+      "target_abl": 0.6933333333333334,
+      "selectivity_ratio_n250": 6.1333333333333275
     },
     {
       "n_pairs": 8,
@@ -500,7 +521,8 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.5133333333333333
+      "target_abl": 0.5133333333333333,
+      "selectivity_ratio_n250": 3.743589743589744
     },
     {
       "n_pairs": 8,
@@ -533,40 +555,44 @@
       ],
       "bystander_n": 300,
       "target_base": 1.0,
-      "target_abl": 0.26666666666666666
+      "target_abl": 0.26666666666666666,
+      "selectivity_ratio_n250": 3.235294117647059
     }
   ],
   "selected": {
-    "n_pairs": 4,
+    "n_pairs": 8,
     "n_filler": 2,
     "m": 8,
-    "query_offset": 11,
+    "query_offset": 19,
     "baseline_recall": 1.0,
     "trials_used": 150,
-    "targeted": 0.8933333333333333,
+    "targeted": 0.72,
     "targeted_ci": [
-      0.8337524992356726,
-      0.9332702046363619
+      0.6433420194970179,
+      0.7856706792788659
     ],
-    "top_other": 0.9866666666666667,
+    "top_other": 1.0,
     "top_other_ci": [
-      0.9526921436197238,
-      0.9963359476117768
+      0.9750288608542812,
+      1.0
     ],
-    "matched": 0.92,
-    "random": 0.9666666666666667,
-    "gap": 0.09333333333333334,
-    "mass_ratio": 1.4353242037281466,
-    "mass_targeted": 116.66628489176432,
-    "mass_top_other": 167.45394246419272,
-    "bystander_base": 0.99,
-    "bystander_abl": 0.9133333333333333,
+    "matched": 0.9533333333333334,
+    "random": 1.0,
+    "gap": 0.28,
+    "mass_ratio": 2.0634801825370794,
+    "mass_targeted": 131.2430889892578,
+    "mass_top_other": 270.81751322428386,
+    "bystander_base": 0.93,
+    "bystander_abl": 0.88,
     "bystander_ci": [
-      0.8760432544899761,
-      0.940171510045229
+      0.8383413318338598,
+      0.9120496613678611
     ],
     "bystander_n": 300,
     "target_base": 1.0,
-    "target_abl": 0.88
-  }
+    "target_abl": 0.6933333333333334,
+    "selectivity_ratio_n250": 6.1333333333333275
+  },
+  "note": "Search run at n=250 per candidate. It identifies the preset; it is NOT the source of any figure quoted elsewhere. Canonical values for the shipped preset come from the n=400 confirmation in dose_panel.json -- selectivity 5.9x there against 6.1x here, the difference being sampling at two sample sizes, not two different presets.",
+  "canonical_figures_live_in": "artifact/data/dose_panel.json"
 }

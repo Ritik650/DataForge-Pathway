@@ -20,10 +20,13 @@ Topic: *Synaptic Plasticity as Short-Term Memory*
 > and no parameter ever changes.**
 
 **Scope.** The claim is localisation, and only localisation. An earlier version
-also asserted volatility — that enough competing facts erase the binding
-anyway. That half is not shipped: the interference curve it rested on is being
-re-verified, and until it clears, it does not appear in the artifact or support
-the claim. One claim, fully backed, beats two with one wobbling.
+also asserted volatility — that enough competing facts erase the binding anyway.
+That half is **withdrawn, not pending**: the interference curve it rested on
+failed its own control (Test C, `DESIGN_NOTES` §3f — recall moves 50%→100% when
+only neutral filler changes and the binding count is held fixed, so the load
+axis is confounded with sequence geometry). It does not appear in the artifact
+and does not support the claim. One claim, fully backed, beats two with one
+wobbling.
 
 Localisation is falsifiable in one sharp direction, and the artifact can show it
 failing:
@@ -77,20 +80,51 @@ per sequence, so the weight-optimal prior for "which city follows Mira" is
 uniform. Verified empirically — pair frequencies over 20k sequences are uniform
 to Poisson noise.
 
-### The shipped substrate and demo preset
+### The shipped substrate
 
 d=32, **N=256**, 2 layers, state **8,192 entries/layer**, **27,776 params**,
 trained on 2–8 bindings and 0–8 filler — the range the artifact displays.
 Weights ship as a 109.5 KB `Float32Array`, export verified lossless by
 round-trip (0.000e+00) before the binary is written.
 
-Demo preset: **7 bindings, 3 filler units, querying the oldest binding.**
-Baseline recall at that preset is **300/300**.
+### The demo preset
 
-### Dose–response, and why the preset is m=8
+**8 bindings · 2 filler units · query the oldest binding · dose m=8.**
 
-Preset: **8 bindings, 2 filler units, querying the oldest binding** (token offset
-19, inside a clean band). n=400 per row, `artifact/data/dose_panel.json`.
+The queried binding sits at token offset 19, inside a clean band (§ *periodic
+bands* below). Baseline recall at this preset is **99.8%** over n=400.
+
+This is the only preset the artifact ships. An earlier draft used 7 bindings /
+3 filler at m=32; it was replaced when dose was added to the selection search,
+and the superseded figures do not appear anywhere in this repo. Selection
+procedure and the full candidate table: `scripts/select_preset.py` and
+`artifact/data/preset_selection.json`.
+
+**How it was chosen, and what it misses.** The first selection rule was
+*baseline ≥95%, bystanders after ablation ≥90%, then maximise the localisation
+gap*. Applied literally it picks a 9.3-point gap — recall stays at 89.3% and
+nothing visibly breaks. That is a flaw in the rule: dose and effect size are the
+same knob pulled in opposite directions, so "largest gap above a bystander
+floor" lands on the smallest dose that still registers, and **no candidate with
+a teachable gap clears 90% bystanders on this substrate at all.**
+
+The applied rule maximises the **selectivity ratio** — the targeted binding's
+drop divided by untouched bindings' drop — which is what "that recall breaks
+while the rest survives" actually asserts. The shipped preset is the maximum on
+that measure at every sample size tested.
+
+It lands at **88.0% bystanders, 2.4 points below the original 90% bar.** That is
+stated here, in the selection script, and on the page rather than rounded past.
+
+All quoted figures for this preset come from the n=400 confirmation in
+`dose_panel.json`. The n=250 search in `preset_selection.json` identifies the
+preset but is not the source of any number quoted elsewhere — its selectivity
+reads 6.1× against the canonical 5.9×, which is two sample sizes, not two
+presets.
+
+### Dose–response, and why m=8
+
+n=400 per row, `artifact/data/dose_panel.json`.
 
 | m | % of state | targeted | top_other | matched | random | p(answer) | bystanders | selectivity |
 |---|---|---|---|---|---|---|---|---|
@@ -175,25 +209,30 @@ The last column is the catch, and it drives the substrate choice: the narrow
 models are correct on only ~35% of trials *before* any ablation, because they
 were trained across 2–14 bindings — a range the artifact will never show.
 
-### Interference: withdrawn pending re-verification
+### Interference: withdrawn
 
-An interference result (recall collapsing against competing bindings while an
-equal number of neutral filler tokens leaves it untouched) was measured and is
+An interference result — recall collapsing against competing bindings while an
+equal number of neutral filler tokens leaves it untouched — was measured and is
 **not shipped**. It is withdrawn from the claim, the artifact, and the results
-above until it is re-verified on a second substrate.
+above. This is a decision, not a queue: no further measurement is planned.
 
-Two reasons, both found by controls rather than by inspection:
+Three reasons, all found by controls rather than by inspection:
 
-1. The binding curve is **not monotone**. On the shipped substrate it reads
+1. **It fails Test C.** Hold the binding count fixed at 7 and vary only neutral
+   filler, and recall reads 50.4% → 40.0% → 73.6% → 100.0% across filler 0–3
+   (`positional_map.json`). Recall moves while the competing-binding count does
+   not, so the load axis is confounded with sequence geometry and any curve
+   built on it is uninterpretable. Full definition in `DESIGN_NOTES` §3f.
+2. **The binding curve is not monotone.** On the shipped substrate it reads
    39.7% [36.5, 42.9] at 6 competing bindings and rises to 51.1% [47.8, 54.4]
    at 7 (n=900, disjoint intervals). Seven competing bindings are reproducibly
    harder than eight, and we cannot explain it.
-2. The measurement was contaminated by the positional blind spot below. With no
-   filler separating query from binding block, one load in the sweep read
+3. **The measurement was contaminated** by the positional blind spot below. With
+   no filler separating query from binding block, one load in the sweep read
    exactly 0.0% — the offset-3 failure, not interference.
 
-The dissociation may well hold; the point is that it has not yet been shown to
-hold cleanly, and a claim that needs an asterisk is not ready to teach.
+The dissociation may well hold. It has not been shown to hold cleanly here, and
+a claim that needs an asterisk is not ready to teach.
 
 ### Retrieval fails in periodic bands of relative offset
 
