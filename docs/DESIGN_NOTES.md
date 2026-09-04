@@ -283,6 +283,56 @@ the reference exactly; setting it below 1 explores the damping case of the same
 published `U`. The artifact must label it that way rather than implying the
 released model has a forgetting knob.
 
+### 4b. The stability-plasticity trade-off did not replicate. The decay control is cut.
+
+The plan's §5.3 wanted a decay slider showing the classic trade: slower decay
+retains longer but interferes more, faster decay is cleaner but shorter-lived.
+The prediction was that curves for different `u` should **cross** — damping
+worse for old bindings, no worse or better for recent ones.
+
+Three attempts, each fixing the previous regime error:
+
+1. **Wide state, 8 bindings.** Everything at ~100% almost everywhere. Nothing is
+   forgotten, so damping has nothing to trade against. Inconclusive.
+2. **Narrow state, 10 bindings.** Everything floored at ~10%. The state is
+   already exhausted at that load, so again no dynamic range. Inconclusive.
+3. **Narrow state, 3 and 5 bindings** — loads chosen to have headroom. This one
+   could have shown the effect, and did not.
+
+Recall by binding age, narrow state (2,048 entries), n=400 per point:
+
+| bindings | u | oldest → newest |
+|---|---|---|
+| 3 | **1.00** | 42.5  31.2  23.5 |
+| 3 | 0.95 | 39.0  32.5  19.0 |
+| 3 | 0.90 | 7.8  7.2  5.8 |
+| 3 | 0.80 | 7.8  7.8  5.8 |
+| 5 | **1.00** | 24.5  23.2  24.5  13.0  12.5 |
+| 5 | 0.95 | 24.8  23.8  19.2  14.5  10.2 |
+| 5 | 0.90 | 5.5  5.2  9.8  7.0  5.0 |
+| 5 | 0.80 | 5.0  5.0  9.5  7.2  4.0 |
+
+**No crossing anywhere.** `u=1.0` is at least as good as every damped model at
+every age and every load. Damping below 0.95 is catastrophic — overall recall
+falls from 21.3% to 7.5% — and it never buys anything for recent bindings,
+which is the entire content of the trade-off claim.
+
+**What we cannot distinguish.** Whether the trade-off is absent in this toy
+regime, or whether damped models need their own learning-rate and schedule and
+our fixed recipe disadvantages them. Both are live; we have not tested the
+second. So this is reported as *not demonstrated*, not as *refuted*.
+
+**Decision: the decay slider is cut from the artifact.** A control whose
+underlying effect we cannot demonstrate would be a decorative slider dressed as
+a concept variable, which is exactly what the brief says to cut, and defending
+it in a live review would be impossible. The artifact ships two controls —
+which synapses are ablated, and interference load — both backed by results that
+survived their own falsification tests.
+
+`scripts/decay_small.py` and the data stay in the repo as a recorded negative
+result. The `u_decay` parameter stays in `src/bdh.py` because it is a faithful
+implementation of the published `U`, and is documented as unused by default.
+
 ---
 
 ## 5. The state we ablate is `rho` (d x n), not the neuron-neuron `sigma`.

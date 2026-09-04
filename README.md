@@ -137,8 +137,29 @@ that gate its curve is excluded. See `DESIGN_NOTES.md` §3d.
 | MQAR dataset | **Synthetic**, generated from committed seeds. No external data. |
 | Model weights | **Trained by us.** Not an official Pathway model, not a released checkpoint, far below any reported BDH scale. |
 | Forward pass and ablation in the artifact | **Live** (planned) — the learner's choice is computed for real |
-| Dose-response, interference, decay sweeps | **Precomputed**, shipped as JSON in `artifact/data/` |
+| Dose-response and interference sweeps | **Precomputed**, shipped as JSON in `artifact/data/` |
+| Decay / stability–plasticity | **Not demonstrated.** Control cut from the artifact — see below. |
+| Across-width capacity ordering | **Not established.** Two of four widths fail the load-0 quality gate. |
 | Positional dip (`DESIGN_NOTES` §3c) | **Observed but not characterised.** Excluded from the artifact as a teachable claim. |
+
+### Results we tried for and did not get
+
+Reported because a submission that only lists its successes cannot be checked.
+
+**The stability–plasticity trade-off did not replicate.** Damping is the `u < 1`
+case of the paper's own `U` matrix, and the prediction was that curves for
+different `u` should cross — damping worse for old bindings, better for recent
+ones. Across three regimes (wide state where nothing is forgotten, narrow state
+where everything is floored, and narrow state at loads with headroom), **no
+crossing appears anywhere.** `u=1.0` matches or beats every damped model at
+every binding age; `u<0.95` is catastrophic (overall recall 21.3% → 7.5%).
+
+We cannot distinguish "the trade-off is absent in this toy regime" from "damped
+models need their own hyperparameters and our fixed recipe disadvantages them",
+so this is *not demonstrated*, not *refuted*. **The decay slider is cut from the
+artifact** — a control whose effect we cannot demonstrate would be a decorative
+slider dressed as a concept variable. The artifact ships two controls, both
+backed by results that survived their own falsification tests.
 
 ## Reproducing
 
