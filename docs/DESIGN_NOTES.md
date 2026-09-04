@@ -193,6 +193,28 @@ enters the capacity comparison only if it recalls a lone binding at ≥95%
 (`LOAD0_GATE`). Wider models get the steps they need to clear it. Any width
 that fails the gate is reported but excluded, with the failure stated.
 
+**Outcome after the fix: still not established, and now we know why.** Tripling
+the budget for the two wide models was not enough to clear the gate.
+
+| width | state/layer | steps | load-0 recall | gate |
+|---|---|---|---|---|
+| d32m2 | 2,048 | 8,000 | 99.6% | PASS |
+| d32m4 | 4,096 | 8,000 | 100.0% | PASS |
+| d32m8 | 8,192 | 24,000 | 83.6% (was 62.4% at 8k) | FAIL |
+| d64m8 | 32,768 | 24,000 | 92.4% (was 83.2% at 8k) | FAIL |
+
+Both wide models improved substantially with more steps and neither converged.
+That points at the training recipe, not the architecture: learning rate,
+schedule, and `answer_weight` were tuned on the narrow models and carried over
+unchanged, and the wider models plausibly need their own. We have not tested
+that, so it stays a hypothesis.
+
+**What can honestly be said.** Among the two widths that clear the gate, the
+wider state is better at every load (load-3 recall 35.2% → 52.8%). That is a
+two-point comparison, consistent with the capacity reading and nowhere near
+sufficient to assert it as a law. The artifact will show the binding-vs-filler
+dissociation, which is solid, and will not claim a capacity scaling result.
+
 **What survives regardless.** The binding-vs-filler dissociation is unaffected —
 it holds cleanly on both models that clear the gate, and it is a within-model
 comparison, so training quality cancels. Only the *across-width ordering*
