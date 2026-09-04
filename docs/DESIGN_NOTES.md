@@ -273,16 +273,29 @@ failure to index 7 rather than removing it. The offset-3 rule, the
 "two tokens abolish it" rule, and the adjacency-masking story are all
 unsupported as stated.
 
-**Status update: now characterised, and the offset-3 hypothesis was right after
-all. The refutation above was the error.**
+**Status update: characterised as periodic offset bands. Read the correction at
+the end of this section before quoting anything from it — the first version of
+this update overstated the rule and was caught by our own committed data.**
 
 A full scan of the shipped substrate over `n_pairs` x `query_idx` x `n_filler`
-(140 cells, n=250 each, `scripts/positional_map.py`) gives an exact rule.
+(140 cells, n=250 each, `scripts/positional_map.py`).
 
-**The rule.** The binding whose city token sits exactly **3 tokens before the
-query** cannot be retrieved. With no filler, that is index `P - 2` — the
-second-to-last binding — and recall is **0.0%** in every one of the seven cells
-from `P=2` to `P=8`:
+**The measured structure.** Grouping all 140 cells by token distance from query
+to queried binding:
+
+| offset | 1 | 3 | 5 | 7 | 9 | 11 | 13 | 15 | 17 | 19 | 21 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| cells | 7 | 14 | 20 | 25 | 22 | 18 | 14 | 10 | 6 | 3 | 1 |
+| failures | 0 | 9 | 0 | 2 | 0 | 0 | 2 | 8 | 6 | 0 | 0 |
+| mean | 100.0 | 42.8 | 99.7 | 97.3 | 98.4 | 99.1 | 93.7 | 68.7 | 71.3 | 100.0 | 100.0 |
+
+Two null bands, at offset 3 and across 13-17, separated by a clean stretch at
+5-11. Offsets 19 and 21 recover on 3 and 1 cells, so the shape beyond 17 is
+**unresolved, not clean**.
+
+**The sharpest sub-result**, which is exact within its scope: with `f = 0`, the
+binding at offset 3 (index `P - 2`, the second-to-last) scores **0.0%** in every
+one of the seven cells from `P=2` to `P=8`:
 
 | pairs | failing idx | from end | token offset | recall |
 |---|---|---|---|---|
@@ -398,6 +411,48 @@ load 2 at 100% — a hole in the middle of a curve we were about to publish.
 Fixed by separating the query from the binding block with one filler unit in
 **both** conditions, which leaves their token counts identical (7 + 2k either
 way) and so leaves the matched-length comparison intact. Load 1 returns to 100%.
+
+## 3f. The interference curve is withdrawn. Test C, and why we are not running it on d32m2.
+
+**Test C** (definition, so it is not re-invented later): hold the number of
+competing bindings fixed and inside the training range (`n_pairs = 7`,
+`query_idx = 0`), vary `n_filler` across its in-distribution range 1-8, and
+measure recall at n >= 250 per point. **Pass:** recall flat within sampling
+noise. **Fail:** any two points with disjoint intervals — because that means
+recall moved while the competing-binding count did not, so the "load" axis is
+confounded with sequence geometry and any interference curve built on it is
+uninterpretable.
+
+**The shipped model fails Test C.** `scripts/positional_map.py` is a strict
+superset of it, and its `n_pairs = 7` row moves with filler:
+
+| n_filler | 1 | 2 | 3 |
+|---|---|---|---|
+| recall at `query_idx = 0` | 40.0% [34.1, 46.2] | 73.6% [67.8, 78.7] | 100.0% |
+
+Disjoint intervals, with the binding count held constant throughout. Changing
+only the number of neutral filler tokens moves recall from 40% to 100%. The
+load axis is therefore confounded with sequence geometry, which is exactly the
+condition Test C was written to detect. The interference curve is **withdrawn
+from the claim, the artifact, and the results.**
+
+**We are not running Test C on `d32m2`, deliberately.** Three reasons:
+
+1. The reason for running it is gone. The interference claim is withdrawn, so
+   we would be validating a result we are not citing.
+2. `d32m2` is a discarded checkpoint from the width-comparison family, trained
+   on 2-14 bindings and correct on only 135/400 trials before any intervention.
+   A recall-based curve on a 34% baseline is uninterpretable regardless of the
+   outcome.
+3. It would cost a training run on a dead branch.
+
+**Honest status of the d32m2 interference curve:** withdrawn on the grounds
+that the shipped model's positional scan shows the load axis is confounded with
+sequence geometry, and that the same confound is **untested but likely present**
+in `d32m2`, which shares the architecture, the task, and the query-at-index-0
+measurement design. We are not claiming `d32m2` was shown to be confounded. We
+are declining to cite a curve we have specific reason to distrust and no reason
+to need.
 
 ## Open questions (recorded, not investigated — science is frozen)
 

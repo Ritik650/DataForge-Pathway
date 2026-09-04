@@ -160,43 +160,38 @@ Two reasons, both found by controls rather than by inspection:
 The dissociation may well hold; the point is that it has not yet been shown to
 hold cleanly, and a claim that needs an asterisk is not ready to teach.
 
-### A positional blind spot, characterised
+### Retrieval fails in periodic bands of relative offset
 
-The model has an exact, predictable failure mode, and it is a headline result
-rather than a caveat. Scanning `n_pairs` × `query_idx` × `n_filler` (140 cells,
-n=250 each, `scripts/positional_map.py`):
+Scanning `n_pairs` × `query_idx` × `n_filler` (140 cells, n=250 each,
+`scripts/positional_map.py`) and grouping by the token distance from the query
+back to the queried binding:
 
-**The binding whose city token sits exactly 3 tokens before the query cannot be
-retrieved.** With no filler that is the second-to-last binding, and recall is
-**0.0%** in all seven cells from 2 to 8 bindings — not degraded, zero — while
-neighbouring positions sit at 98–100%.
+| token offset | 1 | 3 | 5 | 7 | 9 | 11 | 13 | 15 | 17 | 19 | 21 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| cells | 7 | 14 | 20 | 25 | 22 | 18 | 14 | 10 | 6 | 3 | 1 |
+| failures | 0 | **9** | 0 | 2 | 0 | 0 | 2 | **8** | **6** | 0 | 0 |
+| mean recall | 100.0 | **42.8** | 99.7 | 97.3 | 98.4 | 99.1 | 93.7 | **68.7** | **71.3** | 100.0 | 100.0 |
 
-| pairs | failing idx | tokens back to binding | recall |
-|---|---|---|---|
-| 2 | 0 | 3 | 0.0% [0.0, 1.5] |
-| 4 | 2 | 3 | 0.0% |
-| 6 | 4 | 3 | 0.0% |
-| 8 | 6 | 3 | 0.0% |
+Two null bands — at offset 3, and again across offsets 13–17 — separated by a
+clean stretch at 5–11 where mean recall is 97–100%. Offsets 19 and 21 recover,
+but on 3 and 1 cells respectively, so **the shape beyond 17 is unresolved.**
 
-The binding at offset 3 has index `P + f − 2` for `P` bindings and `f` filler
-units, which predicts the failing index in every observed cell:
+The sharpest single result sits inside the first band: with no filler, the
+binding at offset 3 (the second-to-last) scores **exactly 0.0%** in all seven
+cells from 2 to 8 bindings, against 98–100% at neighbouring positions.
 
-| filler | index at offset 3 | outcome |
-|---|---|---|
-| 0 | `P − 2`, second-to-last | 0.0% |
-| 1 | `P − 1`, **last binding** | 41.6% / 57.6% — still fails |
-| ≥ 2 | `P` — **does not exist** | no offset-3 failure possible |
-
-So adding filler never repaired anything; it slid the blind spot off the end of
-the binding list. An earlier version of these notes recorded the offset-3
-hypothesis as *refuted* — that was wrong, and the refutation rested on a single
-checkpoint at one filler setting without checking whether any binding still
-occupied offset 3. It did not.
+**Offset alone does not determine failure, and an earlier version of this
+section wrongly said it did.** Of 27 failing cells only 9 are at offset 3, and
+of the 14 cells at offset 3, five pass — all at one filler unit with fewer than
+seven bindings. Load and offset interact; neither predicts failure by itself.
+That claim was checked against our own committed `positional_map.json` and did
+not survive it.
 
 **Mechanism: hypothesis, not result.** BDH scores attention as
-`⟨rope_t(x_t), rope_τ(x_τ)⟩`, a function of `t − τ`, so a relative offset landing
-in a phase-cancellation zone is the obvious candidate and fits every
-observation. We have not demonstrated it, and the artifact says so.
+`⟨rope_t(x_t), rope_τ(x_τ)⟩`, a function of `t − τ`. Periodic nulls in relative
+offset are what phase cancellation predicts, and a periodic band structure is a
+better fit to that hypothesis than a single blind spot would have been. We have
+not demonstrated it, and the artifact says so.
 
 ### Results we tried for and did not get
 

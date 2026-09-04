@@ -1,0 +1,4 @@
+substrate data/artifact_d32m8.pt, state 8,192/layer
+
+      preset  off   base   targ  top_o    gap   mass  bys.base  bys.abl
+    p3/f2/m4    9 100.0% 100.0%  99.3%  -0.7  1.49x     99.7%    96.3%
