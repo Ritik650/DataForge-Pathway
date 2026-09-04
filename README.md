@@ -87,21 +87,56 @@ round-trip (0.000e+00) before the binary is written.
 Demo preset: **7 bindings, 3 filler units, querying the oldest binding.**
 Baseline recall at that preset is **300/300**.
 
-### Localisation at the demo preset
+### Dose–response, and why the preset is m=8
 
-`m=32`, 0.391% of state, n=300, every trial baseline-correct:
+Preset: **8 bindings, 2 filler units, querying the oldest binding** (token offset
+19, inside a clean band). n=400 per row, `artifact/data/dose_panel.json`.
+
+| m | % of state | targeted | top_other | matched | random | p(answer) | bystanders | selectivity |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 0.024% | 100.0% | 100.0% | 99.2% | 99.5% | 0.799 | 92.4% | 0.0× |
+| 4 | 0.049% | 98.7% | 100.0% | 97.7% | 99.7% | 0.782 | 91.0% | 0.5× |
+| **8** | **0.098%** | **77.2%** | **100.0%** | 95.7% | 100.0% | **0.614** | 88.0% | **5.9×** |
+| 16 | 0.195% | 53.1% | 98.7% | 87.0% | 98.5% | 0.438 | 82.4% | 4.8× |
+| 32 | 0.391% | 29.8% | 88.0% | 81.0% | 97.7% | 0.287 | 77.0% | 4.3× |
+| 64 | 0.781% | 14.3% | 78.7% | 77.7% | 95.5% | 0.138 | 63.2% | 2.9× |
+| 128 | 1.562% | 10.8% | 79.2% | 76.2% | 90.5% | 0.098 | 48.6% | 2.1× |
+
+Targeted ablation collapses from 100% to 10.8% across the ladder while uniform
+random barely moves (99.5% → 90.5%), and `top_other` — which removes **more**
+state mass than targeted at every dose — stays above 78%.
+
+**Selectivity peaks at m=8** (5.9×, the ratio of the targeted binding's drop to
+untouched bystanders' drop), so the preset is the measured optimum of the ladder
+rather than a taste call.
+
+**Dose is the artifact's second control, and the trade-off is the lesson.**
+Small doses are surgical but mild; large doses are dramatic but bleed —
+bystanders fall monotonically from 92.4% to 48.6%. A learner slides it and sees
+specificity being spent.
+
+Some of that bleed is substrate, not dose: this model holds 8,192 state entries
+where the earlier one held 32,768, so writes overlap about 4× more.
+
+### The sixty-second moment, at the shipped preset
+
+At **m=8** — 8 entries out of 8,192 — with n=400 and baseline recall 99.8%:
 
 | condition | recall | 95% CI | state mass removed |
 |---|---|---|---|
-| baseline | 100.0% | [98.7, 100.0] | — |
-| **targeted** | **29.0%** | [24.2, 34.4] | 367.1 |
-| magnitude-matched | 85.0% | [80.5, 88.6] | 304.4 (0.83×) |
-| **top_other** | **78.7%** | [73.7, 82.9] | **647.9 (1.77×)** |
-| uniform random | 95.7% | [92.7, 97.5] | 45.8 (0.12×) |
+| baseline | 99.8% | [98.6, 100.0] | — |
+| **targeted** | **77.2%** | [72.8, 81.0] | 1.00× |
+| **top_other** | **100.0%** | [99.0, 100.0] | **2.06×** |
+| magnitude-matched | 95.7% | — | 0.94× |
+| uniform random | 100.0% | — | 0.13× |
 
-A 49.7-point gap against a control that removes **1.77× more state mass**.
-Specificity: the targeted binding falls 92.3% → 13.7% while bystanders in the
-same sequence go 94.5% → 74.5%.
+The control that removes **twice** the state mass costs nothing; the eight
+entries this binding actually wrote cost 22.6 points of recall and drop
+p(answer) from 0.96 to 0.614. Intervals disjoint.
+
+Specificity at the same dose: the targeted binding falls 100% → 74.2% while
+untouched bindings in the same sequence go 92.4% → 88.0% — a 5.9× selectivity
+ratio, the maximum over the dose ladder.
 
 ### Localisation across state widths
 
