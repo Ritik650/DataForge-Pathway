@@ -1,0 +1,352 @@
+{
+  "note": "Each u is a separate training run. u=1.0 reproduces the public BDH reference (U = RoPE rotation only). u<1 is the damping case of the same U from Definition 4 of arXiv:2509.26507. One filler unit separates the query from the binding block to avoid the second-to-last-binding artifact documented in DESIGN_NOTES 3c.",
+  "iters": 6000,
+  "n_pairs": 8,
+  "trials_per_point": 400,
+  "results": [
+    {
+      "u_decay": 1.0,
+      "overall_recall": 0.9864406779661017,
+      "by_age": [
+        {
+          "query_idx": 0,
+          "n_written_after": 7,
+          "recall": 0.94,
+          "n": 400,
+          "ci": [
+            0.9122765567969421,
+            0.9593523194753389
+          ]
+        },
+        {
+          "query_idx": 1,
+          "n_written_after": 6,
+          "recall": 0.9875,
+          "n": 400,
+          "ci": [
+            0.9710758472688621,
+            0.9946493281464495
+          ]
+        },
+        {
+          "query_idx": 2,
+          "n_written_after": 5,
+          "recall": 0.9975,
+          "n": 400,
+          "ci": [
+            0.9859763590327523,
+            0.9995585635705656
+          ]
+        },
+        {
+          "query_idx": 3,
+          "n_written_after": 4,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 4,
+          "n_written_after": 3,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 5,
+          "n_written_after": 2,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 6,
+          "n_written_after": 1,
+          "recall": 0.99,
+          "n": 400,
+          "ci": [
+            0.9745730330055918,
+            0.9961045792067212
+          ]
+        },
+        {
+          "query_idx": 7,
+          "n_written_after": 0,
+          "recall": 0.5475,
+          "n": 400,
+          "ci": [
+            0.4985002204356925,
+            0.5955960787073378
+          ]
+        }
+      ]
+    },
+    {
+      "u_decay": 0.98,
+      "overall_recall": 0.9932203389830508,
+      "by_age": [
+        {
+          "query_idx": 0,
+          "n_written_after": 7,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 1,
+          "n_written_after": 6,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 2,
+          "n_written_after": 5,
+          "recall": 0.995,
+          "n": 400,
+          "ci": [
+            0.9819547100278873,
+            0.9986277757784289
+          ]
+        },
+        {
+          "query_idx": 3,
+          "n_written_after": 4,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 4,
+          "n_written_after": 3,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 5,
+          "n_written_after": 2,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 6,
+          "n_written_after": 1,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 7,
+          "n_written_after": 0,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "u_decay": 0.95,
+      "overall_recall": 0.9819209039548022,
+      "by_age": [
+        {
+          "query_idx": 0,
+          "n_written_after": 7,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 1,
+          "n_written_after": 6,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 2,
+          "n_written_after": 5,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 3,
+          "n_written_after": 4,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 4,
+          "n_written_after": 3,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 5,
+          "n_written_after": 2,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 6,
+          "n_written_after": 1,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 7,
+          "n_written_after": 0,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "u_decay": 0.9,
+      "overall_recall": 0.9491525423728814,
+      "by_age": [
+        {
+          "query_idx": 0,
+          "n_written_after": 7,
+          "recall": 0.9975,
+          "n": 400,
+          "ci": [
+            0.9859763590327523,
+            0.9995585635705656
+          ]
+        },
+        {
+          "query_idx": 1,
+          "n_written_after": 6,
+          "recall": 0.9675,
+          "n": 400,
+          "ci": [
+            0.9451953401262605,
+            0.9809103409130382
+          ]
+        },
+        {
+          "query_idx": 2,
+          "n_written_after": 5,
+          "recall": 0.955,
+          "n": 400,
+          "ci": [
+            0.929994720438381,
+            0.9713487766159096
+          ]
+        },
+        {
+          "query_idx": 3,
+          "n_written_after": 4,
+          "recall": 0.9925,
+          "n": 400,
+          "ci": [
+            0.9781838919722998,
+            0.9974461570370148
+          ]
+        },
+        {
+          "query_idx": 4,
+          "n_written_after": 3,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 5,
+          "n_written_after": 2,
+          "recall": 0.9975,
+          "n": 400,
+          "ci": [
+            0.9859763590327523,
+            0.9995585635705656
+          ]
+        },
+        {
+          "query_idx": 6,
+          "n_written_after": 1,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        },
+        {
+          "query_idx": 7,
+          "n_written_after": 0,
+          "recall": 1.0,
+          "n": 400,
+          "ci": [
+            0.9904873594003194,
+            1.0
+          ]
+        }
+      ]
+    }
+  ]
+}
