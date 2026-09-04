@@ -15,22 +15,27 @@ Topic: *Synaptic Plasticity as Short-Term Memory*
 ## The claim
 
 > **In BDH, a fact the model just read is held in a small, locatable set of
-> synapses rather than in its weights — ablate those synapses and that specific
-> recall breaks while the rest of the model's behaviour survives; leave them
-> alone and enough competing facts erase it anyway, with no parameter ever
-> changing.**
+> synapses rather than in its weights — ablate those synapses and that recall
+> breaks, while removing even more state mass from elsewhere leaves it intact,
+> and no parameter ever changes.**
 
-It is falsifiable in two independent directions, and the artifact can show
-either failing:
+**Scope.** The claim is localisation, and only localisation. An earlier version
+also asserted volatility — that enough competing facts erase the binding
+anyway. That half is not shipped: the interference curve it rested on is being
+re-verified, and until it clears, it does not appear in the artifact or support
+the claim. One claim, fully backed, beats two with one wobbling.
+
+Localisation is falsifiable in one sharp direction, and the artifact can show it
+failing:
 
 - **Localisation is false if** ablating the identified synapses degrades recall
-  no more than removing an equal amount of state mass from elsewhere. That
-  magnitude-matched control is the single most important element of the project.
-- **Volatility is false if** the fact survives arbitrarily many competing facts,
-  or if it degrades just as fast against an equal number of tokens that bind
-  nothing.
+  no more than removing an equal — or greater — amount of state mass from
+  elsewhere. That control is the single most important element of the project.
 
-Both controls have been run. Results below.
+The decisive control is `top_other`: the m largest-magnitude state entries
+*outside* the binding's own write. It necessarily removes at least as much state
+mass as the targeted set, so surviving it cannot be explained by how much state
+was removed.
 
 ## Audience, prerequisites, objectives
 
@@ -44,7 +49,7 @@ learning" means. No neuroscience.
 
 1. State where within-session memory physically lives in BDH, versus in a Transformer.
 2. Predict what happens to a specific recall when specific state entries are removed, and be right.
-3. Explain why a fixed-size synaptic state forgets through *interference* rather than eviction or truncation.
+3. Predict, from a rule they can state, exactly which binding this model cannot retrieve — and check it.
 4. Say what BDH's published evidence does and does not establish, and where BDH-CQ extends the idea.
 5. Name a limitation of the artifact itself.
 
@@ -72,7 +77,33 @@ per sequence, so the weight-optimal prior for "which city follows Mira" is
 uniform. Verified empirically — pair frequencies over 20k sequences are uniform
 to Poisson noise.
 
-### Localisation: a binding lives in specific state entries
+### The shipped substrate and demo preset
+
+d=32, **N=256**, 2 layers, state **8,192 entries/layer**, **27,776 params**,
+trained on 2–8 bindings and 0–8 filler — the range the artifact displays.
+Weights ship as a 109.5 KB `Float32Array`, export verified lossless by
+round-trip (0.000e+00) before the binary is written.
+
+Demo preset: **7 bindings, 3 filler units, querying the oldest binding.**
+Baseline recall at that preset is **300/300**.
+
+### Localisation at the demo preset
+
+`m=32`, 0.391% of state, n=300, every trial baseline-correct:
+
+| condition | recall | 95% CI | state mass removed |
+|---|---|---|---|
+| baseline | 100.0% | [98.7, 100.0] | — |
+| **targeted** | **29.0%** | [24.2, 34.4] | 367.1 |
+| magnitude-matched | 85.0% | [80.5, 88.6] | 304.4 (0.83×) |
+| **top_other** | **78.7%** | [73.7, 82.9] | **647.9 (1.77×)** |
+| uniform random | 95.7% | [92.7, 97.5] | 45.8 (0.12×) |
+
+A 49.7-point gap against a control that removes **1.77× more state mass**.
+Specificity: the targeted binding falls 92.3% → 13.7% while bystanders in the
+same sequence go 94.5% → 74.5%.
+
+### Localisation across state widths
 
 Ablating the largest-magnitude entries of the Hebbian write that laid down one
 binding, against a control that removes **the same state mass from elsewhere**:
@@ -109,64 +140,63 @@ The last column is the catch, and it drives the substrate choice: the narrow
 models are correct on only ~35% of trials *before* any ablation, because they
 were trained across 2–14 bindings — a range the artifact will never show.
 
-### Interference: forgetting tracks competing facts, not length
+### Interference: withdrawn pending re-verification
 
-Each filler unit costs exactly the same 2 tokens as a binding but stores no
-association, so the two curves hold sequence length matched and vary only
-whether the tokens bind anything. Narrow state (2,048 entries/layer); every
-point in-distribution for both conditions.
+An interference result (recall collapsing against competing bindings while an
+equal number of neutral filler tokens leaves it untouched) was measured and is
+**not shipped**. It is withdrawn from the claim, the artifact, and the results
+above until it is re-verified on a second substrate.
 
-| competing bindings | recall | equal-length filler | recall |
+Two reasons, both found by controls rather than by inspection:
+
+1. The binding curve is **not monotone**. On the shipped substrate it reads
+   39.7% [36.5, 42.9] at 6 competing bindings and rises to 51.1% [47.8, 54.4]
+   at 7 (n=900, disjoint intervals). Seven competing bindings are reproducibly
+   harder than eight, and we cannot explain it.
+2. The measurement was contaminated by the positional blind spot below. With no
+   filler separating query from binding block, one load in the sweep read
+   exactly 0.0% — the offset-3 failure, not interference.
+
+The dissociation may well hold; the point is that it has not yet been shown to
+hold cleanly, and a claim that needs an asterisk is not ready to teach.
+
+### A positional blind spot, characterised
+
+The model has an exact, predictable failure mode, and it is a headline result
+rather than a caveat. Scanning `n_pairs` × `query_idx` × `n_filler` (140 cells,
+n=250 each, `scripts/positional_map.py`):
+
+**The binding whose city token sits exactly 3 tokens before the query cannot be
+retrieved.** With no filler that is the second-to-last binding, and recall is
+**0.0%** in all seven cells from 2 to 8 bindings — not degraded, zero — while
+neighbouring positions sit at 98–100%.
+
+| pairs | failing idx | tokens back to binding | recall |
 |---|---|---|---|
-| 0 | 99.6% | 0 | 99.6% |
-| 1 | 62.8% | 1 | 100.0% |
-| 3 | 35.2% | 3 | 100.0% |
-| 7 | 16.4% | 7 | 100.0% |
-| 13 | 7.2% | 13 | 100.0% |
+| 2 | 0 | 3 | 0.0% [0.0, 1.5] |
+| 4 | 2 | 3 | 0.0% |
+| 6 | 4 | 3 | 0.0% |
+| 8 | 6 | 3 | 0.0% |
 
-Recall collapses against competing bindings and is flat against neutral tokens.
-That is interference, not truncation or length decay.
+The binding at offset 3 has index `P + f − 2` for `P` bindings and `f` filler
+units, which predicts the failing index in every observed cell:
 
-**The capacity reading is not established.** The comparison was redone with each
-width trained to a **load-0 quality gate** — a width enters only if it recalls a
-lone binding at ≥95% — rather than a fixed step budget. Tripling the budget was
-not enough for the two wide models:
+| filler | index at offset 3 | outcome |
+|---|---|---|
+| 0 | `P − 2`, second-to-last | 0.0% |
+| 1 | `P − 1`, **last binding** | 41.6% / 57.6% — still fails |
+| ≥ 2 | `P` — **does not exist** | no offset-3 failure possible |
 
-| width | state/layer | steps | load-0 recall | gate |
-|---|---|---|---|---|
-| d32m2 | 2,048 | 8,000 | 99.6% | PASS |
-| d32m4 | 4,096 | 8,000 | 100.0% | PASS |
-| d32m8 | 8,192 | 24,000 | 83.6% (from 62.4%) | FAIL |
-| d64m8 | 32,768 | 24,000 | 92.4% (from 83.2%) | FAIL |
+So adding filler never repaired anything; it slid the blind spot off the end of
+the binding list. An earlier version of these notes recorded the offset-3
+hypothesis as *refuted* — that was wrong, and the refutation rested on a single
+checkpoint at one filler setting without checking whether any binding still
+occupied offset 3. It did not.
 
-Both wide models improved substantially and neither converged, which points at
-the training recipe rather than the architecture — lr, schedule and
-`answer_weight` were tuned on the narrow models and carried over unchanged. Not
-tested, so it stays a hypothesis.
-
-Among the two widths that clear the gate the wider state is better at every load
-(load-3 recall 35.2% → 52.8%). That is a two-point comparison, consistent with
-the capacity reading and nowhere near enough to assert it. See
-`DESIGN_NOTES.md` §3d.
-
-> **An earlier version of this experiment was invalid and was discarded.**
-> Training covered 2–8 bindings but only 0–4 filler units, so each curve fell
-> shortly after leaving *its own* training range — it measured extrapolation
-> distance, not mechanism. See `DESIGN_NOTES.md` §3b.
-
----
-
-## What is live, precomputed, synthetic, and unverified
-
-| Component | Status |
-|---|---|
-| MQAR dataset | **Synthetic**, generated from committed seeds. No external data. |
-| Model weights | **Trained by us.** Not an official Pathway model, not a released checkpoint, far below any reported BDH scale. |
-| Forward pass and ablation in the artifact | **Live** (planned) — the learner's choice is computed for real |
-| Dose-response and interference sweeps | **Precomputed**, shipped as JSON in `artifact/data/` |
-| Decay / stability–plasticity | **Not demonstrated.** Control cut from the artifact — see below. |
-| Across-width capacity ordering | **Not established.** Two of four widths fail the load-0 quality gate. |
-| Positional dip (`DESIGN_NOTES` §3c) | **Observed but not characterised.** Excluded from the artifact as a teachable claim. |
+**Mechanism: hypothesis, not result.** BDH scores attention as
+`⟨rope_t(x_t), rope_τ(x_τ)⟩`, a function of `t − τ`, so a relative offset landing
+in a phase-cancellation zone is the obvious candidate and fits every
+observation. We have not demonstrated it, and the artifact says so.
 
 ### Results we tried for and did not get
 

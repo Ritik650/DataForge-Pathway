@@ -273,12 +273,68 @@ failure to index 7 rather than removing it. The offset-3 rule, the
 "two tokens abolish it" rule, and the adjacency-masking story are all
 unsupported as stated.
 
-**Status: an observed instability, not a characterised phenomenon.** It should
-not be presented in the artifact as a clean teachable law until we can predict
-in advance which index will fail for a given model. Doing the n_pairs scan on a
-single checkpoint made it look far more lawful than it is — a reminder that
-"reproducible across sequence lengths" and "reproducible across training runs"
-are different claims.
+**Status update: now characterised, and the offset-3 hypothesis was right after
+all. The refutation above was the error.**
+
+A full scan of the shipped substrate over `n_pairs` x `query_idx` x `n_filler`
+(140 cells, n=250 each, `scripts/positional_map.py`) gives an exact rule.
+
+**The rule.** The binding whose city token sits exactly **3 tokens before the
+query** cannot be retrieved. With no filler, that is index `P - 2` — the
+second-to-last binding — and recall is **0.0%** in every one of the seven cells
+from `P=2` to `P=8`:
+
+| pairs | failing idx | from end | token offset | recall |
+|---|---|---|---|---|
+| 2 | 0 | 1 | 3 | 0.0% [0.0, 1.5] |
+| 3 | 1 | 1 | 3 | 0.0% |
+| 4 | 2 | 1 | 3 | 0.0% |
+| 5 | 3 | 1 | 3 | 0.0% |
+| 6 | 4 | 1 | 3 | 0.0% |
+| 7 | 5 | 1 | 3 | 0.0% |
+| 8 | 6 | 1 | 3 | 0.0% |
+
+Not "degraded". Zero, on 250 trials per cell, while neighbouring positions sit
+at 98-100%.
+
+**Why filler appeared to abolish it.** The binding occupying offset 3 has index
+`i = P + f - 2`, since the query sits at token `1 + 2P + 2f` and binding `i`
+writes its city at token `2 + 2i`:
+
+| filler | index at offset 3 | outcome |
+|---|---|---|
+| 0 | `P - 2` (second-to-last) | 0.0% |
+| 1 | `P - 1` (**last** binding) | 41.6% / 57.6% — still fails |
+| >= 2 | `P` — **does not exist** | no offset-3 failure possible |
+
+Filler never repaired the model. It slid the blind spot off the end of the
+binding list. That is why one filler unit "moved" the failure for `u=1.00`
+(to the last binding) and "removed" it at two units (no binding left to land
+on) — both observations are the same rule, and we misread them as the rule
+failing.
+
+**Why the earlier refutation was wrong.** It rested on one checkpoint
+(`decay_u095`) at a single filler setting, and read "the dip disappeared" as
+"the offset hypothesis is false" without checking whether any binding still
+occupied offset 3. It did not. The lesson is narrower than the one recorded
+before: the original hypothesis was fine; the test of it was underpowered and
+the negative result was over-read.
+
+**A second, distinct failure family.** The scan also shows failures at token
+offsets 13-17 with 4-7 bindings written after the queried one (e.g. `P=8,
+idx=1, f=1` at 38.4%). These are old bindings under high load — the
+interference effect — and are unrelated to the offset-3 blind spot. They are
+graded, not zero, and they move with load rather than with offset.
+
+**Mechanism: still not established.** BDH scores attention as
+`<rope_t(x_t), rope_tau(x_tau)>`, a function of `t - tau`, so a specific
+relative offset landing in a phase-cancellation zone is the obvious candidate
+and fits every observation. We have not demonstrated it. The artifact states
+the rule, which is measured, and labels the mechanism as a hypothesis.
+
+**This is now Act 2 material rather than a footnote:** an exact, predictable,
+reproducible failure mode of the shipped model, with a rule a learner can test
+in one click and an explanation we are honest about not having proven.
 
 **Consequences we must act on:**
 

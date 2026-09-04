@@ -240,6 +240,10 @@ def main():
     ap.add_argument("--m", type=int, default=64, help="synapses ablated")
     ap.add_argument("--layer", type=int, default=-1, help="-1 = last layer")
     ap.add_argument("--pairs", type=int, default=6)
+    ap.add_argument("--filler", type=int, default=0,
+                    help="filler units between binding block and query")
+    ap.add_argument("--query-idx", type=int, default=None,
+                    help="pin the queried binding; None = random per trial")
     ap.add_argument("--seed", type=int, default=11)
     ap.add_argument("--out", default="artifact/data/ablation.json")
     args = ap.parse_args()
@@ -259,7 +263,9 @@ def main():
 
     for i in range(args.trials):
         ex = mqar.make_example(np.random.default_rng(args.seed + i),
-                               n_pairs=args.pairs, n_queries=1, block=65)
+                               n_pairs=args.pairs, n_queries=1,
+                               n_filler=args.filler, query_idx=args.query_idx,
+                               block=None)
         r = run_trial(model, cfg, device, ex, layer, args.m, rng)
         if not r["base_correct"]:
             continue  # only meaningful where the model got it right unablated
@@ -286,7 +292,8 @@ def main():
     spec_o = {"base": 0, "abl": 0, "n": 0}
     for i in range(args.trials):
         ex = mqar.make_example(np.random.default_rng(args.seed + 5000 + i),
-                               n_pairs=args.pairs, n_queries=3, block=65)
+                               n_pairs=args.pairs, n_queries=3,
+                               n_filler=args.filler, block=None)
         for row in run_specificity(model, cfg, device, ex, layer, args.m, rng):
             d = spec_t if row["is_target"] else spec_o
             d["base"] += row["base_correct"]
@@ -301,6 +308,8 @@ def main():
         "checkpoint": args.ckpt, "iter": ck["iter"], "layer": layer,
         "m": args.m, "n_state_entries": cfg.n_embd * cfg.N * cfg.n_head,
         "trials_requested": args.trials, "trials_used": n_used,
+        "pairs": args.pairs, "filler": args.filler,
+        "query_idx": args.query_idx,
         "recall": {k: agg[k] / max(1, n_used) for k in agg},
         "recall_ci": {k: wilson(agg[k], n_used) for k in agg},
         "mean_answer_prob": {k: float(np.mean(probs[k])) for k in probs},
