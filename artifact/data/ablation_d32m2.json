@@ -1,0 +1,65 @@
+{
+  "checkpoint": "data/cap_d32m2i8000.pt",
+  "iter": 2000,
+  "layer": 1,
+  "m": 8,
+  "n_state_entries": 2048,
+  "trials_requested": 400,
+  "trials_used": 135,
+  "recall": {
+    "base": 1.0,
+    "targeted": 0.8074074074074075,
+    "matched": 0.9481481481481482,
+    "random": 0.9555555555555556
+  },
+  "recall_ci": {
+    "base": [
+      0.9723310592790634,
+      1.0
+    ],
+    "targeted": [
+      0.7327588556705817,
+      0.8650446844787685
+    ],
+    "matched": [
+      0.8968375764662608,
+      0.9746591507394182
+    ],
+    "random": [
+      0.9064274608599454,
+      0.9794741709276458
+    ]
+  },
+  "mean_answer_prob": {
+    "base": 0.1687681203087171,
+    "targeted": 0.15157152651636688,
+    "matched": 0.1689886137843132,
+    "random": 0.16861061812550934
+  },
+  "mean_state_mass_removed": {
+    "targeted": 282.3701924641927,
+    "matched": 282.4532497829861,
+    "random": 81.67363759500009
+  },
+  "specificity": {
+    "targeted": {
+      "base": 131,
+      "abl": 111,
+      "n": 400
+    },
+    "others": {
+      "base": 57,
+      "abl": 65,
+      "n": 800
+    }
+  },
+  "config": {
+    "n_layer": 2,
+    "n_embd": 32,
+    "dropout": 0.0,
+    "n_head": 1,
+    "mlp_internal_dim_multiplier": 2,
+    "vocab_size": 50,
+    "u_decay": 1.0
+  }
+}

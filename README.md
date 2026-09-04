@@ -58,7 +58,7 @@ and an explicit `n`.
 ### The model clears its gate
 
 A small BDH-GPU trained by us on synthetic MQAR — 2 layers, 512 neurons, d=64,
-**106,240 parameters**, minutes on one consumer GPU.
+**104,704 parameters**, minutes on one consumer GPU.
 
 | metric | value |
 |---|---|
@@ -110,18 +110,27 @@ point in-distribution for both conditions.
 Recall collapses against competing bindings and is flat against neutral tokens.
 That is interference, not truncation or length decay.
 
-**The capacity reading is not established.** It is tempting to add that widening
-the state lifts the curve — 2,048 → 4,096 entries does take load-3 recall from
-35.2% to 52.8%. But the next two widths break the ordering: at 8,192 entries
-load-3 recall falls back to 38.8%, below the narrower model. The cause is a
-training-quality confound, not capacity. At a fixed 8,000-step budget the two
-widest models fail at **load 0** — a single binding, with nothing to interfere
-with — scoring 62.4% and 83.2%, and their filler controls degrade too. A model
-that cannot hold one binding says nothing about how many it can hold.
+**The capacity reading is not established.** The comparison was redone with each
+width trained to a **load-0 quality gate** — a width enters only if it recalls a
+lone binding at ≥95% — rather than a fixed step budget. Tripling the budget was
+not enough for the two wide models:
 
-The comparison is being redone with widths trained to a **load-0 quality gate**
-(≥95% on a lone binding) rather than a fixed step count. Until a width clears
-that gate its curve is excluded. See `DESIGN_NOTES.md` §3d.
+| width | state/layer | steps | load-0 recall | gate |
+|---|---|---|---|---|
+| d32m2 | 2,048 | 8,000 | 99.6% | PASS |
+| d32m4 | 4,096 | 8,000 | 100.0% | PASS |
+| d32m8 | 8,192 | 24,000 | 83.6% (from 62.4%) | FAIL |
+| d64m8 | 32,768 | 24,000 | 92.4% (from 83.2%) | FAIL |
+
+Both wide models improved substantially and neither converged, which points at
+the training recipe rather than the architecture — lr, schedule and
+`answer_weight` were tuned on the narrow models and carried over unchanged. Not
+tested, so it stays a hypothesis.
+
+Among the two widths that clear the gate the wider state is better at every load
+(load-3 recall 35.2% → 52.8%). That is a two-point comparison, consistent with
+the capacity reading and nowhere near enough to assert it. See
+`DESIGN_NOTES.md` §3d.
 
 > **An earlier version of this experiment was invalid and was discarded.**
 > Training covered 2–8 bindings but only 0–4 filler units, so each curve fell

@@ -1,0 +1,1 @@
+checkpoint data/cap_d32m4i8000.pt (iter 3500), layer 1, m=16 of 4096 state entries (0.391%)
