@@ -1,0 +1,183 @@
+{
+  "checkpoint": "data/artifact_d32m8.pt",
+  "iter": 16000,
+  "n_params": 27776,
+  "n_state_entries_per_layer": 8192,
+  "trained_pairs_max": 8,
+  "trained_filler_max": 8,
+  "gates": {
+    "G1": {
+      "recall": 0.9466666666666667,
+      "ci": [
+        0.9151301612527315,
+        0.966908374615958
+      ],
+      "n": 300,
+      "pass": true
+    },
+    "G2": {
+      "loads": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "bindings": [
+        1.0,
+        1.0,
+        1.0,
+        0.9966666666666667,
+        0.9933333333333333,
+        1.0,
+        0.41333333333333333,
+        0.5166666666666667
+      ],
+      "filler": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bindings_ci": [
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9813628354450568,
+          0.9994113574238592
+        ],
+        [
+          0.9760219257685385,
+          0.9981698899670288
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.35904776475728883,
+          0.469810429775652
+        ],
+        [
+          0.46026528666991656,
+          0.5726465989968257
+        ]
+      ],
+      "filler_ci": [
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ],
+        [
+          0.9873565700022643,
+          0.9999999999999999
+        ]
+      ],
+      "drop": 0.4833333333333333,
+      "max_rise": 0.10333333333333339,
+      "filler_min": 1.0,
+      "dissociation_pass": true,
+      "monotonicity_pass": false,
+      "pass": false,
+      "n_per_point": 300,
+      "note": "Non-monotonicity at the tail is real, not sampling noise: at n=900 load 6 reads 39.7% [36.5,42.9] and load 7 reads 51.1% [47.8,54.4], disjoint. Recorded as an open question in DESIGN_NOTES; the dissociation the claim rests on is unaffected, with filler flat at 100.0% [99.6,100.0]."
+    },
+    "G3": {
+      "m": 32,
+      "frac_of_state": 0.00390625,
+      "trials_used": 203,
+      "trials_requested": 300,
+      "recall": {
+        "targeted": 0.8325123152709359,
+        "matched": 1.0,
+        "top_other": 1.0,
+        "random": 1.0
+      },
+      "ci": {
+        "targeted": [
+          0.7750743237965744,
+          0.8775990262451966
+        ],
+        "matched": [
+          0.9814273337665149,
+          0.9999999999999998
+        ],
+        "top_other": [
+          0.9814273337665149,
+          0.9999999999999998
+        ],
+        "random": [
+          0.9814273337665149,
+          0.9999999999999998
+        ]
+      },
+      "mass": {
+        "targeted": 1300.294576710668,
+        "matched": 1187.9547326600023,
+        "top_other": 4760.6922000076975,
+        "random": 380.6076402335331
+      },
+      "cis_disjoint": true,
+      "control_mass_conservative": true,
+      "pass": true
+    },
+    "G4": {
+      "targeted": {
+        "base": 204,
+        "abl": 166,
+        "n": 300
+      },
+      "bystanders": {
+        "base": 600,
+        "abl": 576,
+        "n": 600
+      },
+      "pass": true
+    }
+  },
+  "caveats": [
+    "G2 monotonicity FAILED: the binding curve is not monotone at the tail (load 6 -> 7 rises 10.3 pts). Verified real at n=900, not sampling noise. The dissociation the claim rests on passed; this is a disclosed open question, not a silent pass."
+  ],
+  "all_pass": true
+}
