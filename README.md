@@ -110,9 +110,18 @@ point in-distribution for both conditions.
 Recall collapses against competing bindings and is flat against neutral tokens.
 That is interference, not truncation or length decay.
 
-Widening the state shifts the curve up at every load (2,048 → 4,096 entries
-takes load-3 recall from 35.2% to 52.8%), which is the capacity reading of a
-fixed-size state.
+**The capacity reading is not established.** It is tempting to add that widening
+the state lifts the curve — 2,048 → 4,096 entries does take load-3 recall from
+35.2% to 52.8%. But the next two widths break the ordering: at 8,192 entries
+load-3 recall falls back to 38.8%, below the narrower model. The cause is a
+training-quality confound, not capacity. At a fixed 8,000-step budget the two
+widest models fail at **load 0** — a single binding, with nothing to interfere
+with — scoring 62.4% and 83.2%, and their filler controls degrade too. A model
+that cannot hold one binding says nothing about how many it can hold.
+
+The comparison is being redone with widths trained to a **load-0 quality gate**
+(≥95% on a lone binding) rather than a fixed step count. Until a width clears
+that gate its curve is excluded. See `DESIGN_NOTES.md` §3d.
 
 > **An earlier version of this experiment was invalid and was discarded.**
 > Training covered 2–8 bindings but only 0–4 filler units, so each curve fell

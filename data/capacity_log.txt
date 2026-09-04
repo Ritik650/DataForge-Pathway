@@ -48,3 +48,21 @@ training 4 widths, 8000 iters, bindings 2-14 and filler 0-14 both in training
     load 11  bindings  10.8% [7.5,15.3]   filler 100.0% [98.5,100.0]
     load 12  bindings  10.0% [6.9,14.3]   filler 100.0% [98.5,100.0]
     load 13  bindings   9.2% [6.2,13.4]   filler 100.0% [98.5,100.0]
+  [d64m8] best checkpoint: C:\Users\ry981\Downloads\DataForge\data\cap_d64m8.pt  (recall 22.3%)
+  [d64m8] n=512 d=64 state=32,768/layer  overall recall 22.3%
+    load  0  bindings  83.2% [78.1,87.3]   filler  80.8% [75.5,85.2]
+    load  1  bindings  61.2% [55.0,67.0]   filler 100.0% [98.5,100.0]
+    load  2  bindings  54.4% [48.2,60.5]   filler 100.0% [98.5,100.0]
+    load  3  bindings  61.2% [55.0,67.0]   filler 100.0% [98.5,100.0]
+    load  4  bindings  47.2% [41.1,53.4]   filler 100.0% [98.5,100.0]
+    load  5  bindings  30.0% [24.7,35.9]   filler 100.0% [98.5,100.0]
+    load  6  bindings  22.4% [17.7,28.0]   filler 100.0% [98.5,100.0]
+    load  7  bindings  18.8% [14.4,24.1]   filler 100.0% [98.5,100.0]
+    load  8  bindings  18.8% [14.4,24.1]   filler 100.0% [98.5,100.0]
+    load  9  bindings  16.8% [12.7,21.9]   filler 100.0% [98.5,100.0]
+    load 10  bindings   9.6% [6.5,13.9]   filler 100.0% [98.5,100.0]
+    load 11  bindings  16.8% [12.7,21.9]   filler 100.0% [98.5,100.0]
+    load 12  bindings  18.4% [14.1,23.7]   filler 100.0% [98.5,100.0]
+    load 13  bindings  14.8% [10.9,19.7]   filler 100.0% [98.5,100.0]
+
+wrote C:\Users\ry981\Downloads\DataForge\artifact\data\interference.json

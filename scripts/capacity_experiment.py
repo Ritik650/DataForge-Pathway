@@ -35,14 +35,21 @@ import torch
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-# (n_embd, mult) -> state entries per layer = n_embd * n_embd * mult
+# (n_embd, mult, iters). Iteration counts differ ON PURPOSE. Comparing state
+# widths at a fixed budget confounds capacity with training quality: at 8000
+# iters the two widest models failed at load 0 -- a single binding, with nothing
+# to interfere with -- and their filler controls degraded too. A model that
+# cannot hold ONE binding says nothing about how many it can hold. Wider models
+# get the budget they need to clear the same load-0 gate.
 CONFIGS = [
-    (32, 2),   # N=64,   state 2,048
-    (32, 4),   # N=128,  state 4,096
-    (32, 8),   # N=256,  state 8,192
-    (64, 8),   # N=512,  state 32,768  (the current final model's width)
+    (32, 2, 8000),    # N=64,   state 2,048
+    (32, 4, 8000),    # N=128,  state 4,096
+    (32, 8, 24000),   # N=256,  state 8,192
+    (64, 8, 24000),   # N=512,  state 32,768
 ]
-ITERS = 8000
+# A width only enters the capacity comparison if it recalls a lone binding this
+# reliably. Below it, the curve measures undertraining, not capacity.
+LOAD0_GATE = 0.95
 PAIRS_MAX = 14
 FILLER_MAX = 14
 BLOCK = 96
@@ -50,15 +57,15 @@ LOADS = list(range(0, 14))   # every point in-distribution for both conditions
 TRIALS = 250
 
 
-def train_one(d, mult):
-    tag = f"d{d}m{mult}"
+def train_one(d, mult, iters):
+    tag = f"d{d}m{mult}i{iters}"
     out = f"data/cap_{tag}.pt"
     if (ROOT / out).exists():
         print(f"  [{tag}] checkpoint exists, skipping training", flush=True)
         return out
     cmd = [
         sys.executable, str(ROOT / "src" / "train.py"),
-        "--iters", str(ITERS), "--batch", "64", "--n-layer", "2",
+        "--iters", str(iters), "--batch", "64", "--n-layer", "2",
         "--n-embd", str(d), "--mult", str(mult), "--answer-weight", "8",
         "--pairs-max", str(PAIRS_MAX), "--filler-max", str(FILLER_MAX),
         "--block", str(BLOCK), "--out", out,
@@ -107,14 +114,14 @@ def curves(model, device, loads, trials, seed):
 def main():
     from bdh import BDH, BDHConfig
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"training {len(CONFIGS)} widths, {ITERS} iters, "
-          f"bindings 2-{PAIRS_MAX} and filler 0-{FILLER_MAX} both in training\n",
-          flush=True)
+    print(f"training {len(CONFIGS)} widths to a load-0 gate of "
+          f"{LOAD0_GATE*100:.0f}%, bindings 2-{PAIRS_MAX} and filler "
+          f"0-{FILLER_MAX} both in training\n", flush=True)
 
     results = []
-    for d, mult in CONFIGS:
-        tag = f"d{d}m{mult}"
-        ckpt = train_one(d, mult)
+    for d, mult, iters in CONFIGS:
+        tag = f"d{d}m{mult}i{iters}"
+        ckpt = train_one(d, mult, iters)
         if ckpt is None:
             continue
         ck = torch.load(ROOT / ckpt, weights_only=False)
@@ -127,7 +134,13 @@ def main():
               f"state={state:,}/layer  overall recall "
               f"{ck['eval']['recall_acc']*100:.1f}%", flush=True)
         rows = curves(model, device, LOADS, TRIALS, seed=41)
-        results.append({"tag": tag, "n_embd": cfg.n_embd,
+        load0 = rows[0]["bindings"]["recall"]
+        passed = load0 >= LOAD0_GATE
+        print(f"    load-0 gate: {load0*100:.1f}% "
+              f"({'PASS' if passed else 'FAIL - excluded from capacity comparison'})",
+              flush=True)
+        results.append({"tag": tag, "iters": iters, "load0_recall": load0,
+                        "passes_load0_gate": passed, "n_embd": cfg.n_embd,
                         "n_neurons": cfg.N * cfg.n_head,
                         "state_entries_per_layer": state,
                         "n_params": sum(p.numel() for p in model.parameters()),
@@ -141,7 +154,11 @@ def main():
                  "Each filler unit costs the same 2 tokens as one binding but "
                  "carries no association, so the two curves hold sequence length "
                  "matched and vary only whether the tokens bind anything."),
-        "iters": ITERS, "trials_per_point": TRIALS, "loads": LOADS,
+        "trials_per_point": TRIALS, "loads": LOADS,
+        "load0_gate": LOAD0_GATE,
+        "gate_note": ("Widths are trained to a quality gate, not a fixed step "
+                      "budget. A width failing load-0 recall cannot support any "
+                      "capacity claim, since it cannot hold a single binding."),
         "results": results,
     }, indent=2))
     print(f"\nwrote {ROOT / 'artifact' / 'data' / 'interference.json'}")

@@ -162,6 +162,50 @@ shipped a wrong central claim here if the control had not been run alongside.
 
 ---
 
+## 3d. Comparing state widths at a fixed step budget measures training, not capacity.
+
+Having fixed the interference experiment (§3b), the obvious next claim was the
+capacity one: a wider fixed-size state should hold more bindings before
+interference bites. Sweeping four widths at a fixed 8,000 steps appeared to
+start well and then fell apart.
+
+Recall of the oldest binding, both conditions in-distribution, n=250 per point:
+
+| load | d32m2 (2,048) | d32m4 (4,096) | d32m8 (8,192) | d64m8 (32,768) |
+|---|---|---|---|---|
+| 0 | 99.6% | 100.0% | **62.4%** | **83.2%** |
+| 3 | 35.2% | 52.8% | 38.8% | 61.2% |
+| 7 | 16.4% | 23.2% | 13.6% | 18.8% |
+
+The first two widths behave: 4,096 sits above 2,048 everywhere. Then 8,192
+falls *below* 2,048 despite four times the state.
+
+**Why the ordering is meaningless.** The two widest models fail at **load 0** —
+one binding, nothing competing with it. Their filler controls also degrade
+(minima 62.8% and 80.8%) instead of staying flat at 100%. Both are simply
+undertrained: the wider models need more steps to fit the harder 2–14 binding
+distribution, and 8,000 was tuned for the narrow ones. A model that cannot hold
+a single binding tells us nothing about how many bindings it can hold, so its
+degradation curve is not a capacity curve.
+
+**Fix.** Widths are trained to a **quality gate**, not a step budget: a width
+enters the capacity comparison only if it recalls a lone binding at ≥95%
+(`LOAD0_GATE`). Wider models get the steps they need to clear it. Any width
+that fails the gate is reported but excluded, with the failure stated.
+
+**What survives regardless.** The binding-vs-filler dissociation is unaffected —
+it holds cleanly on both models that clear the gate, and it is a within-model
+comparison, so training quality cancels. Only the *across-width ordering*
+needed the gate.
+
+**The general rule, now twice-learned.** §3b failed because two conditions had
+unmatched training coverage; §3d failed because four models had unmatched
+training quality. Both are the same mistake: a comparison is evidence about
+mechanism only when everything except the variable of interest is matched —
+and "same number of training steps" is not the same as "equally well trained".
+
+---
+
 ## 3c. A reproducible failure case: the query must not abut the binding block.
 
 Found while sanity-checking the decay runs, not looked for. With `n_pairs`
