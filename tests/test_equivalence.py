@@ -10,10 +10,18 @@ import pathlib
 
 try:
     import torch
-except ImportError as e:  # pragma: no cover
+except (ImportError, OSError) as e:  # pragma: no cover
     # Not a failure of the project: this machine cannot run the gate. Exit 77 so
     # verify.py reports SKIPPED rather than telling a judge not to ship.
-    print(f"SKIPPED — torch unavailable ({e})")
+    #
+    # OSError, not just ImportError. A torch that is INSTALLED BUT BROKEN raises
+    # OSError from _load_global_deps, never reaching an ImportError handler --
+    # and the common cause is a mismatched or missing CUDA driver, which is an
+    # ordinary state on a workstation with stale NVIDIA drivers, not an exotic
+    # one. The first version of this guard was narrower than the failure it
+    # guards against. The exception type is printed so a genuine defect is still
+    # visible rather than silently absorbed.
+    print(f"SKIPPED — torch unavailable ({type(e).__name__}: {e})")
     sys.exit(77)
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
